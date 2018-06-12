@@ -38,4 +38,9 @@ public class OwnerController {
 		List<OwnerRequestDTO> requestList = ownerService.allSelectOwnerRequest();
 		return requestList;
 	}
+	
+	@RequestMapping("/request/sitterList")
+	public String requestSitterList() {
+		return "/owner/sitterList";
+	}
 }
