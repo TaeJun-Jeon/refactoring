@@ -1,0 +1,576 @@
+ @charset "utf-8";
+/*
+reset
+*/
+
+/****************************************
+
+//부르기
+
+****************************************/
+
+.profile li.editabㅊle {
+	background-color: #fff;
+}
+
+.inner {
+  width: 800px;
+}
+
+.profile {
+  margin: 70px auto 35px;
+}
+.profile h1 {
+  line-height: 26px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.profile > p {
+  margin-bottom: 30px;
+  line-height: 26px;
+  font-size: 15px;
+}
+.profile li {
+  margin-bottom: 18px;
+  padding: 4px 15px;
+  border-radius: 5px;
+	background-color: #f5f5f5;
+	border: solid 1px #afafaf;
+}
+.profile li.editable {
+	background-color: #fff;
+}
+.profile dt {
+  width: 50px;
+  line-height: 24px;
+  font-size: 12px;
+  color: #9a9a9a;
+  font-weight: normal;
+}
+.profile dd {
+  width: 100%;
+  margin-left: -50px;
+  padding-left: 50px;
+  line-height: 24px;
+  font-weight: 600;
+}
+.profile dd div {
+  width: 90%;
+  margin-top: -1px;
+}
+.profile .btn {
+  border: none;
+  font-size: 12px;
+  line-height: 24px;
+  color: #7d7d7d;
+  text-decoration: underline;
+}
+.profile .btn:hover {
+  color: #6EB9B5;
+}
+.profile input {
+  width: 49%;
+  height: auto;
+  padding: 0 8px;
+  border-radius: 3px;
+	border: solid 1px #dfdfdf;
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: normal;
+}
+.profile input[readonly], .advance-meeting input[disabled] {
+  background-color: #eee;
+}
+
+.content {
+  padding: 30px 35px;
+  border: solid 1px #afafaf;
+}
+.content > div {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: solid 1px #dcdcdc;
+}
+.content h3 {
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: #6fb9b5;
+}
+.content > div > p {
+  margin-bottom: 10px;
+  line-height: 1.75;
+  font-size: 12px;
+}
+.content > div > p strong {
+  color: #6eb9b5;
+  font-weight: 600;
+}
+.content > div > p a {
+  color: #4a90e2;
+  text-decoration: underline;
+}
+
+.advance-meeting li {
+  line-height: 50px;
+}
+.advance-meeting input.radiobox[type=radio] + label {
+  padding-left: 30px;
+  font-weight: normal;
+}
+.advance-meeting input.radiobox[type=radio] + label::before,
+.advance-meeting input.radiobox[type=radio] + label::after {
+  top: 15px;
+}
+.advance-meeting input[type=text], .dates input[type="text"] {
+  width: 300px;
+  margin-left: 10px;
+  padding: 0 10px;
+  border-radius: 5px;
+	border: solid 1px #dcdcdc;
+  line-height: 32px;
+  font-size: 12px;
+}
+
+.content .pets > p {
+  margin-bottom: 25px;
+}
+.pets input.checkbox[type=checkbox] + label, .pets .dropdown {
+  display: inline-block;
+  width: 180px;
+  margin: 0 12px 15px 0 !important;
+  padding: 8px 0 8px 55px !important;
+  border-radius: 5px;
+	border: solid 1px #dcdcdc;
+  font-size: 12px;
+  font-weight: normal;
+}
+.pets input.checkbox[type=checkbox] + label:hover, .pets .dropdown:hover,
+.pets input.checkbox[type=checkbox]:checked + label, .pets .dropdown.checked {
+	background-color: #f5f5f5;
+}
+.pets input.checkbox[type=checkbox] + label::before,
+.pets input.checkbox[type=checkbox] + label::after {
+  top: 9px;
+  left: 10px;
+}
+.pets .dropdown {
+  padding: 0 !important;
+}
+.pets .dropdown:before, .pets .dropdown:after {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  pointer-events: none;
+}
+.pets .dropdown:before {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+.pets .dropdown.checked:after {
+  width: 18px;
+  height: 10px;
+  border-left: 3px solid #71BEB9;
+  border-bottom: 3px solid #71BEB9;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.pets .dropdown.checked {
+}
+.pets .dropdown .btn {
+  padding: 8px 0 8px 55px !important;
+  border: none;
+  line-height: 22.4px;
+  font-size: 12px;
+  color: #7d7d7d;
+  text-align: left;
+}
+.dropdown .btn .caret {
+  display: inline-block;
+  position: absolute;
+  top: 45%;
+  right: 12px;
+}
+.pets ul {
+  margin-top: -5px;
+}
+.pets li {
+  padding: 0 8px 0 5px;
+}
+.pets .item {
+  border-bottom: solid 1px #dcdcdc;
+}
+.pets dt {
+  font-weight: normal;
+}
+.pets dd {
+  font-weight: 500;
+}
+.pets .item dt, .pets .item dd {
+  line-height: 22px;
+  font-size: 12px;
+}
+.pets .total dt, .pets .total dd {
+  line-height: 28px;
+  font-size: 14px;
+  color: #fac462;
+}
+
+.dates h3 {
+  margin-top: 70px;
+}
+.dates .row {
+  margin-right: -8px;
+  margin-left: -8px;
+}
+.dates .col-sm-6, .dates .col-sm-4, .dates .col-sm-2 {
+  padding: 0 8px;
+}
+.dates input[type="text"] {
+  width: 100%;
+  margin: 8px 0 5px;
+}
+.dates .dropdown {
+  margin: 8px 0 5px;
+  border-radius: 5px;
+  border: solid 1px #dcdcdc;
+}
+.dates .btn {
+  padding-top: 1px !important;
+  line-height: 32px;
+  font-size: 12px;
+  color: #7d7d7d;
+}
+.dates .col-sm-2 .btn {
+  margin: 8px 0 5px !important;
+  border: none;
+  background-color: #fac058;
+  color: #fff;
+  line-height: 36px;
+  text-decoration: none;
+}
+.dates ul {
+  padding: 8px 45px 10px 25px;
+  border-top: solid 1px #dcdcdc;
+  background-color: #f5f5f5;
+  line-height: 32px;
+}
+.dates li {
+  position: relative;
+  font-size: 12px;
+}
+.dates li small {
+  font-size: 10px;
+}
+.dates li div:first-child {
+  width: 140px;
+}
+.dates li div:nth-child(2) {
+  width: 210px;
+}
+.dates li .pull-right {
+  font-size: 10px;
+}
+.dates select {
+  width: 135px;
+  height: 24px;
+  margin: 5px 0 0;
+  border-radius: 2px;
+  line-height: 22px;
+  font-size: 10px;
+  -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+  appearance: menulist;
+}
+.dates select.disabled {
+  background-color: transparent;
+}
+.dates label {
+  width: 65px;
+  font-size: 12px;
+}
+.dates .close {
+  float: none;
+  position: absolute;
+  top: 5px;
+  right: -25px;
+  font-size: 18px;
+  font-weight: 300;
+}
+.dates .total {
+  margin-bottom: 15px;
+  padding: 20px 35px 20px 25px;
+  border: solid 1px #dcdcdc;
+}
+.dates dl {
+  width: 18%;
+  min-height: 1px;
+  position: relative;
+  float: left;
+}
+.dates dt {
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: normal;
+}
+.dates dd {
+  line-height: 18px;
+  font-weight: 500;
+}
+.dates .prefix-minus, .dates .payable {
+  padding-left: 6%;
+}
+.dates .prefix-minus:before, .dates .payable:before {
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin: -7.5px 0 0 -7.5px;
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  line-height: 15px;
+  text-align: center;
+}
+.dates .prefix-minus:before {
+  content: "-";
+}
+.dates .prefix-minus.plus:before {
+  content: "+";
+}
+.dates .payable:before {
+  content: "=";
+}
+.dates .payable {
+  width: 32%;
+  color: #fac058;
+}
+.dates .payable dd {
+  font-size: 18px;
+}
+.content .dates > p {
+  margin-bottom: 20px;
+}
+
+.content > .etc {
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.content > .notice {
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: none;
+}
+
+.etc h3 {
+  margin-top: 45px;
+}
+textarea {
+  width: 100%;
+  height: 120px;
+  padding: 15px;
+  border-radius: 5px;
+	border: solid 1px #dcdcdc;
+  font-size: 12px;
+}
+
+form .btn-mint, form .btn-mint:hover, form .btn-mint:focus {
+  display: block;
+  margin: 40px auto !important;
+  padding: 12px 30px !important;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 300;
+}
+
+.final {
+  margin: 200px 0 100px;
+}
+.final img {
+  width: 167px;
+  height: 130px;
+}
+.final h1 {
+  margin: 40px 0 5px;
+  line-height: 1.56;
+  font-size: 18px;
+  font-weight: 600;
+}
+.final .btn {
+  margin-top: 35px;
+  padding: 13px 45px 12px;
+  color: #fff;
+  font-size: 16px;
+}
+.final .btn:hover {
+  background-color: #539490;
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    overflow: hidden;
+  }
+  .inner {
+    width: 100%;
+  }
+
+  .profile {
+    margin: 20px 0;
+    padding: 0 10px 30px;
+    border-bottom: solid 1px #bababa;
+  }
+  .profile h1 {
+    font-size: 15px;
+    letter-spacing: -0.1px;
+  }
+  .profile > p {
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  .profile li {
+    margin-bottom: 8px;
+  }
+  .profile dd div {
+    width: 100%;
+  }
+  .profile input {
+    width: 100%;
+    margin: 2px 0;
+  }
+
+  .content {
+    padding: 10px 0 0;
+    border: none;
+  }
+  .content > div {
+    padding: 0 12px 20px;
+    border-color: #bababa;
+  }
+  .content > div > p {
+    margin-left: 8px;
+    text-indent: -8px;
+    text-align: justify;
+  }
+  .content > div > p > span {
+    display: block;
+    text-indent: -8px;
+  }
+  .advance-meeting input.radiobox[type=radio] + label {
+    width: 98%;
+    margin-left: 8px !important;
+  }
+  .advance-meeting input[type=text] {
+    width: 100%;
+    margin: -10px 0 0;
+  }
+
+  .pets .row {
+    margin: 0
+  }
+  .pets .col-sm-7, .pets .col-sm-5 {
+    padding: 0;
+  }
+  .pets input.checkbox[type=checkbox] + label, .pets .dropdown {
+    width: 100%;
+    margin-bottom: 10px !important;
+    padding-left: 80px !important;
+  }
+  .pets .dropdown .btn {
+    padding-left: 0 !important;
+  }
+  .pets .col-sm-5 ul {
+    margin: 15px 0 5px;
+  }
+
+  .dates h3 {
+    margin-top: 25px;
+  }
+  .dates .dropdown, .dates .col-sm-2 .btn {
+    margin-top: 5px !important;
+  }
+  .dates > ul {
+    margin-top: 5px;
+    padding: 0;
+    border-top: none;
+    background-color: transparent;
+  }
+  .dates > ul li {
+    margin-bottom: 4px;
+    padding: 2px 10px;
+    border: solid 1px #dcdcdc;
+    border-width: 1px 0;
+    background-color: #f5f5f5;
+  }
+  .dates li div:first-child {
+    width: 105px;
+  }
+  .dates li div:nth-child(2) {
+    width: 150px;
+    font-size: 10px;
+  }
+  .dates select {
+    width: 125px;
+    padding: 0 5px;
+  }
+  .dates label {
+    width: 60px;
+  }
+  .dates .close {
+    top: 7px;
+    right: 10px;
+  }
+  .dates h5 {
+    margin: 20px 0 10px;
+    font-size: 12px;
+  }
+  .dates .total {
+    padding: 15px 10px 5px;
+  }
+  .dates dl {
+    width: 100% !important;
+    margin-bottom: 10px;
+    padding: 0 !important;
+  }
+  .dates .prefix-minus:before {
+    right: 70px;
+    left: auto;
+  }
+  .dates .payable:before {
+    display: none;
+  }
+  .content .dates > p {
+    font-size: 10px;
+  }
+  .content .etc > p {
+    font-size: 10px;
+  }
+  .content .notice > p {
+    font-size: 10px;
+  }
+  .final {
+    margin: 60px 0;
+  }
+  .final h1 {
+    line-height: 1.47;
+    font-size: 15px;
+    margin: 30px 0 15px;
+  }
+  .final p {
+    font-size: 12px;
+  }
+  .final .btn {
+    margin-top: 35px;
+    padding: 13px 45px 12px;
+    color: #fff;
+  }
+}

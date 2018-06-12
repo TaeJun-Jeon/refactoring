@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="requestMapper">
+
+<resultMap type="ownerRequestDTO" id="ownerRequestMap">
+<id column="owner_request_id" property="ownerRequestId"/>
+<result column="owner_id" property="ownerId"/>
+<result column="sitter_id" property="sitterId"/>
+<result column="owner_request_price" property="ownerRequestPrice"/>
+<result column="owner_request_start" property="ownerRequestStart"/>
+<result column="owner_request_end" property="ownerRequestEnd"/>
+<result column="owner_request_petcount" property="ownerRequestPetCount"/>
+<result column="sitter_approval" property="sitterApproval"/>
+</resultMap>
+
+<select id="allSelectOwnerRequest" resultMap="ownerRequestMap">
+select * from owner_request
+</select>
+</mapper>
