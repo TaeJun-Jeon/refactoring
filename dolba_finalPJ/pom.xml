@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.dolba</groupId>
 	<artifactId>admin</artifactId>
-	<name>finalProject_petSitting</name>
+	<name>dolba_finalPJ</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
