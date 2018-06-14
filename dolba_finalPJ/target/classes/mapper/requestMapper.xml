@@ -2,8 +2,9 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
+
 <mapper namespace="requestMapper">
+
 
 <resultMap type="ownerRequestDTO" id="ownerRequestMap">
 <id column="owner_request_id" property="ownerRequestId"/>
@@ -19,4 +20,9 @@
 <select id="allSelectOwnerRequest" resultMap="ownerRequestMap">
 select * from owner_request
 </select>
+
+<select id="selectAllOption" resultType="optionsDTO">
+	select * from Options
+</select>
+
 </mapper>

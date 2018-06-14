@@ -39,8 +39,4 @@ public class OwnerController {
 		return requestList;
 	}
 	
-	@RequestMapping("/request/sitterList")
-	public String requestSitterList() {
-		return "/owner/sitterList";
-	}
 }
