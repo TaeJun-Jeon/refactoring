@@ -1,0 +1,72 @@
+li {
+	list-style: none;
+}
+
+.option-filters {
+	width: 90%;
+	margin-left: 40px;
+	margin-top: 5px;
+	padding: 0 12px;
+	border: solid 1px #dcdcdc;
+	margin-top: 5px;
+}
+
+.option-filters select.selectpick {
+	display: none;
+}
+
+.option-filters>ul>li {
+	padding: 15px 5px;
+	float: left;
+}
+
+.option-filters dt {
+	margin-bottom: 8px;
+	color: #666666;
+	font-weight: normal;
+	line-height: 1;
+	font-size: 13px;
+}
+
+.option-filters .col-btn .btn {
+	width: 95px;
+	margin-top: 21px !important;
+	padding: 8px 0 7px !important;
+	border: none;
+	background-color: #6eb9b5;
+	color: #fff;
+}
+
+.option-filters .col-btn .btn:hover, .option-filters .col-btn .btn:active
+	{
+	background-color: #559490;
+}
+
+.option-filters .col-tags {
+	width: 60%;
+	height:100%;
+}
+
+.option-filters .col-tags dd {
+	margin: 15px -5px 0;
+}
+
+.option-filters .col-tags .btn {
+	padding: 7px 0 6px;
+	border-radius: 5px;
+	background-color: #dcdcdc;
+	color: #fff;
+}
+
+.option-filters .col-tags .btn.active, .option-filters .col-tags .btn:active
+	{
+	background-color: #6eb9b5;
+	box-shadow: none;
+	background-color: #6eb9b5;
+}
+
+.option-filters .col-tags .btn-group {
+	display: block;
+	padding: 0 5px;
+	float: left;
+}

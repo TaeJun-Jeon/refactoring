@@ -51,4 +51,9 @@ update call set owner_approval = '${state}' where call_id= '${callId}'
 </update>
 
 
+
+<select id="selectAllOption" resultType="optionsDTO">
+	select * from Options
+</select>
+
 </mapper>

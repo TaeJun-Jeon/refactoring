@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dolba.dto.CallDTO;
+import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerRequestDTO;
-import com.dolba.dto.PetDTO;
-import com.dolba.owner.service.OwnerService;import com.sun.beans.util.Cache;
+import com.dolba.dto.SitterDTO;
+import com.dolba.owner.service.OwnerService;
+import com.dolba.request.service.RequestService;
+import com.dolba.sitter.service.SitterService;
 
 @Controller
 @RequestMapping("/owner")
@@ -18,6 +22,13 @@ public class OwnerController {
 	
 	@Autowired
 	private OwnerService ownerService;
+	
+	@Autowired
+	private RequestService requestService;
+	
+	@Autowired
+	private SitterService sitterService;
+	
 	
 	@RequestMapping("/myPage")
 	public String myPage() {
@@ -70,4 +81,17 @@ public class OwnerController {
 		return ownerService.selectPetInfo(ownerId);
 		
 	}
+	
+	@RequestMapping("/request/sitterList")
+	public ModelAndView requestSitterList() {
+		List<OptionsDTO> optionList = requestService.selectAllOption();
+		List<SitterDTO> sitterList = sitterService.selectAllPermittedSitter();
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("optionList",optionList);
+		mv.addObject("sitterList", sitterList);
+		mv.setViewName("/owner/sitterList");
+		return mv;
+	}
+	
+	
 }
