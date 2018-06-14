@@ -23,14 +23,15 @@
 }
 
 div.table-responsive {
-	width: 28%;
-	float: left;
+	width: 70%;
+	float: center;
 	box-sizing: border-box;
+	margin-bottom: 50px;
 }
 
 div.calendar1 {
-	width: 50%;
-	float: center;
+	width: 70%;
+	float: left;
 	box-sizing: border-box;
 }
 
@@ -41,140 +42,326 @@ body {
 	font-size: 14px;
 }
 
-#calendar, #calendar1 {
+#callCalendar, #requestCalendar {
 	max-width: 900px;
 	margin: 0px auto;
 }
+
+#hiddenTd {
+	display: none;
+}
 </style>
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#mytable #checkall").click(function () {
-	        if ($("#mytable #checkall").is(':checked')) {
-	            $("#mytable input[type=checkbox]").each(function () {
-	                $(this).prop("checked", true);
-	            });
+	$(document).ready(function() {
+						$("#mytable #checkall").click(function() {
+											if ($("#mytable #checkall").is(':checked')) {
+												$("#mytable input[type=checkbox]").each(function() {
+																	$(this).prop("checked",true);
+												});
 
-	        } else {
-	            $("#mytable input[type=checkbox]").each(function () {
-	                $(this).prop("unchecked", false);
-	            });
-	        }
-	    });
-	    
-	    $("[data-toggle=tooltip]").tooltip();
-	
-	    $('#calendar').fullCalendar({
-	        defaultDate: new Date(),
-	        editable: false,
-	        eventLimit: true, // allow "more" link when too many events
-	        events: [
-	          {
-	            title: 'All Day Event',
-	            start: '2018-03-01'
-	          },
-	          {
-	            title: '정한별',
-	            start: '2018-06-09',
-	            end: '2018-06-09'
-	          },
-	          {
-		            title: '정한별',
-		            start: '2018-06-09',
-		            end: '2018-06-11'
-		      },   {
-		            title: '정한별',
-		            start: '2018-06-09',
-		            end: '2018-06-15'
-		      },
-	          
-	          {
-	            id: 999,
-	            title: 'Repeating Event',
-	            start: '2018-03-09T16:00:00'
-	          }],
-	          /* events: '${pageContext.request.contextPath}/test/1.html',  */
-	          eventClick: function(event) {
-	              // opens events in a popup window
-	              //window.open("/owner/callRead", 'gcalevent', 'width=1000,height=800');
-	              location.href="${pageContext.request.contextPath}/owner/callRead";
-	              return false;
-	            }
-	      });
-	    
-	    $('#calendar1').fullCalendar({
-	        defaultDate: new Date(),
-	        editable: false,
-	        eventLimit: true, // allow "more" link when too many events
-	        events: [
-	          {
-	            title: 'All Day Event',
-	            start: '2018-03-01'
-	          },
-	          {
-	            title: '정한별',
-	            start: '2018-06-09',
-	            end: '2018-06-09'
-	          },
-	          {
-		            title: '정한별',
-		            start: '2018-06-09',
-		            end: '2018-06-11'
-		      },   {
-		            title: '정한별',
-		            start: '2018-06-09',
-		            end: '2018-06-15'
-		      },
-	          
-	          {
-	            id: 999,
-	            title: 'Repeating Event',
-	            start: '2018-03-09T16:00:00'
-	          }],
-	          /* events: '${pageContext.request.contextPath}/test/1.html',  */
-	          eventClick: function(event) {
-	              // opens events in a popup window
-	              //window.open("/owner/callRead", 'gcalevent', 'width=1000,height=800');
-	              location.href="${pageContext.request.contextPath}/owner/callRead";
-	              return false;
-	            }
-	      });
-	    
-	    var obj = document.getElementById('ownerRequestTab');
-		obj.onclick= function(){
-			$.ajax({
-				type:"post" ,//전송방식
-				url : "${pageContext.request.contextPath}/owner/allSelect", //서버요청주소
-				dataType:"json" , //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
-			    success: function(result){//개수|단어,단어,단어,...
-			    	$("#allMytable tr:gt(0)").remove();
-			    	var str="";
-					//var set="<c:set var ='i' value='${i+1}'></c:set>";
-					var set=1;
-			   		$.each(result,function(index,item){
-			   			
-			   			str+="<tbody>";
-			    		str+="<tr>";
-			    		str+="<td><input type='checkbox' class='checkthis'/></td>";
-			    		str+="<td><a href='#'>"+set+++"</a></td>";
-			    		str+="<td>"+item.ownerRequestStart+"</td>";
-			    		str+="<td>"+item.ownerRequestEnd+"</td>";
-			    		str+="<td>"+item.sitterId+"</td>";
-			    		str+="<td>"+item.sitterApproval+"</td>";
-			    		str+="</tr>";
-			    		str+="</tbody>";
-			    	})
-			    	
-			    	$('#allMytable').append(str);
-			       } , 
-			       error:function(err){
-			    	   console.log("에러 발생 : " + err);
-			       }
-			});
-		}
-	    
-	
-})
+											} else {
+												$("#mytable input[type=checkbox]").each(function() {
+																	$(this).prop("unchecked",false);
+												});
+											}
+										});
 
+						$("[data-toggle=tooltip]").tooltip();
+						
+						var petInfo = document.getElementById('petInfo');
+						petInfo.onclick= function(){
+							$.ajax({
+								type:"post",
+								url:"${pageContext.request.contextPath}/owner/selectPetInfo",
+								dataType:"json",
+								data:"ownerId=happymom",
+								success:function(result){
+									
+								},
+								error:function(err){
+									console.log("에러발생: "+err);
+								}
+								
+							})
+						}
+
+						var ownerCallTab = document.getElementById('ownerCallTab');
+						ownerCallTab.onclick = function() {
+							$.ajax({
+										type : "post",//전송방식
+										url : "${pageContext.request.contextPath}/owner/allSelectCall", //서버요청주소
+										dataType : "json", //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
+										success : function(result) {//개수|단어,단어,단어,...
+											$("#callBeforeTable tr:gt(0)").remove();
+											var str = "";
+											var set = 1;
+											$.each(result,function(index,item) {
+												str += "<tbody>";
+												str += "<tr>";
+												str += "<td><input type='checkbox' class='checkthis'/></td>";
+												str += "<td><a href='#'>"+ set+++ "</a></td>";
+												str += "<td>"+ item.callReservateStart+ "</td>";
+												str += "<td>"+ item.callReservateEnd+ "</td>";
+												str += "<td>"+ item.sitterId+ "</td>";
+												str += "<td id='hiddenTd'>"+ item.callId+ "</td>";
+												str += "<td><p data-placement='top' data-toggle='tooltip' title='수락'><button class='btn btn-primary btn-xs' data-title='Edit' value='수락' id='ok' ><span class='glyphicon glyphicon-pencil'></span></button></p></td>";
+												str += "<td><p data-placement='top' data-toggle='tooltip' title='거절'><button class='btn btn-danger btn-xs' data-title='Delete' value='거절' id='reject' ><span class='glyphicon glyphicon-trash'></span></button></p></td>";
+
+												str += "</tr>";
+												str += "</tbody>";
+											
+
+								})
+
+											$('#callBeforeTable').append(str);
+
+										},
+										error : function(err) {
+											console.log("에러 발생 : " + err);
+										}
+									});
+
+						}
+						
+						var ownerCallTabAfter= document.getElementById('ownerCallTabAfter');
+						ownerCallTabAfter.onclick = function() {
+							$.ajax({
+										type : "post",//전송방식
+										url : "${pageContext.request.contextPath}/owner/allSelectCallApproval", //서버요청주소
+										dataType : "json", //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
+										success : function(result) {//개수|단어,단어,단어,...
+											$("#callAfterTable tr:gt(0)").remove();
+											var str = "";
+											var set = 1;
+											$.each(result,function(index,item) {
+												str += "<tbody>";
+												str += "<tr>";
+												str += "<td><input type='checkbox' class='checkthis'/></td>";
+												str += "<td><a href='#'>"+ set+++ "</a></td>";
+												str += "<td>"+ item.callReservateStart+ "</td>";
+												str += "<td>"+ item.callReservateEnd+ "</td>";
+												str += "<td>"+ item.sitterId+ "</td>";
+												str += "</tr>";
+												str += "</tbody>";
+												
+														
+												 $('#callCalendar').fullCalendar({
+												    	defaultDate : new Date(),
+												    	editable : false,
+												    	eventLimit : true, // allow "more" link when too many events
+												   
+												    	 events: function (start, end, timezone, callback) {
+												        	 $.ajax({
+													          url: '${pageContext.request.contextPath}/owner/allSelectCallApproval',
+													          type: "GET",
+													          async:false,
+													          datatype: 'json',
+													          success: function(data){
+													             // var json = data.calendarList;
+													              var events = [];
+													              
+													              $.each(data, function(index,item) {
+													               
+													               var startTime = item.callReservateStart.split(" ");
+													               var endTime = item.callReservateEnd.split(" ");
+													           
+													               events.push({title: item.sitterId, start: startTime[0], end: endTime[0]});
+													           });
+													              callback(events);
+													          },
+													         });
+													     },
+													     
+													     eventClick: function(event) {
+													    	 location.href = "${pageContext.request.contextPath}/owner/callRead";
+																return false;
+												  }
+												    });
+											
+
+											})
+
+												$('#callAfterTable').append(str);
+
+										},
+											error : function(err) {
+												console.log("에러 발생 : " + err);
+										}
+									});
+
+						}
+
+						var ownerRequestTab = document.getElementById('ownerRequestTab');
+						ownerRequestTab.onclick = function() {
+							$.ajax({
+										type : "post",//전송방식
+										url : "${pageContext.request.contextPath}/owner/allSelectOwnerRequest", //서버요청주소
+										dataType : "json", //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
+										success : function(result) {//개수|단어,단어,단어,...
+											$("#requestBeforeTable tr:gt(0)").remove();
+											var str = "";
+											var set = 1;
+											$.each(result,function(index,item) {
+												str += "<tbody>";
+												str += "<tr>";
+												str += "<td><input type='checkbox' class='checkthis'/></td>";
+												str += "<td><a href='#'>"+ set+++ "</a></td>";
+												str += "<td>"+ item.ownerRequestStart+ "</td>";
+												str += "<td>"+ item.ownerRequestEnd+ "</td>";
+												str += "<td>"+ item.sitterId+ "</td>";
+												str += "<td>"+ item.sitterApproval+ "</td>";
+												str += "</tr>";
+												str += "</tbody>";
+											})
+				
+											$('#requestBeforeTable').append(str);
+
+										},
+										error : function(err) {
+											console.log("에러 발생 : " + err);
+										}
+									});
+
+						} 
+						
+						var ownerRequestTabAfter = document.getElementById('ownerRequestTabAfter');
+						ownerRequestTabAfter.onclick =function(){
+							$.ajax({
+								type : "post",//전송방식
+								url : "${pageContext.request.contextPath}/owner/allSelectOwnerRequestApproval", //서버요청주소
+								dataType : "json", //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
+								success : function(result) {//개수|단어,단어,단어,...
+									$("#requestAfterTable tr:gt(0)").remove();
+									var str = "";
+									var set = 1;
+									$.each(result,function(index,item) {
+										str += "<tbody>";
+										str += "<tr>";
+										str += "<td><input type='checkbox' class='checkthis'/></td>";
+										str += "<td><a href='#'>"+ set+++ "</a></td>";
+										str += "<td>"+ item.ownerRequestStart+ "</td>";
+										str += "<td>"+ item.ownerRequestEnd+ "</td>";
+										str += "<td>"+ item.sitterId+ "</td>";
+										str += "</tr>";
+										str += "</tbody>";
+										
+										/* $('#requestCalendar').fullCalendar(
+												{
+													defaultDate : new Date(),
+													editable : false,
+													eventLimit : true, // allow "more" link when too many events
+													events : [ {
+														title : 'All Day Event',
+														start : '2018-03-01'
+													}, {
+														title : '정한별',
+														start : '2018-06-05',
+														end : '2018-06-09'
+													}, {
+														title : '정한별',
+														start : '2018-06-09',
+														end : '2018-06-11'
+													} ],
+													eventClick : function(event) {
+														// opens events in a popup window
+														//window.open("/owner/callRead", 'gcalevent', 'width=1000,height=800');
+														location.href = "${pageContext.request.contextPath}/owner/callRead";
+														return false;
+													}
+												}); */
+												
+										 $('#requestCalendar').fullCalendar({
+										    	defaultDate : new Date(),
+										    	editable : false,
+										    	eventLimit : true, // allow "more" link when too many events
+										   
+										    	 events: function (start, end, timezone, callback) {
+										        	 $.ajax({
+											          url: '${pageContext.request.contextPath}/owner/allSelectOwnerRequestApproval',
+											          type: "GET",
+											          async:false,
+											          datatype: 'json',
+											          success: function(data){
+											             // var json = data.calendarList;
+											              var events = [];
+											              
+											              $.each(data, function(index,item) {
+											               
+											               var startTime = item.ownerRequestStart.split(" ");
+											               var endTime = item.ownerRequestEnd.split(" ");
+											               console.log(startTime);
+											               events.push({title: item.sitterId, start: startTime[0], end: endTime[0]});
+											           });
+											              callback(events);
+											          },
+											         });
+											     },
+											   
+											     eventClick: function(event) {
+											    	 
+											    	 location.href = "${pageContext.request.contextPath}/owner/callRead";
+													 return false;
+										  }
+										    });
+									})
+		
+									$('#requestAfterTable').append(str);
+
+								},
+								error : function(err) {
+									console.log("에러 발생 : " + err);
+								}
+							});
+						}
+
+						$(document).on("click",	"#ok",function() {
+											
+							var result = confirm("수락하시겠습니까?");
+							if(result){
+								var id = $(this).parent().parent().parent().find("td:nth-child(6)").text();
+						$.ajax({
+									type : "post", //전송방식
+									url : "${pageContext.request.contextPath}/owner/updateOwnerApproval", //서버주소
+									data : "callId="+ id +"&state=y",//서버에게 보낼 parameter 정보
+									dataType : "text", //서버가 front로 보내주는 데이터 타입 (text ,html, xml, json)
+									success : function(result) {
+										alert("예약 수락되었습니다");
+										location.reload();
+									},
+									error : function(err) {
+										console.log(err)
+									}
+								})
+								
+							}
+										
+						})
+						
+						$(document).on("click",	"#reject",function() {
+											
+							var result = confirm("수락하시겠습니까?");
+							if(result){
+								var id = $(this).parent().parent().parent().find("td:nth-child(6)").text();
+								$.ajax({
+									type : "post", //전송방식
+									url : "${pageContext.request.contextPath}/owner/updateOwnerApproval", //서버주소
+									data : "callId="+ id +"&state=x",//서버에게 보낼 parameter 정보
+									dataType : "text", //서버가 front로 보내주는 데이터 타입 (text ,html, xml, json)
+									success : function(result) {
+										alert("예약 거절되었습니다");
+										location.reload();
+									},
+									error : function(err) {
+										console.log(err)
+									}
+								})
+								
+							}
+										
+						})
+						
+				
+					})
 </script>
 <body>
 	<div class="container">
@@ -199,18 +386,14 @@ $(document).ready(function(){
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu">
 						<ul class="nav">
-							<li class="active"><a href="#petInfo" data-toggle="tab">
-									<i class="fa fa-paw"></i> 펫정보
-								</a></li>
-							<li><a href="#userInfo" data-toggle="tab">
-									<i class="glyphicon glyphicon-user"></i> 나의정보
-								</a></li>
-							<li><a href="#tab3" data-toggle="tab">
-									<i class="fa fa-calendar"></i> 부르기
-								</a></li>
-							<li><a href="#tab4" data-toggle="tab" id="ownerRequestTab">
-									<i class="fa fa-child"></i> 맡기기
-								</a></li>
+							<li class="active"><a href="#petInfo" data-toggle="tab" id="petInfo"> <i class="fa fa-paw"></i> 펫정보
+							</a></li>
+							<li><a href="#userInfo" data-toggle="tab" id="userInfo"> <i class="fa fa-user"></i> 나의정보
+							</a></li>
+							<li><a href="#tab3" data-toggle="tab" id="ownerCallTab"> <i class="fa fa-calendar"></i> 부르기
+							</a></li>
+							<li><a href="#tab4" data-toggle="tab" id="ownerRequestTab"> <i class="fa fa-child"></i> 맡기기
+							</a></li>
 						</ul>
 					</div>
 					<!-- END MENU -->
@@ -302,8 +485,8 @@ $(document).ready(function(){
 					<!-- -------------------------------부르기---------------------------------------- -->
 					<div class="tab-pane" id="tab3">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tabb1" data-toggle="tab">확정전 </a></li>
-							<li><a href="#tabb2" data-toggle="tab">확정후</a></li>
+							<li class="active"><a href="#tabb1" data-toggle="tab" id ="ownerCallTabBefore">확정전 </a></li>
+							<li><a href="#tabb2" data-toggle="tab" id="ownerCallTabAfter">확정후</a></li>
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabb1">
@@ -311,57 +494,26 @@ $(document).ready(function(){
 									<div class="row">
 										<div class="col-md-12">
 											<div class="table-responsive" id="aaa">
-												<table id="mytable" class="table table-bordred table-striped">
+												<table id="callBeforeTable" class="table table-bordred table-striped">
 													<thead>
-														<th>
-															<input type="checkbox" id="checkall" />
-														</th>
+														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
-														<th>지역</th>
-														<th>날짜</th>
+														<th>시작날짜</th>
+														<th>종료날짜</th>
 														<th>펫시터</th>
 														<th>수락</th>
 														<th>거절</th>
 													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<input type="checkbox" class="checkthis" />
-															</td>
-															<td>1</td>
-															<td>성남</td>
-															<td>2018.06.09</td>
-															<td>정한별</td>
-															<td>
-																<p data-placement="top" data-toggle="tooltip" title="Edit">
-																	<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">
-																		<span class="glyphicon glyphicon-pencil"></span>
-																	</button>
-																</p>
-															</td>
-															<td>
-																<p data-placement="top" data-toggle="tooltip" title="Delete">
-																	<button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">
-																		<span class="glyphicon glyphicon-trash"></span>
-																	</button>
-																</p>
-															</td>
-														</tr>
-													</tbody>
 												</table>
 												<div class="clearfix"></div>
-												<ul class="pagination pull-right">
-													<li class="disabled"><a href="#">
-															<span class="glyphicon glyphicon-chevron-left"></span>
-														</a></li>
+												<ul class="pagination pull-right" id="page">
+												 	<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
 													<li class="active"><a href="#">1</a></li>
 													<li><a href="#">2</a></li>
 													<li><a href="#">3</a></li>
 													<li><a href="#">4</a></li>
 													<li><a href="#">5</a></li>
-													<li><a href="#">
-															<span class="glyphicon glyphicon-chevron-right"></span>
-														</a></li>
+													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li> 
 												</ul>
 											</div>
 										</div>
@@ -373,44 +525,27 @@ $(document).ready(function(){
 									<div class="row">
 										<div class="col-md-12">
 											<div class="table-responsive">
-												<table id="mytable" class="table table-bordred table-striped">
+												<table id="callAfterTable" class="table table-bordred table-striped">
 													<thead>
-														<th>
-															<input type="checkbox" id="checkall" />
-														</th>
+														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
-														<th>지역</th>
-														<th>날짜</th>
+														<th>시작날짜</th>
+														<th>종료날짜</th>
 														<th>펫시터</th>
 													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<input type="checkbox" class="checkthis" />
-															</td>
-															<td>1</td>
-															<td>성남</td>
-															<td>2018.06.09</td>
-															<td>정한별</td>
-														</tr>
-													</tbody>
 												</table>
 												<div class="clearfix"></div>
 												<ul class="pagination pull-right">
-													<li class="disabled"><a href="#">
-															<span class="glyphicon glyphicon-chevron-left"></span>
-														</a></li>
+													<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
 													<li class="active"><a href="#">1</a></li>
 													<li><a href="#">2</a></li>
 													<li><a href="#">3</a></li>
 													<li><a href="#">4</a></li>
 													<li><a href="#">5</a></li>
-													<li><a href="#">
-															<span class="glyphicon glyphicon-chevron-right"></span>
-														</a></li>
+													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
 												</ul>
 											</div>
-											<div id='calendar' class="calendar1" style="width: 40%;"></div>
+											<div id='callCalendar' class="calendar1" style="width: 70%;"></div>
 										</div>
 									</div>
 								</div>
@@ -421,7 +556,7 @@ $(document).ready(function(){
 					<div class="tab-pane" id="tab4">
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#tabb3" data-toggle="tab">확정전 </a></li>
-							<li><a href="#tabb4" data-toggle="tab">확정후</a></li>
+							<li><a href="#tabb4" data-toggle="tab" id="ownerRequestTabAfter">확정후</a></li>
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabb3">
@@ -429,11 +564,9 @@ $(document).ready(function(){
 									<div class="row">
 										<div class="col-md-12">
 											<div class="table-responsive" id="aaa">
-												<table id="allMytable" class="table table-bordred table-striped">
+												<table id="requestBeforeTable" class="table table-bordred table-striped">
 													<thead>
-														<th>
-															<input type="checkbox" id="checkall" />
-														</th>
+														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>
@@ -443,17 +576,13 @@ $(document).ready(function(){
 												</table>
 												<div class="clearfix"></div>
 												<ul class="pagination pull-right">
-													<li class="disabled"><a href="#">
-															<span class="glyphicon glyphicon-chevron-left"></span>
-														</a></li>
+													<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
 													<li class="active"><a href="#">1</a></li>
 													<li><a href="#">2</a></li>
 													<li><a href="#">3</a></li>
 													<li><a href="#">4</a></li>
 													<li><a href="#">5</a></li>
-													<li><a href="#">
-															<span class="glyphicon glyphicon-chevron-right"></span>
-														</a></li>
+													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
 												</ul>
 											</div>
 										</div>
@@ -465,44 +594,27 @@ $(document).ready(function(){
 									<div class="row">
 										<div class="col-md-12">
 											<div class="table-responsive">
-												<table id="mytable" class="table table-bordred table-striped">
+												<table id="requestAfterTable" class="table table-bordred table-striped">
 													<thead>
-														<th>
-															<input type="checkbox" id="checkall" />
-														</th>
+														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
-														<th>지역</th>
-														<th>날짜</th>
+														<th>시작날짜</th>
+														<th>종료날짜</th>
 														<th>펫시터</th>
 													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<input type="checkbox" class="checkthis" />
-															</td>
-															<td>1</td>
-															<td>성남</td>
-															<td>2018.06.09</td>
-															<td>정한별</td>
-														</tr>
-													</tbody>
 												</table>
 												<div class="clearfix"></div>
 												<ul class="pagination pull-right">
-													<li class="disabled"><a href="#">
-															<span class="glyphicon glyphicon-chevron-left"></span>
-														</a></li>
+													<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
 													<li class="active"><a href="#">1</a></li>
 													<li><a href="#">2</a></li>
 													<li><a href="#">3</a></li>
 													<li><a href="#">4</a></li>
 													<li><a href="#">5</a></li>
-													<li><a href="#">
-															<span class="glyphicon glyphicon-chevron-right"></span>
-														</a></li>
+													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
 												</ul>
 											</div>
-											<div id='calendar1' class="calendar1" style="width: 40%;"></div>
+											<div id='requestCalendar' class="calendar1" style="width: 70%;"></div>
 										</div>
 									</div>
 								</div>
@@ -513,7 +625,5 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-	<br>
-	<br>
 </body>
 </html>
