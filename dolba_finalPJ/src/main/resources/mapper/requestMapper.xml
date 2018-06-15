@@ -46,6 +46,8 @@ select *from call where owner_approval = 'y'
 </select>
 
 
+
+
 <update id="updateOwnerApproval" parameterType="map">
 update call set owner_approval = '${state}' where call_id= '${callId}'
 </update>

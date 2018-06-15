@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dolba.dto.CallDTO;
+import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.PetDTO;
 
@@ -50,6 +51,11 @@ public class OwnerDAOImpl implements OwnerDAO {
 	@Override
 	public PetDTO selectPetInfo(String ownerId) {
 		return session.selectOne("requestMapper.selectPetInfo", ownerId);
+	}
+
+	@Override
+	public OwnerDTO selectMemberById(String userId) {
+		return session.selectOne("requestMapper.selectById");
 	}
 
 }

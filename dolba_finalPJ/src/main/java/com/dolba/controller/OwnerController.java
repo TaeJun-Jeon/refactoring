@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dolba.dto.CallDTO;
 import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerRequestDTO;
+import com.dolba.dto.PetDTO;
 import com.dolba.dto.SitterDTO;
 import com.dolba.owner.service.OwnerService;
 import com.dolba.request.service.RequestService;
@@ -32,17 +33,17 @@ public class OwnerController {
 	
 	@RequestMapping("/myPage")
 	public String myPage() {
-		return "/myPage/myPage";
+		return "myPage/myPage";
 	}
 	
 	@RequestMapping("/callForm")
 	public String callForm() {
-		return "/owner/callForm";
+		return "owner/callForm";
 	}
 	
 	@RequestMapping("/callRead")
 	public String callRead() {
-		return "/owner/ownerCallRead";
+		return "owner/ownerCallRead";
 	}
 	
 	@RequestMapping("/allSelectOwnerRequest")
@@ -89,7 +90,7 @@ public class OwnerController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("optionList",optionList);
 		mv.addObject("sitterList", sitterList);
-		mv.setViewName("/owner/sitterList");
+		mv.setViewName("owner/sitterList");
 		return mv;
 	}
 	

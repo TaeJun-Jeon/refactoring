@@ -3,6 +3,7 @@ package com.dolba.owner.dao;
 import java.util.List;
 
 import com.dolba.dto.CallDTO;
+import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.PetDTO;
 
@@ -19,5 +20,7 @@ public interface OwnerDAO {
 	List<CallDTO> allSelectCallApproval();
 
 	PetDTO selectPetInfo(String ownerId);
+
+	OwnerDTO selectMemberById(String userId);
 
 }
