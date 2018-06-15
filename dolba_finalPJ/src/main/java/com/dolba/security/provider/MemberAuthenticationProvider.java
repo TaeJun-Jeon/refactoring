@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.dolba.authority.dao.AuthoritiesDAO;
 import com.dolba.dto.OwnerDTO;
 import com.dolba.owner.dao.OwnerDAO;
 
@@ -27,8 +28,8 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 	@Autowired
 	private OwnerDAO ownerDAO;
 	
-	/*@Autowired
-	private AuthoritiesDAO aDAO;*/
+	@Autowired
+	private AuthoritiesDAO aDAO;
 
 	
 	
