@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dolba.dto.OptionsDTO;
-import com.dolba.dto.SitterDTO;
 import com.dolba.request.dao.RequestDAO;
 import com.dolba.sitter.dao.SitterDAO;
 

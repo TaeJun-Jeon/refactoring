@@ -5,95 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="${pageContext.request.contextPath}/resources/lib/js/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/lib/js/bootstrap/bootstrap.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/bootstrap/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/dropdownStates.css?v=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/optionSelect.css?v=3">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/optionSelect.css?v=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/sitterPreview.css?v=2">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ba4b9793fc0330bc556842d113ad5aaa"></script>
 </head>
 <body>
-	<!-- States Search NavBar -->
-	<nav class="states-navbar navbar navbar-default">
-	<div class="container-fluid">
-		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-center">
-				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						전체<span>숫자</span>
-					</a>
-				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						서울<span>숫자</span>
-					</a>
-					<div class="dropdown-menu multi-column states-dropDown-list">
-						<div class="container-fluid">
-							<div class="row-fluid">
-								<div class="dropdown-menu">
-									<ul class="clearfix">
-										<li class="pull-left"><input type="checkbox" name="states[]" id="state8" class="checkbox" value="8"><label for="state8">강남구
-												(펫시터 숫자)</label></li>
-										<li class="pull-left"><input type="checkbox" name="states[]" id="state16" class="checkbox" value="16"><label for="state16">강동구
-												(펫시터 숫자)</label></li>
-									</ul>
-									<button type="button" data-loading="검색 중..." class="btn btn-mint">확인</button>
-									<button type="button" class="btn btn-link">선택 초기화</button>
-									<button type="button" aria-label="Close" class="close visible-xs-block">
-										<span aria-hidden="true">×</span>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						경기<span>숫자</span>
-					</a>
-					<div class="dropdown-menu multi-column states-dropDown-list">
-						<div class="container-fluid">
-							<div class="row-fluid">
-								<div class="dropdown-menu">
-									<ul class="clearfix">
-										<li class="pull-left"><input type="checkbox" name="states[]" id="state8" class="checkbox" value="8"><label for="state8">수원
-												(펫시터 숫자)</label></li>
-										<li class="pull-left"><input type="checkbox" name="states[]" id="state16" class="checkbox" value="16"><label for="state16">과천
-												(펫시터 숫자)</label></li>
-									</ul>
-									<button type="button" data-loading="검색 중..." class="btn btn-mint">확인</button>
-									<button type="button" class="btn btn-link">선택 초기화</button>
-									<button type="button" aria-label="Close" class="close visible-xs-block">
-										<span aria-hidden="true">×</span>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						인천<span>숫자</span>
-					</a>
-					<div class="dropdown-menu multi-column states-dropDown-list">
-						<div class="container-fluid">
-							<div class="row-fluid">
-								<div class="dropdown-menu">
-									<ul class="clearfix">
-										<li class="pull-left"><input type="checkbox" name="states[]" id="state8" class="checkbox" value="8"><label for="state8">부평
-												(펫시터 숫자)</label></li>
-										<li class="pull-left"><input type="checkbox" name="states[]" id="state16" class="checkbox" value="16"><label for="state16">은평
-												(펫시터 숫자)</label></li>
-									</ul>
-									<button type="button" data-loading="검색 중..." class="btn btn-mint">확인</button>
-									<button type="button" class="btn btn-link">선택 초기화</button>
-									<button type="button" aria-label="Close" class="close visible-xs-block">
-										<span aria-hidden="true">×</span>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div></li>
-			</ul>
-		</div>
-		<!-- /.navbar-collapse -->
-	</div>
-	<!-- /.container-fluid --> </nav>
-	<!-- states search nav bar fin -->
+	
 	<!-- sitter 검색 조건 -->
 	<div class="container-fluid option-filter-container">
 		<div class="row filter-row">

@@ -3,7 +3,7 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sitterMapper">
-	<sql id="sitterColumn"> sitter_id, sitter_password, sitter_name, sitter_Phone, sitter_email, sitter_addr,sitter_detail_addr,sitter_introduce,
+	<sql id="sitterColumn"> sitter_id , sitter_password, sitter_name, sitter_Phone, sitter_email, sitter_addr,sitter_detail_addr,sitter_introduce,
 		sitter_grade,sitter_certification,sitter_pet_amount,sitter_basis_price,sitter_permit
 	</sql>
 	<sql id="sitterOptionColumn"> 

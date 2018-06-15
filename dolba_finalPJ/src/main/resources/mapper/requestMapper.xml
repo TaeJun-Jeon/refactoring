@@ -5,54 +5,25 @@
  
 <mapper namespace="requestMapper">
 
-<resultMap type="ownerRequestDTO" id="ownerRequestMap">
-<id column="owner_request_id" property="ownerRequestId"/>
-<result column="owner_id" property="ownerId"/>
-<result column="sitter_id" property="sitterId"/>
-<result column="owner_request_price" property="ownerRequestPrice"/>
-<result column="owner_request_start" property="ownerRequestStart"/>
-<result column="owner_request_end" property="ownerRequestEnd"/>
-<result column="owner_request_petcount" property="ownerRequestPetCount"/>
-<result column="sitter_approval" property="sitterApproval"/>
-</resultMap>
-
-<resultMap type="callDTO" id="callMap">
-<id column="call_id" property="callId"/>
-<result column="owner_id" property="ownerId"/>
-<result column="sitter_id" property="sitterId"/>
-<result column="call_total_price" property="callTotalPrice"/>
-<result column="call_comment" property="callComment"/>
-<result column="call_reservate_start" property="callReservateStart"/>
-<result column="call_reservate_end" property="callReservateEnd"/>
-<result column="writeday" property="writeDay"/>
-<result column="call_petcount" property="callPetCount"/>
-<result column="owner_approval" property="ownerApproval"/>
-</resultMap>
-
-<select id="allSelectOwnerRequest" resultMap="ownerRequestMap">
+<select id="allSelectOwnerRequest" resultType="ownerRequestDTO">
 select * from owner_request where sitter_approval is null or sitter_approval = 'x'
 </select>
 
-<select id="allSelectOwnerRequestApproval" resultMap="ownerRequestMap">
+<select id="allSelectOwnerRequestApproval" resultType="ownerRequestDTO">
 select * from owner_request where sitter_approval = 'y'
 </select>
 
-<select id="allSelectCall" resultMap="callMap">
+<select id="allSelectCall" resultType="callDTO">
 select * from call where owner_approval is null
 </select>
 
-<select id="allSelectCallApproval" resultMap="callMap">
+<select id="allSelectCallApproval" resultType="callDTO">
 select *from call where owner_approval = 'y'
 </select>
-
-
-
 
 <update id="updateOwnerApproval" parameterType="map">
 update call set owner_approval = '${state}' where call_id= '${callId}'
 </update>
-
-
 
 <select id="selectAllOption" resultType="optionsDTO">
 	select * from Options

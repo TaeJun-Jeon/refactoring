@@ -618,7 +618,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<input type="button" class="btn btn-primary btn-radius-1" value="부르기">
 					</div>
 					<div class="col-xs-6">
-						<input type="button" class="btn btn-primary btn-radius-1" value="맡기기">
+						<a href="${pageContext.request.contextPath}/owner/request/sitterlist"><input type="button" class="btn btn-primary btn-radius-1" value="맡기기"></a>
 					</div>
 
 				</div>

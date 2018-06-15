@@ -13,6 +13,7 @@ import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.PetDTO;
 import com.dolba.dto.SitterDTO;
+import com.dolba.dto.SitterOptionDTO;
 import com.dolba.owner.service.OwnerService;
 import com.dolba.request.service.RequestService;
 import com.dolba.sitter.service.SitterService;
