@@ -1,0 +1,38 @@
+#aaa {
+	width: 70%;
+	float: center;
+}
+
+div.table-responsive {
+	width: 70%;
+	float: center;
+	box-sizing: border-box;
+	margin-bottom: 50px;
+}
+
+div.calendar1 {
+	width: 70%;
+	float: left;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 40px 10px;
+	padding: 0;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+	font-size: 14px;
+}
+
+#callCalendar, #requestCalendar {
+	max-width: 900px;
+	margin: 0px auto;
+}
+
+#hiddenTd {
+	display: none;
+}
+
+.myPage-padding{
+	padding-top: 120px;
+	padding-bottom: 120px;
+}

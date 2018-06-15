@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dolba.dto.CallDTO;
 import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerRequestDTO;
+import com.dolba.dto.PetDTO;
 import com.dolba.dto.SitterDTO;
-import com.dolba.dto.SitterOptionDTO;
 import com.dolba.owner.service.OwnerService;
 import com.dolba.request.service.RequestService;
 import com.dolba.sitter.service.SitterService;
@@ -32,24 +33,54 @@ public class OwnerController {
 	
 	@RequestMapping("/myPage")
 	public String myPage() {
-		return "/myPage/myPage";
+		return "myPage/myPage";
 	}
 	
 	@RequestMapping("/callForm")
 	public String callForm() {
-		return "/owner/callForm";
+		return "owner/callForm";
 	}
 	
 	@RequestMapping("/callRead")
 	public String callRead() {
-		return "/owner/ownerCallRead";
+		return "owner/ownerCallRead";
 	}
 	
-	@RequestMapping("/allSelect")
+	@RequestMapping("/allSelectOwnerRequest")
 	@ResponseBody
 	public List<OwnerRequestDTO> allSelectOwnerRequest() {
-		List<OwnerRequestDTO> requestList = ownerService.allSelectOwnerRequest();
-		return requestList;
+		return ownerService.allSelectOwnerRequest();
+	}
+	
+	@RequestMapping("/allSelectOwnerRequestApproval")
+	@ResponseBody
+	public List<OwnerRequestDTO> allSelectOwnerRequestApproval() {
+		return ownerService.allSelectOwnerRequestApproval();
+	}
+	
+	@RequestMapping("/allSelectCall")
+	@ResponseBody
+	public List<CallDTO> allSelectCall(){
+		return ownerService.allSelectCall();
+	}
+	
+	@RequestMapping("/allSelectCallApproval")
+	@ResponseBody
+	public List<CallDTO> allSelectCallApproval(){
+		return ownerService.allSelectCallApproval();
+	}
+	
+	@RequestMapping("/updateOwnerApproval")
+	@ResponseBody
+	public int updateOwnerApproval(String callId, String state) {
+		return ownerService.updateOwnerApproval(callId,state);
+	}
+	
+	@RequestMapping("/selectPetInfo")
+	@ResponseBody
+	public PetDTO selectPetInfo(String ownerId) {
+		return ownerService.selectPetInfo(ownerId);
+		
 	}
 	
 	@RequestMapping("/request/sitterList")
@@ -68,7 +99,7 @@ public class OwnerController {
 			System.out.println("-----------------------------");
 			
 		}*/
-		mv.setViewName("/owner/sitterList");
+		mv.setViewName("owner/sitterList");
 		return mv;
 	}
 	
