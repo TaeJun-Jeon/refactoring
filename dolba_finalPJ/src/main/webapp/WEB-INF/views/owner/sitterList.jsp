@@ -9,8 +9,8 @@
 <script src="${pageContext.request.contextPath}/resources/lib/js/bootstrap/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/dropdownStates.css?v=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/optionSelect.css?v=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/sitterPreview.css?v=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/optionSelect.css?v=3">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/sitterPreview.css?v=2">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ba4b9793fc0330bc556842d113ad5aaa"></script>
 </head>
 <body>
@@ -95,65 +95,90 @@
 	<!-- /.container-fluid --> </nav>
 	<!-- states search nav bar fin -->
 	<!-- sitter 검색 조건 -->
-	<form class="container option-filters">
-		<ul class="clearfix">
-			<li class="col-tags col-md-8">
-				<dl>
-					<dt>원하는 태그를 모두 선택해주세요!</dt>
-					<dd>
-						<div class="btn-group col-md-2" data-toggle="buttons">
-							<label class="btn btn-xs btn-block"> <input type="checkbox" name="tag" autocomplete="off" value="1">아파트
-							</label>
-						</div>
-						<div class="btn-group col-md-2" data-toggle="buttons">
-							<label class="btn btn-xs btn-block"> <input type="checkbox" name="tag" autocomplete="off" value="2">마당
-							</label>
-						</div>
-						<div class="btn-group col-md-2" data-toggle="buttons">
-							<label class="btn btn-xs btn-block"> <input type="checkbox" name="tag" autocomplete="off" value="3">노령견케어
-							</label>
-						</div>
-						<div class="btn-group col-md-2" data-toggle="buttons">
-							<label class="btn btn-xs btn-block"> <input type="checkbox" name="tag" autocomplete="off" value="4">환자견케어
-							</label>
-						</div>
-					</dd>
-				</dl>
-			</li>
-			<li class="col-level col-md-2 pull-left">
-				<dl>
-					<dt>펫시터 등급</dt>
-					<dd>
-						<div class="dropdown">
-							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-								모든등급 <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-							</ul>
-							<input type="hidden" id="selectedGrade" value="">
-						</div>
-					</dd>
-				</dl>
-			</li>
-			<li class="col-btn col-md-2 pull-right">
-				<dl>
-					<dd>
-						<button class="btn">찾기</button>
-					</dd>
-				</dl>
-			</li>
-		</ul>
-	</form>
+	<div class="container-fluid option-filter-container">
+		<div class="row filter-row">
+			<form class="option-filters">
+				<ul>
+					<li class="col-tags col-md-8">
+						<dl>
+							<dt class="text-center">원하는 태그를 모두 선택해주세요!</dt>
+							<dd>
+								<div class="row ">
+									<c:forEach items="${optionList}" var="option">
+										<div class="btn-group col-xs-3" data-toggle="buttons">
+											<label class="btn btn-xs btn-block"> <input type="checkbox" name="tag" autocomplete="off" value="${option.optionId}">
+												${option.optionName}
+											</label>
+										</div>
+									</c:forEach>
+								</div>
+							</dd>
+						</dl>
+					</li>
+					<li class="col-level col-md-2 pull-left ">
+						<dl>
+							<dt class="text-center">펫시터 등급</dt>
+							<dd class="clearfix text-center">
+								<select class="form-control" id="grade-select">
+									<option value="0">-- 선택 --</option>
+									<option value="1">1점 이상</option>
+									<option value="2">2점 이상</option>
+									<option value="3">3점 이상</option>
+									<option value="4">4점 이상</option>
+									<option value="5">5점 이상</option>
+								</select>
+							</dd>
+						</dl>
+					</li>
+					<li class="col-btn col-md-2 pull-left">
+						<dl>
+							<dd>
+								<button class="btn">찾기</button>
+							</dd>
+						</dl>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
 	<!-- sitter preview list -->
 	<div class="container-fluid sitter-list-container">
 		<div class="row content">
 			<div class="col-xs-7">
 				<ul class="preview">
+					<c:forEach items="${sitterList}" var="sitterInfo">
+						<li class="row sitter-li preview-container">
+							<div class="col-xs-7 preview-left">
+								<div class="row" style="margin-top: 25px">
+									<h5><b><a href="#" class="sitter-desc">${sitterInfo.sitterIntroduce}</a></b></h5>
+									<span class="">${sitterInfo.sitterName }</span>
+								</div>
+								<hr>
+								<div class="row">
+									<c:forEach items="${sitterInfo.sitterOptionDTO}" var="sitterOption" varStatus="index">
+										<span class="label label-success option-label">${sitterOption.optionsDTO.optionName}</span>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="col-xs-2 preview-grade">
+								<div class="row">
+									<h4>${sitterInfo.sitterGrade}</h4>
+									<h6><a href="#">고객후기 n개</a></h6>
+									<c:forEach begin="1" end="${sitterInfo.sitterGrade}">
+										<i class="glyphicon glyphicon-star gi-star"></i>
+									</c:forEach>
+									<c:forEach begin="${sitterInfo.sitterGrade}" end="4">
+										<i class="glyphicon glyphicon-star-empty gi-star"></i>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="col-xs-3 preview-right" style="margin-top: 50px">
+								<a href="#" class="thumbnail sitter-pic">
+									<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
+								</a>
+							</div>
+						</li>
+					</c:forEach>
 					<li class="row sitter-li preview-container">
 						<div class="col-xs-7 preview-left">
 							<div class="row" style="margin-top: 50px">
@@ -170,180 +195,6 @@
 								<h6>고객후기 n개</h6>
 								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star gi-star"></i>
 								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i>
-							</div>
-						</div>
-						<div class="col-xs-3 preview-right" style="margin-top: 50px">
-							<a href="#" class="thumbnail sitter-pic">
-								<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
-							</a>
-						</div>
-					</li>
-					<li class="row sitter-li preview-container">
-						<div class="col-xs-7 preview-left">
-							<div class="row" style="margin-top: 50px">
-								<a href="#" class="sitter-desc">펫시터 설명</a>
-								<br> <span class="">백승현</span>
-							</div>
-							<div class="row">
-								<span class="label label-success">아파트</span> <span class="label  label-success">노령견케어</span> <span class="label  label-success">실외배변</span>
-							</div>
-						</div>
-						<div class="col-xs-2 preview-grade">
-							<div class="row">
-								<h4>평점</h4>
-								<h6>고객후기 n개</h6>
-								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star gi-star"></i>
-								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i>
-							</div>
-						</div>
-						<div class="col-xs-3 preview-right" style="margin-top: 50px">
-							<a href="#" class="thumbnail sitter-pic">
-								<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
-							</a>
-						</div>
-					</li>
-					<li class="row sitter-li preview-container">
-						<div class="col-xs-7 preview-left">
-							<div class="row" style="margin-top: 50px">
-								<a href="#" class="sitter-desc">펫시터 설명</a>
-								<br> <span class="">백승현</span>
-							</div>
-							<div class="row">
-								<span class="label label-success">아파트</span> <span class="label  label-success">노령견케어</span> <span class="label  label-success">실외배변</span>
-							</div>
-						</div>
-						<div class="col-xs-2 preview-grade">
-							<div class="row">
-								<h4>평점</h4>
-								<h6>고객후기 n개</h6>
-								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i
-									class="glyphicon glyphicon-star-empty gi-star"
-								></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i>
-							</div>
-						</div>
-						<div class="col-xs-3 preview-right" style="margin-top: 50px">
-							<a href="#" class="thumbnail sitter-pic">
-								<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
-							</a>
-						</div>
-					</li>
-					<li class="row sitter-li preview-container">
-						<div class="col-xs-7 preview-left">
-							<div class="row" style="margin-top: 50px">
-								<a href="#" class="sitter-desc">펫시터 설명</a>
-								<br> <span class="">백승현</span>
-							</div>
-							<div class="row">
-								<span class="label label-success">아파트</span> <span class="label  label-success">노령견케어</span> <span class="label  label-success">실외배변</span>
-							</div>
-						</div>
-						<div class="col-xs-2 preview-grade">
-							<div class="row">
-								<h4>평점</h4>
-								<h6>고객후기 n개</h6>
-								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i
-									class="glyphicon glyphicon-star-empty gi-star"
-								></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i>
-							</div>
-						</div>
-						<div class="col-xs-3 preview-right" style="margin-top: 50px">
-							<a href="#" class="thumbnail sitter-pic">
-								<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
-							</a>
-						</div>
-					</li>
-					<li class="row sitter-li preview-container">
-						<div class="col-xs-7 preview-left">
-							<div class="row" style="margin-top: 50px">
-								<a href="#" class="sitter-desc">펫시터 설명</a>
-								<br> <span class="">백승현</span>
-							</div>
-							<div class="row">
-								<span class="label label-success">아파트</span> <span class="label  label-success">노령견케어</span> <span class="label  label-success">실외배변</span>
-							</div>
-						</div>
-						<div class="col-xs-2 preview-grade">
-							<div class="row">
-								<h4>평점</h4>
-								<h6>고객후기 n개</h6>
-								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i
-									class="glyphicon glyphicon-star-empty gi-star"
-								></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i>
-							</div>
-						</div>
-						<div class="col-xs-3 preview-right" style="margin-top: 50px">
-							<a href="#" class="thumbnail sitter-pic">
-								<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
-							</a>
-						</div>
-					</li>
-					<li class="row sitter-li preview-container">
-						<div class="col-xs-7 preview-left">
-							<div class="row" style="margin-top: 50px">
-								<a href="#" class="sitter-desc">펫시터 설명</a>
-								<br> <span class="">백승현</span>
-							</div>
-							<div class="row">
-								<span class="label label-success">아파트</span> <span class="label  label-success">노령견케어</span> <span class="label  label-success">실외배변</span>
-							</div>
-						</div>
-						<div class="col-xs-2 preview-grade">
-							<div class="row">
-								<h4>평점</h4>
-								<h6>고객후기 n개</h6>
-								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i
-									class="glyphicon glyphicon-star-empty gi-star"
-								></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i>
-							</div>
-						</div>
-						<div class="col-xs-3 preview-right" style="margin-top: 50px">
-							<a href="#" class="thumbnail sitter-pic">
-								<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
-							</a>
-						</div>
-					</li>
-					<li class="row sitter-li preview-container">
-						<div class="col-xs-7 preview-left">
-							<div class="row" style="margin-top: 50px">
-								<a href="#" class="sitter-desc">펫시터 설명</a>
-								<br> <span class="">백승현</span>
-							</div>
-							<div class="row">
-								<span class="label label-success">아파트</span> <span class="label  label-success">노령견케어</span> <span class="label  label-success">실외배변</span>
-							</div>
-						</div>
-						<div class="col-xs-2 preview-grade">
-							<div class="row">
-								<h4>평점</h4>
-								<h6>고객후기 n개</h6>
-								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i
-									class="glyphicon glyphicon-star-empty gi-star"
-								></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i>
-							</div>
-						</div>
-						<div class="col-xs-3 preview-right" style="margin-top: 50px">
-							<a href="#" class="thumbnail sitter-pic">
-								<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
-							</a>
-						</div>
-					</li>
-					<li class="row sitter-li preview-container">
-						<div class="col-xs-7 preview-left">
-							<div class="row" style="margin-top: 50px">
-								<a href="#" class="sitter-desc">펫시터 설명</a>
-								<br> <span class="">백승현</span>
-							</div>
-							<div class="row">
-								<span class="label label-success">아파트</span> <span class="label  label-success">노령견케어</span> <span class="label  label-success">실외배변</span>
-							</div>
-						</div>
-						<div class="col-xs-2 preview-grade">
-							<div class="row">
-								<h4>평점</h4>
-								<h6>고객후기 n개</h6>
-								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i
-									class="glyphicon glyphicon-star-empty gi-star"
-								></i> <i class="glyphicon glyphicon-star-empty gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i>
 							</div>
 						</div>
 						<div class="col-xs-3 preview-right" style="margin-top: 50px">
@@ -360,34 +211,20 @@
 		</div>
 		<div class="row paging">
 			<div class="row">
-		<div class="col-md-6 text-center">
-			<nav>
-				<ul class="pagination sitter-pagination">
-					<li class="page-item">
-						<a class="page-link" href="#">Previous</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">1</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">2</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">3</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">4</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">5</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">Next</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
+				<div class="col-md-6 text-center">
+					<nav>
+					<ul class="pagination sitter-pagination">
+						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">4</a></li>
+						<li class="page-item"><a class="page-link" href="#">5</a></li>
+						<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					</ul>
+					</nav>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- 지도 로드 -->

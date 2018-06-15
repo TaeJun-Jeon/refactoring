@@ -3,6 +3,7 @@ package com.dolba.sitter.dao;
 import java.util.List;
 
 import com.dolba.dto.SitterDTO;
+import com.dolba.dto.SitterOptionDTO;
 
 public interface SitterDAO {
 	/**
@@ -22,4 +23,11 @@ public interface SitterDAO {
 	 * @return
 	 */
 	public List<SitterDTO> selectAllWaitingSitter();
+	
+	/**
+	 * sitter 가 설정해 놓은 옵션을 sitterId를 통해 가져오는 메소드
+	 * @param sitterId
+	 * @return
+	 */
+	public List<SitterOptionDTO> selectSitterOptions(String sitterId);
 }

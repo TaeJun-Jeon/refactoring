@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.SitterDTO;
+import com.dolba.dto.SitterOptionDTO;
 import com.dolba.owner.service.OwnerService;
 import com.dolba.request.service.RequestService;
 import com.dolba.sitter.service.SitterService;
@@ -58,6 +59,15 @@ public class OwnerController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("optionList",optionList);
 		mv.addObject("sitterList", sitterList);
+		/*for(SitterDTO sitterdto : sitterList) {
+			System.out.println("-----------------------------");
+			System.out.println(sitterdto.getSitterName());
+			for(SitterOptionDTO sitteroptionDTO : sitterdto.getSitterOptionDTO()) {
+				System.out.println(sitteroptionDTO.getOptionsDTO().getOptionName());
+			}
+			System.out.println("-----------------------------");
+			
+		}*/
 		mv.setViewName("/owner/sitterList");
 		return mv;
 	}
