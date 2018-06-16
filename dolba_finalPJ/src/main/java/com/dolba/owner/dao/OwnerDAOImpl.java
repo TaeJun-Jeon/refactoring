@@ -54,8 +54,8 @@ public class OwnerDAOImpl implements OwnerDAO {
 	}
 
 	@Override
-	public OwnerDTO selectMemberById(String userId) {
-		return session.selectOne("requestMapper.selectById");
+	public OwnerDTO selectUserById(String userId) {
+		return session.selectOne("requestMapper.selectUserById");
 	}
 
 }

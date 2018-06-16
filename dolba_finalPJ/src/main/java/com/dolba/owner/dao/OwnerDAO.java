@@ -20,7 +20,7 @@ public interface OwnerDAO {
 	List<CallDTO> allSelectCallApproval();
 
 	PetDTO selectPetInfo(String ownerId);
-
-	OwnerDTO selectMemberById(String userId);
+	
+	OwnerDTO selectUserById(String userId);
 
 }

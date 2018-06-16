@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
+
 
 <!--A Design by W3layouts
 Author: W3layout
@@ -96,9 +98,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</button>
 											<ul class="dropdown-menu" role="menu">
 												<li><a href="#myModal" data-toggle="modal"><span class="fa fa-sign-in"></span>&nbsp;&nbsp;로그인</a></li>
-												<li><a href="#"><span class="fa fa-pencil-square-o"></span>&nbsp;&nbsp;회원가입</a></li>
+												<li><a href="${pageContext.request.contextPath}/admin/joinForm"><span class="fa fa-pencil-square-o"></span>&nbsp;&nbsp;회원가입</a></li>
 												<li class="divider"></li>
-												<li><a href="#"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+												<sec:authorize access="isAuthenticated()">
+												<li><a href="${pageContext.request.contextPath}/owner/myPage"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;마이페이지</a></li>
+												<li><a href="javascript:logout();"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+												</sec:authorize>
+												<form id="logoutFrm" action="${pageContext.request.contextPath}/admin/logout" method="post" style:"display:none">
+												<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+												</form>
 											</ul>
 										</div>
 									</div>
@@ -194,7 +202,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<hr class="hr-or">
 						</div>
 
-						<form role="form" method="post" action="j_spring_security_check">
+						<form role="form" method="post" action="${pageContext.request.contextPath}/admin/login">
 							<div class="form-group">
 								<input type="text" class="form-control" id="inputUsernameEmail" placeholder="Username or email" name="id">
 							</div>
@@ -1159,7 +1167,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$().UItoTop({
 				easingType: 'easeOutQuart'
 			});
+			
+			
 		});
+		
+		function logout() {
+			document.getElementById("logoutFrm").submit();
+		}
 	</script>
 	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 	<!-- //for-bottom-to-top smooth scrolling -->

@@ -14,28 +14,22 @@
 	<security:intercept-url pattern="/myPage/myPage" access="isAuthenticated()"/>
 	<security:form-login 
 	login-page="/"
-	login-processing-url="/j_spring_security_check"
+	login-processing-url="/admin/login"
 	username-parameter="id"
 	password-parameter="password"
 	default-target-url="/"
-	authentication-failure-url="/user/loginForm?ng"/>
+	authentication-failure-handler-ref="memberAuthenticationFailureHandler"/>
 	
 	<security:logout
-	logout-url="/j_spring_security_logout"
+	logout-url="/admin/logout"
 	invalidate-session="true"
 	delete-cookies="JSESSIONID"
-	logout-success-url="/user/loginForm"/>
+	logout-success-url="/"/>
 	
 	</security:http>
 	
 	
 	<security:authentication-manager>
-	<security:authentication-provider>
-	<security:user-service>
-	<security:user name="user" password="1234" authorities="ROLE_USER"/>
-	<security:user name="jang" password="1234" authorities="ROLE_MEMBER"/>
-	<security:user name="admin" password="1234" authorities="ROLE_ADMIN,ROLE_USER,ROLE_MEMBER"/>
-	</security:user-service>
-	</security:authentication-provider>
+		<security:authentication-provider ref="memberAuthenticationProvider" />
 	</security:authentication-manager>
 </beans>
