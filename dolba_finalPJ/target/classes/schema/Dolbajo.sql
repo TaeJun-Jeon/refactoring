@@ -7,6 +7,16 @@
 --접속
 --conn Dolbajo/1234;
 
+CREATE TABLE AUTHORITIES(
+	USERID VARCHAR2(100) NOT NULL, /* ID*/
+	ROLE VARCHAR(30) NOT NULL,    /**/
+	CONSTRAINT AUTHORITIES_PK PRIMARY KEY(USERID,ROLE)
+);
+
+
+
+select*from AUTHORITIES
+drop table authorities
 --OWNER
 create table OWNER(
     OWNER_ID VARCHAR(50) not null constraint OWNER_ID_pk primary key,--견주id
@@ -25,7 +35,12 @@ insert into OWNER values('cloud','1234','백승현','경기도','광교','000-000-0000',
 insert into OWNER values('any6103','1234','김시연','서울','강남','000-000-0000','hijk@naver.com');
 insert into OWNER values('flower','1234','전태준','부산','기장','000-000-0000','lmnop@naver.com');
 insert into OWNER values('happy','1234','정한별','서울','압구정','000-000-0000','qrst@naver.com');
-
+select*from owner
+insert into AUTHORITIES values('happy','ROLE_OWNER');
+insert into AUTHORITIES values('cloud','ROLE_OWNER');
+insert into AUTHORITIES values('any6103','ROLE_OWNER');
+insert into AUTHORITIES values('flower','ROLE_OWNER');
+insert into AUTHORITIES values('happymom','ROLE_OWNER');
 --SITTER
 create table SITTER(
     SITTER_ID VARCHAR(50) not null constraint SITTER_ID_pk primary key,--펫시터id
@@ -42,7 +57,13 @@ create table SITTER(
     SITTER_BASIS_PRICE NUMBER NOT NULL, --기본가격
     SITTER_PERMIT VARCHAR(5) NULL--합격여부
 );
+
+ALTER TABLE 테이블명 DROP COLUMN 컬럼명
+alter table owner drop column role
+alter table sitter drop column role
+
         
+select*from sitter
 --select * from SITTER;    
 --DROP table SITTER;
 
@@ -56,6 +77,17 @@ insert into SITTER values('sitter7','1234','이름7','000-000-0000','abcd@naver.co
 insert into SITTER values('sitter8','1234','이름8','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 908호','안녕하세요','5',null,1,80000,'O');
 insert into SITTER values('sitter9','1234','이름9','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 909호','안녕하세요','5',null,1,90000,'O');
 insert into SITTER values('sitter10','1234','이름10','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'O');
+
+insert into AUTHORITIES values('sitter1','ROLE_SITTER');
+insert into AUTHORITIES values('sitter2','ROLE_SITTER');
+insert into AUTHORITIES values('sitter3','ROLE_SITTER');
+insert into AUTHORITIES values('sitter4','ROLE_SITTER');
+insert into AUTHORITIES values('sitter5','ROLE_SITTER');
+insert into AUTHORITIES values('sitter6','ROLE_SITTER');
+insert into AUTHORITIES values('sitter7','ROLE_SITTER');
+insert into AUTHORITIES values('sitter8','ROLE_SITTER');
+insert into AUTHORITIES values('sitter9','ROLE_SITTER');
+insert into AUTHORITIES values('sitter10','ROLE_SITTER');
 
 
 
@@ -428,7 +460,7 @@ insert into DIARY values('DAILY_RECORD_ID-'||sequence_DIARY.NEXTVAL,'meme','happ
 create table SITTING_OPTION(
     SITTING_OPTION_ID VARCHAR(50) not null constraint SITTING_OPTION_ID_pk primary key,--펫시팅옵션id
     OPTION_ID VARCHAR(50) not null constraint SITTING_OPTION_OPTION_ID_Fk references OPTIONS(OPTION_ID),--옵션id
-    REQUEST_ID VARCHAR(50) not null--부르기 맡기기 ID
+    REQUEST_ID VARCHAR(50) not null constraint --부르기 맡기기 ID
 );
 
 select * from SITTING_OPTION;   
