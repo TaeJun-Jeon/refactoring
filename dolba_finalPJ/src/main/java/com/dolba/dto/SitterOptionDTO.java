@@ -1,9 +1,11 @@
 package com.dolba.dto;
 
 public class SitterOptionDTO {
-	public String sitterOptionId;
-	public String sitterId;
-	public String optionId;
+	private String sitterOptionId;
+	private String sitterId;
+	private String optionId;
+	
+	private OptionsDTO optionsDTO;
 	
 	public String getSitterOptionId() {
 		return sitterOptionId;
@@ -22,5 +24,11 @@ public class SitterOptionDTO {
 	}
 	public void setOptionId(String optionId) {
 		this.optionId = optionId;
+	}
+	public OptionsDTO getOptionsDTO() {
+		return optionsDTO;
+	}
+	public void setOptionsDTO(OptionsDTO optionsDTO) {
+		this.optionsDTO = optionsDTO;
 	}
 }

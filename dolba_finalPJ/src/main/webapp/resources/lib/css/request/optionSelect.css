@@ -1,14 +1,13 @@
 li {
 	list-style: none;
 }
-
-.option-filters {
+.option-filter-container{
 	width: 90%;
 	margin-left: 40px;
-	margin-top: 5px;
+	margin-right: 40px;
+	margin-top: 100px;
 	padding: 0 12px;
 	border: solid 1px #dcdcdc;
-	margin-top: 5px;
 }
 
 .option-filters select.selectpick {
@@ -48,12 +47,13 @@ li {
 }
 
 .option-filters .col-tags dd {
-	margin: 15px -5px 0;
+	margin: 15px 0px 0;
+	padding: 0px 15px;
 }
 
 .option-filters .col-tags .btn {
-	padding: 7px 0 6px;
-	border-radius: 5px;
+	padding: 7px 0 7px;
+	border-radius: 6px;
 	background-color: #dcdcdc;
 	color: #fff;
 }
@@ -68,5 +68,10 @@ li {
 .option-filters .col-tags .btn-group {
 	display: block;
 	padding: 0 5px;
+	padding-bottom: 5px;
 	float: left;
+}
+
+.grade-drop-btn{
+	
 }

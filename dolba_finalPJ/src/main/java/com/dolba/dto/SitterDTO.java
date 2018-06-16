@@ -1,5 +1,7 @@
 package com.dolba.dto;
 
+import java.util.List;
+
 public class SitterDTO {
 	private String sitterId;
 	private String sitterPassword;
@@ -14,6 +16,9 @@ public class SitterDTO {
 	private String sitterPetAmount;
 	private String sitterBasisPrice;
 	private String sitterPermit;
+	
+	private List<SitterOptionDTO> sitterOptionDTO;
+	
 	public String getSitterId() {
 		return sitterId;
 	}
@@ -92,6 +97,10 @@ public class SitterDTO {
 	public void setSitterPermit(String sitterPermit) {
 		this.sitterPermit = sitterPermit;
 	}
-
-	
+	public List<SitterOptionDTO> getSitterOptionDTO() {
+		return sitterOptionDTO;
+	}
+	public void setSitterOptionDTO(List<SitterOptionDTO> sitterOptionDTO) {
+		this.sitterOptionDTO = sitterOptionDTO;
+	}
 }
