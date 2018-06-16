@@ -24,4 +24,5 @@ public class AuthoritiesDAOImpl implements AuthoritiesDAO {
 		return session.selectOne("authorityMapper.selectAuthority", userId);
 	}
 
+
 }

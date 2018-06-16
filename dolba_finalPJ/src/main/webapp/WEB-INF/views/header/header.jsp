@@ -23,7 +23,7 @@
 <nav class="navbar navbar-default navbar-dolba">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><img src="${pageContext.request.contextPath}/resources/lib/img/logo.png" width="40px" height="40px"></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/lib/img/logo.png" width="40px" height="40px">&nbsp;PET-DATE</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="fa fa-home"></span>&nbsp;Home</a></li>

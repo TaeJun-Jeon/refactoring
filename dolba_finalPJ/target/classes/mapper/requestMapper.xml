@@ -29,4 +29,8 @@ update call set owner_approval = '${state}' where call_id= '${callId}'
 	select * from Options
 </select>
 
+<select id="selectUserById" parameterType="string">
+select * from owner where owner_id=${_parameter}
+</select>
+
 </mapper>

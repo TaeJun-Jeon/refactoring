@@ -9,10 +9,14 @@ public class OwnerDTO {
 	private String ownerDetailAddr;
 	private String ownerPhone;
 	private String ownerEmail;
+	private String ownerEmail1;
+	private String ownerEmail2;
+	private String ownerFname;
+	private String ownerGender;
 	
 	public OwnerDTO() {}
-	public OwnerDTO(String ownerId, String ownerPassword, String ownerName, String ownerAddr, String ownerDetailAddr, String ownerPhone,
-			String ownerEmail) {
+	public OwnerDTO(String ownerId, String ownerPassword, String ownerName, String ownerAddr, String ownerDetailAddr, String ownerPhone,String ownerEmail,
+			String ownerEmail1,String ownerEmail2, String ownerFname, String ownerGender) {
 		super();
 		this.ownerId = ownerId;
 		this.ownerPassword = ownerPassword;
@@ -21,6 +25,11 @@ public class OwnerDTO {
 		this.ownerDetailAddr = ownerDetailAddr;
 		this.ownerPhone = ownerPhone;
 		this.ownerEmail = ownerEmail;
+		this.ownerEmail1 = ownerEmail1;
+		this.ownerEmail2 = ownerEmail2;
+		this.ownerFname = ownerFname;
+		this.ownerGender = ownerGender;
+		
 	}
 	public String getOwnerId() {
 		return ownerId;
@@ -58,6 +67,31 @@ public class OwnerDTO {
 	public void setOwnerPhone(String ownerPhone) {
 		this.ownerPhone = ownerPhone;
 	}
+	public String getOwnerEmail1() {
+		return ownerEmail1;
+	}
+	public void setOwnerEmail1(String ownerEmail1) {
+		this.ownerEmail1 = ownerEmail1;
+	}
+	
+	public String getOwnerEmail2() {
+		return ownerEmail2;
+	}
+	public void setOwnerEmail2(String ownerEmail2) {
+		this.ownerEmail2 = ownerEmail2;
+	}
+	public String getOwnerfName() {
+		return ownerFname;
+	}
+	public void setOwnerfName(String ownerFname) {
+		this.ownerFname = ownerFname;
+	}
+	public String getOwnerGender() {
+		return ownerGender;
+	}
+	public void setOwnerGender(String ownerGender) {
+		this.ownerGender = ownerGender;
+	}
 	public String getOwnerEmail() {
 		return ownerEmail;
 	}
@@ -67,5 +101,6 @@ public class OwnerDTO {
 	
 	
 	
+
 
 }

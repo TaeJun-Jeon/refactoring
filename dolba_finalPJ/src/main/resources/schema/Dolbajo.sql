@@ -7,6 +7,16 @@
 --Á¢¼Ó
 --conn Dolbajo/1234;
 
+CREATE TABLE AUTHORITIES(
+	USERID VARCHAR2(100) NOT NULL, /* ID*/
+	ROLE VARCHAR(30) NOT NULL,    /**/
+	CONSTRAINT AUTHORITIES_PK PRIMARY KEY(USERID,ROLE)
+);
+
+
+
+select*from AUTHORITIES
+drop table authorities
 --OWNER
 create table OWNER(
     OWNER_ID VARCHAR(50) not null constraint OWNER_ID_pk primary key,--°ßÁÖid
@@ -25,7 +35,12 @@ insert into OWNER values('cloud','1234','¹é½ÂÇö','°æ±âµµ','±¤±³','000-000-0000',
 insert into OWNER values('any6103','1234','±è½Ã¿¬','¼­¿ï','°­³²','000-000-0000','hijk@naver.com');
 insert into OWNER values('flower','1234','ÀüÅÂÁØ','ºÎ»ê','±âÀå','000-000-0000','lmnop@naver.com');
 insert into OWNER values('happy','1234','Á¤ÇÑº°','¼­¿ï','¾Ð±¸Á¤','000-000-0000','qrst@naver.com');
-
+select*from owner
+insert into AUTHORITIES values('happy','ROLE_OWNER');
+insert into AUTHORITIES values('cloud','ROLE_OWNER');
+insert into AUTHORITIES values('any6103','ROLE_OWNER');
+insert into AUTHORITIES values('flower','ROLE_OWNER');
+insert into AUTHORITIES values('happymom','ROLE_OWNER');
 --SITTER
 create table SITTER(
     SITTER_ID VARCHAR(50) not null constraint SITTER_ID_pk primary key,--Æê½ÃÅÍid
@@ -42,9 +57,39 @@ create table SITTER(
     SITTER_BASIS_PRICE NUMBER NOT NULL, --±âº»°¡°Ý
     SITTER_PERMIT VARCHAR(5) NULL--ÇÕ°Ý¿©ºÎ
 );
+
+ALTER TABLE Å×ÀÌºí¸í DROP COLUMN ÄÃ·³¸í
+alter table owner drop column role
+alter table sitter drop column role
+
         
+select*from sitter
 --select * from SITTER;    
 --DROP table SITTER;
+
+insert into SITTER values('sitter1','1234','ÀÌ¸§1','000-000-0000','abcd@naver.com','°æ±âµµ ¼ö¿ø½Ã ¿µÅë±¸ ÇÏµ¿ ¹ýÁ¶·Î 134', '3010µ¿ 901È£','¾È³çÇÏ¼¼¿ä','5',null,1,10000,'O');
+insert into SITTER values('sitter2','1234','ÀÌ¸§2','000-000-0000','abcd@naver.com','°æ±âµµ ¼ö¿ø½Ã ¿µÅë±¸ ÇÏµ¿ ¹ýÁ¶·Î 134', '3010µ¿ 902È£','¾È³çÇÏ¼¼¿ä','5',null,1,20000,'O');
+insert into SITTER values('sitter3','1234','ÀÌ¸§3','000-000-0000','abcd@naver.com','°æ±âµµ ¼ö¿ø½Ã ¿µÅë±¸ ÇÏµ¿ ¹ýÁ¶·Î 134', '3010µ¿ 903È£','¾È³çÇÏ¼¼¿ä','5',null,1,30000,'O');
+insert into SITTER values('sitter4','1234','ÀÌ¸§4','000-000-0000','abcd@naver.com','°æ±âµµ ¼ö¿ø½Ã ¿µÅë±¸ ÇÏµ¿ ¹ýÁ¶·Î 134', '3010µ¿ 904È£','¾È³çÇÏ¼¼¿ä','5',null,1,40000,'O');
+insert into SITTER values('sitter5','1234','ÀÌ¸§5','000-000-0000','abcd@naver.com','°æ±âµµ ¼ö¿ø½Ã ¿µÅë±¸ ÇÏµ¿ ¹ýÁ¶·Î 134', '3010µ¿ 905È£','¾È³çÇÏ¼¼¿ä','5',null,1,50000,'O');
+insert into SITTER values('sitter6','1234','ÀÌ¸§6','000-000-0000','abcd@naver.com','°æ±âµµ ¼ö¿ø½Ã ¿µÅë±¸ ÇÏµ¿ ¹ýÁ¶·Î 134', '3010µ¿ 906È£','¾È³çÇÏ¼¼¿ä','5',null,1,60000,'O');
+insert into SITTER values('sitter7','1234','ÀÌ¸§7','000-000-0000','abcd@naver.com','°æ±âµµ ¼ö¿ø½Ã ¿µÅë±¸ ÇÏµ¿ ¹ýÁ¶·Î 134', '3010µ¿ 907È£','¾È³çÇÏ¼¼¿ä','5',null,1,70000,'O');
+insert into SITTER values('sitter8','1234','ÀÌ¸§8','000-000-0000','abcd@naver.com','°æ±âµµ ¼ö¿ø½Ã ¿µÅë±¸ ÇÏµ¿ ¹ýÁ¶·Î 134', '3010µ¿ 908È£','¾È³çÇÏ¼¼¿ä','5',null,1,80000,'O');
+insert into SITTER values('sitter9','1234','ÀÌ¸§9','000-000-0000','abcd@naver.com','°æ±âµµ ¼ö¿ø½Ã ¿µÅë±¸ ÇÏµ¿ ¹ýÁ¶·Î 134', '3010µ¿ 909È£','¾È³çÇÏ¼¼¿ä','5',null,1,90000,'O');
+insert into SITTER values('sitter10','1234','ÀÌ¸§10','000-000-0000','abcd@naver.com','°æ±âµµ ¼ö¿ø½Ã ¿µÅë±¸ ÇÏµ¿ ¹ýÁ¶·Î 134', '3010µ¿ 910È£','¾È³çÇÏ¼¼¿ä','5',null,1,24000,'O');
+
+insert into AUTHORITIES values('sitter1','ROLE_SITTER');
+insert into AUTHORITIES values('sitter2','ROLE_SITTER');
+insert into AUTHORITIES values('sitter3','ROLE_SITTER');
+insert into AUTHORITIES values('sitter4','ROLE_SITTER');
+insert into AUTHORITIES values('sitter5','ROLE_SITTER');
+insert into AUTHORITIES values('sitter6','ROLE_SITTER');
+insert into AUTHORITIES values('sitter7','ROLE_SITTER');
+insert into AUTHORITIES values('sitter8','ROLE_SITTER');
+insert into AUTHORITIES values('sitter9','ROLE_SITTER');
+insert into AUTHORITIES values('sitter10','ROLE_SITTER');
+
+
 
 insert into SITTER values('goodsitter','1234','±èÁøÁÖ','000-000-0000','abcd@naver.com','°æ±âµµ', '½ÅºÀµ¿','¾È³çÇÏ¼¼¿ä','5',null,1,50000,null);
 insert into SITTER values('bestsitter','1234','±è½Ã¿¬','000-000-0000','abdd@naver.com','°æ±âµµ', '»óÇöµ¿','¿­Á¤ÀÌ³ÑÄ¡´Â','5',null,0,50000,null);
@@ -222,10 +267,9 @@ insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'cloud',NULL,100000,'È
 insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'any6103',NULL,40000,'³ë°ßÀÌ¿¡¿ä','18-07-10','18-07-11',sysdate,1,NULL);
 insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'flower',NULL,60000,'¾àÀ»²À Ã¬°ÜÁÖ¼¼¿ä','18-08-02','18-08-03',sysdate,2,NULL);
 insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happy',NULL,29000,'½Ç¿Ü¹èº¯ÀÔ´Ï´Ù','18-06-30','18-07-02',sysdate,1,NULL);
-update call set owner_approval = 'y' where call_id='call_id-5'
+
 --Delete CALL where OWNER_ID ='happymom';
 --truncate table CALL ;  
-select *from call
 
 --SITTER_REQUEST
 Create table SITTER_REQUEST(
@@ -324,6 +368,49 @@ INCREMENT BY 1;
 --SELECT sequence_SITTER_OPTION.CURRVAL FROM DUAL;
 --DROP SEQUENCE sequence_SITTER_OPTION;
 
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter1','OPTION_ID-1');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter1','OPTION_ID-2');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter2','OPTION_ID-1');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter2','OPTION_ID-2');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter2','OPTION_ID-3');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter2','OPTION_ID-4');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter2','OPTION_ID-5');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter3','OPTION_ID-1');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter3','OPTION_ID-2');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter3','OPTION_ID-6');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter4','OPTION_ID-4');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter5','OPTION_ID-5');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter5','OPTION_ID-6');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter5','OPTION_ID-7');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter5','OPTION_ID-8');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter6','OPTION_ID-1');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter6','OPTION_ID-3');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter6','OPTION_ID-4');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter6','OPTION_ID-5');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter6','OPTION_ID-6');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter6','OPTION_ID-7');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter6','OPTION_ID-8');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter7','OPTION_ID-2');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter7','OPTION_ID-4');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter8','OPTION_ID-1');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter8','OPTION_ID-2');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter8','OPTION_ID-5');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter8','OPTION_ID-6');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter8','OPTION_ID-7');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter8','OPTION_ID-8');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter9','OPTION_ID-1');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter9','OPTION_ID-7');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-1');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-2');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-3');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-4');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-5');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-6');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-7');
+insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-8');
+
+
+
 insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-1');
 insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-2');
 insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-3');
@@ -373,7 +460,7 @@ insert into DIARY values('DAILY_RECORD_ID-'||sequence_DIARY.NEXTVAL,'meme','happ
 create table SITTING_OPTION(
     SITTING_OPTION_ID VARCHAR(50) not null constraint SITTING_OPTION_ID_pk primary key,--Æê½ÃÆÃ¿É¼Çid
     OPTION_ID VARCHAR(50) not null constraint SITTING_OPTION_OPTION_ID_Fk references OPTIONS(OPTION_ID),--¿É¼Çid
-    REQUEST_ID VARCHAR(50) not null--ºÎ¸£±â ¸Ã±â±â ID
+    REQUEST_ID VARCHAR(50) not null constraint --ºÎ¸£±â ¸Ã±â±â ID
 );
 
 select * from SITTING_OPTION;   
@@ -448,5 +535,5 @@ INSERT INTO NOTICE VALUES ('NOTICE_ID-'||sequence_NOTICE_ID.NEXTVAL,'°øÁö»çÇ×3',
 INSERT INTO NOTICE VALUES ('NOTICE_ID-'||sequence_NOTICE_ID.NEXTVAL,'°øÁö»çÇ×4','°øÁö»çÇ×4',SYSDATE,0,NULL,NULL);
 INSERT INTO NOTICE VALUES ('NOTICE_ID-'||sequence_NOTICE_ID.NEXTVAL,'°øÁö»çÇ×5','°øÁö»çÇ×5',SYSDATE,0,NULL,NULL);
 
---COMMIT;
+COMMIT
 --ROLLBACK ;

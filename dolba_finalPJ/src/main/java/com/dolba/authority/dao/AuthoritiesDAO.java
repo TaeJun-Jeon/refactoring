@@ -1,6 +1,7 @@
 package com.dolba.authority.dao;
 
 import com.dolba.dto.AuthorityDTO;
+import com.dolba.dto.OwnerDTO;
 
 public interface AuthoritiesDAO {
 	/**
@@ -12,5 +13,8 @@ public interface AuthoritiesDAO {
 	/**
 	 * id에 해당하는 권한 검색.
 	 * */
+
 	AuthorityDTO selectAuthorityByUserId(String userId);
+
+
 }
