@@ -25,7 +25,10 @@
 <nav class="navbar navbar-default navbar-dolba">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/lib/img/logo.png" width="40px" height="40px">&nbsp;PET-DATE</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/">
+            	<img src="${pageContext.request.contextPath}/resources/lib/img/logo.png" width="40px" height="40px">
+            	<span>&nbsp;PET-DATE</span>
+            </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="fa fa-home"></span>&nbsp;Home</a></li>
@@ -39,8 +42,39 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-list"></span>&nbsp;메뉴</a>
                 <div class="dropdown-custom dropdown-menu">
-                    <div class="container-fluid">
-
+                    <div class="container" style="margin-top:20px;">
+                    	<div class="row" style="margin-left:130px;">
+                    		<div class="col-md-2">
+	                    		<a href="#" class="dropdown-custom-a-tag">
+	                    			<img src="${pageContext.request.contextPath}/resources/lib/img/callSitter.png" width="85px" height="75px"><br>
+	                    			<span class="text-center">펫시터 부르기</span>
+	                    		</a>
+	                    	</div>
+	                    	<div class="col-md-2"  style="margin-left:40px;">
+	                    		<a href="#"  class="dropdown-custom-a-tag">
+	                    			<img src="${pageContext.request.contextPath}/resources/lib/img/entrustSitter.png" width="95px" height="75px"><br>
+	                    			<span class="text-center" style="padding-left:20px">펫 맡기기</span>
+	                    		</a>
+	                    	</div>
+	                    	<div class="col-md-2" style="margin-left:50px;">
+	                    		<a href="#"  class="dropdown-custom-a-tag">
+	                    			<img src="${pageContext.request.contextPath}/resources/lib/img/petsit.png" width="65px" height="75px"><br>
+	                    			<span class="text-center">돌보기 신청</span>
+	                    		</a>
+	                    	</div>
+	                    	<div class="col-md-2" style="margin-left:20px;">
+	                    		<a href="#"  class="dropdown-custom-a-tag" >
+	                    			<img src="${pageContext.request.contextPath}/resources/lib/img/noticeBoard.png" width="85px" height="75px"><br>
+	                    			<span class="text-center" style="padding-left:13px">공지사항</span>
+	                    		</a>
+	                    	</div>
+	                    	<div class="col-md-2" class="dropdown-custom-a-tag" style="margin-left:30px;">
+	                    		<a href="#"  class="dropdown-custom-a-tag">
+	                    			<img src="${pageContext.request.contextPath}/resources/lib/img/question.png" width="95px" height="75px"><br>
+	                    			<span class="text-center">질문과 답변</span>
+	                    		</a>
+	                    	</div>
+	                    </div>	
                     </div>
                 </div>
             </li>

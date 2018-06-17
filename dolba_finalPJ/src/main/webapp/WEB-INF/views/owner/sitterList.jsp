@@ -8,6 +8,72 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/optionSelect.css?v=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/sitterPreview.css?v=2">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ba4b9793fc0330bc556842d113ad5aaa"></script>
+<script type="text/javascript">
+	/* $(function () {
+		$(document).on("click","#pageElement",function(){
+			alert($(this).html());
+			$.ajax({
+				url: "${pageContext.request.contextPath}/owner/request/sitterListAjax", //서버 요청 주소
+				type:"POST", //메소드 방식 GET , POST
+				dataType:"json", //요청 결과 데이터 타입(text, html,xml,json)
+				data:"curPage="+$(this).html(), //서버에게 보낼 parameter 정보
+				success:function(data){						
+					$.each(data,function(index,item){
+						var content="<li class='row sitter-li preview-container'>";
+						content += "<div class='col-xs-7 preview-left'>";
+						content += "<div class='row' style='margin-top: 25px'>";
+						content += "<h5><b><a href='#' class='sitter-desc'>"+item.sitterIntroduce+"</a></b></h5>"
+						content += "<span class=''>"+item.sitterName+"</span>";
+						content += "</div>"
+						content += "<hr>";
+						content += "<div class='row'>";
+						$.each(item.sitterOptionDTO,function(opIndex,opItem){
+							content += "<span class='label label-success option-label'>"+opItem.optionName+"</span>";
+						});
+						content += "</div>";
+						content += "</div>";
+						content += "<div class='col-xs-2 preview-grade'>";
+						content += "<div class='row'>";
+						content += "<h4>"+item.sitterGrade+"</h4>"
+						content += "<h6><a href='#'>고객후기 n개</a></h6>"
+						content +=
+						content +=
+						content +=
+						content +=
+						content +=
+						content +=
+						content +=
+						content +=
+						content +=
+					})
+					
+					alert(data);
+				},//callback	
+				error:function(err){
+					alert(err +"=>오류발생!!!");
+				}
+			});//ajax 
+		})
+		$("#pagingPrev").click(function(){
+			alert(110);
+			/* $.ajax({
+				type:"POST",
+				url:"${pageContext.request.contextPath}/idcheckAjax",				
+				data:"${_csrf.parameterName}=${_csrf.token}&id="+id,	
+				success:function(data){						
+					if(data=="fail"){
+					$("#idCheckView").html("  "+id+" ID Can't Use!! ").css("background","red");
+						checkResultId="";
+					}else{						
+						$("#idCheckView").html("  "+id+" ID Can Use!! ").css("background","yellow");		
+						checkResultId=id;
+					}					
+				}//callback			
+			});//ajax 
+		});//keyup
+	})
+ */
+</script>
 </head>
 <body>
 	
@@ -96,48 +162,32 @@
 							</div>
 						</li>
 					</c:forEach>
-					<li class="row sitter-li preview-container">
-						<div class="col-xs-7 preview-left">
-							<div class="row" style="margin-top: 50px">
-								<a href="#" class="sitter-desc">펫시터 설명</a>
-								<br> <span class="">백승현</span>
-							</div>
-							<div class="row">
-								<span class="label label-success">아파트</span> <span class="label  label-success">노령견케어</span> <span class="label  label-success">실외배변</span>
-							</div>
-						</div>
-						<div class="col-xs-2 preview-grade">
-							<div class="row">
-								<h4>평점</h4>
-								<h6>고객후기 n개</h6>
-								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star gi-star"></i>
-								<i class="glyphicon glyphicon-star gi-star"></i> <i class="glyphicon glyphicon-star-empty gi-star"></i>
-							</div>
-						</div>
-						<div class="col-xs-3 preview-right" style="margin-top: 50px">
-							<a href="#" class="thumbnail sitter-pic">
-								<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
-							</a>
-						</div>
-					</li>
 				</ul>
 			</div>
 			<div class="col-xs-4 map-wrapper">
 				<div id="map" class="div-map"></div>
 			</div>
 		</div>
-		<div class="row paging">
+		<div class="row paging" id="paging-div">
 			<div class="row">
 				<div class="col-md-6 text-center">
 					<nav>
 					<ul class="pagination sitter-pagination">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">4</a></li>
-						<li class="page-item"><a class="page-link" href="#">5</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
+						<li class="page-item"><a class="page-link" id="pagingPrev" href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.curPage}">Previous</a></li>
+						<c:forEach begin="${pagingUtil.startPage}" end="${pagingUtil.endPage}" varStatus="status" >
+							<c:choose>
+								<c:when test="${pagingUtil.startPage+status.count-1 eq pagingUtil.curPage+1}">
+									<li class="page-item active"><a class="page-link" id="pageElement" href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.startPage+status.count-1}">${pagingUtil.startPage+status.count-1}</a></li>
+								</c:when>
+								<c:when test="${pagingUtil.startPage+status.count-1 gt pagingUtil.totalPage}">
+									<li class="page-item disabled"><a class="page-link" id="pageElement" href="#">${pagingUtil.startPage+status.count-1}</a></li>
+								</c:when>
+								<c:otherwise>
+		 							<li class="page-item"><a class="page-link" id="pageElement" href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.startPage+status.count-1}">${pagingUtil.startPage+status.count-1}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<li class="page-item"><a class="page-link" id="paingNext" href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.curPage+2}">Next</a></li>
 					</ul>
 					</nav>
 				</div>
@@ -157,16 +207,42 @@
 	<!-- Scroll 따라다니는 지도 -->
 	<script>
 		$(function() {
-			var currentPosition = parseInt($(".div-map").css("top"));
-			var optionDivPosition = parseInt($(".col-btn").css("bottom"))
+			var currentPosition = parseInt($(".div-map").css("top")); //지도의 현재 position
+			var pagingPosition = $("#paging-div").offset();  //paging 태그 div top position
+			var positionMin = pagingPosition.top -730;
 			$(window).scroll(function() {
+				/* var positionMap = $(".div-map").offset();
+				var positionMapBottom = positionMap.top + $("#map").css("height");
+				 */
 				var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다. 
-				var positionMin = position + currentPosition - 150;
-				if (positionMin > 0) {
+				var positionRe = position + currentPosition - 150; 
+				/* console.log("footercustom="+pagingPosition.top);
+				
+				if(positionMin<0){
+					$(".div-map").stop().animate({
+						"top" : 0
+					}, 500);
+				}else if(positionMapBottom>pagingPosition.top){
 					$(".div-map").stop().animate({
 						"top" : positionMin
 					}, 500);
-				} else {
+				}else{
+					$(".div-map").stop().animate({
+						"top" : pagingPosition.top
+					}, 500);
+				} */
+				
+				var positionMapBottom = $("#map").css("height");
+				console.log(positionMapBottom);
+				if(position > 530){
+					$(".div-map").stop().animate({
+						"top" : 530
+					}, 500);	
+				}else if (positionRe > 0 ) { //지도위치가 0보다 클경우
+					$(".div-map").stop().animate({
+						"top" : positionRe
+					}, 500);
+				} else { //지도위치가 0보다 작을경우 0으로 고정
 					$(".div-map").stop().animate({
 						"top" : 0
 					}, 500);

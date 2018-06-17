@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -48,15 +49,309 @@ $(document).ready(function(){
 
             <div class="joinform panel panel-primary" style="margin-top:120px;">
                 <div class="joinform-heading panel-heading">
-                    <h3 class="panel-title">회원가입</h3>
+
+                    <!-- 토글 탭 -->
+                    <div class="container">
+                        <ul class="nav custom-nav-toggle nav-tabs " id="myTab" style="margin-left : 380px;">
+                            <li><a class="panel-title" href="#userForm" data-toggle="tab">일반회원으로 회원가입</a></li>
+                            <li class="active"><a class="panel-title" href="#petsitForm" data-toggle="tab">펫시터로 회원가입</a></li>
+                        </ul>
+                    </div>
+
                 </div>
                 <div class="panel-body form-margin">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="userForm">
+                        
+                        	<form method="post" action="${pageContext.request.contextPath}/admin/joinOwner?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+                               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <div class="form-group">
+                                    <label>아이디(ID)</label>
+                                    <input type="text" name="ownerId" id="ownerId" class="joinform-size form-control" placeholder="아이디(ID)">
+                                </div>
+                                <div class="form-group">
+                                    <label>패스워드</label>
+                                    <input type="password" name="ownerPassword" id="ownerPassword" class="joinform-size form-control" placeholder="패스워드">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>이름</label>
+                                    <input type="text" name="ownerName" id="ownerName" class="joinform-size form-control" placeholder="이름">
+                                </div>
 
                     <form role="form" method="post" action="${pageContext.request.contextPath}/admin/joinOwner" id="joinForm">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
                         <div class="form-group">
                             <label>아이디(ID)</label>
                             <input type="text" name="ownerId" id="userId" class="joinform-size form-control" placeholder="아이디(ID)"><span id="idCheckView"></span>
+                                <div class="form-group">
+                                    <label style="display:block">주소</label>
+                                    <input type="text" class="joinform-size-address-zipcode form-control" placeholder="우편번호" style="display:inline-block; display:inline;" id="ownerAddrCode" disabled>
+                                    <input type="text" class="joinform-size-address-first form-control" name="ownerAddr" id="ownerAddr" placeholder="주소" style="margin-top:15px; display:inline;" readonly>
+                                    <input type="button" id="ownerSearch" class="btn btn-default" value="우편번호검색" onclick="execPostCodeOwner();">
+                                    <input type="text" class="joinform-size-address-second form-control" name="ownerDetailAddr" id="ownerDetailAddr" placeholder="상세주소" style="margin-top:15px;">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>핸드폰 번호</label>
+                                    <input id="ownerPhone" name="ownerPhone" type="text" class="joinform-size form-control" placeholder="핸드폰 번호 입력('-'없이 입력)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label style="display:block">이메일</label>
+                                    <input type="text" class="joinform-email form-control" name="ownerEmail1" id="ownerEmail1" placeholder="이메일 주소" style="display:inline-block">
+                                    <label>&nbsp; @ &nbsp;</label>
+                                    <input type="text" name="ownerEmail_empty" id="ownerEmail_empty" style="width:150px; display:inline;" disabled value="naver.com" class="form-control join">
+                                    <select class="form-control joinform-email" name="ownerEmail2" id="ownerEmail2" style="display:inline">
+                                        <option value="1">직접입력</option>
+                                        <option value="naver.com" selected>naver.com</option>
+                                        <option value="hanmail.net">hanmail.net</option>
+                                        <option value="hotmail.com">hotmail.com</option>
+                                        <option value="nate.com">nate.com</option>
+                                        <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                        <option value="empas.com">empas.com</option>
+                                        <option value="dreamwiz.com">dreamwiz.com</option>
+                                        <option value="freechal.com">freechal.com</option>
+                                        <option value="lycos.co.kr">lycos.co.kr</option>
+                                        <option value="korea.com">korea.com</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="hanmir.com">hanmir.com</option>
+                                        <option value="paran.com">paran.com</option>
+                                    </select>
+                                </div>
+
+                                <!--사진이미지 첨부-->
+                                <div class="form-group">
+                                    <label>사진이미지</label>
+                                    <input type="file"  id="fileInputOwner" name="ownerFname" filestyle=""data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <div class="bootstrap-filestyle joinform-size input-group">
+                                        <input type="text" id="ownerFnameFileOnly" class="joinform-size form-control" name="ownerFnameFileOnly" value="" readonly>
+                                        <span class="group-span-filestyle joinform-size input-group-btn" tabindex="0">
+				                            <label for="fileInputOwner" class="btn btn-default ">
+				                                <span class="fa fa-upload"></span>
+				                            </label>
+				                       </span>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="form-group">
+                                    <label>성별</label><br>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="ownerGender" id="ownerMan" value="남" checked="checked">  남자
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="ownerGender" id="ownerWoman" value="여">  여자
+                                    </label>
+                                </div>
+
+
+                                <center>
+                                    <button type="submit" id="ownerForm" class="btn btn-primary" style="background-color: #18777F;">회원가입</button>
+                                </center>
+                            </form>
+
+                                <div class="form-group">
+                                    <label style="display:block">주소</label>
+                                    <input type="text" class="joinform-size-address-zipcode form-control" placeholder="우편번호" style="display:inline-block; display:inline;" id="ownerAddrCode" disabled>
+                                    <input type="text" class="joinform-size-address-first form-control" name="ownerAddr" id="ownerAddr" placeholder="주소" style="margin-top:15px; display:inline;" readonly>
+                                    <input type="button" id="ownerSearch" class="btn btn-default" value="우편번호검색" onclick="execPostCodeOwner();">
+                                    <input type="text" class="joinform-size-address-second form-control" name="ownerDetailAddr" id="ownerDetailAddr" placeholder="상세주소" style="margin-top:15px;">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>핸드폰 번호</label>
+                                    <input id="ownerPhone" name="ownerPhone" type="text" class="joinform-size form-control" placeholder="핸드폰 번호 입력('-'없이 입력)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label style="display:block">이메일</label>
+                                    <input type="text" class="joinform-email form-control" name="ownerEmail1" id="ownerEmail1" placeholder="이메일 주소" style="display:inline-block">
+                                    <label>&nbsp; @ &nbsp;</label>
+                                    <input type="text" name="ownerEmail_empty" id="ownerEmail_empty" style="width:150px; display:inline;" disabled value="naver.com" class="form-control join">
+                                    <select class="form-control joinform-email" name="ownerEmail2" id="ownerEmail2" style="display:inline">
+                                        <option value="1">직접입력</option>
+                                        <option value="naver.com" selected>naver.com</option>
+                                        <option value="hanmail.net">hanmail.net</option>
+                                        <option value="hotmail.com">hotmail.com</option>
+                                        <option value="nate.com">nate.com</option>
+                                        <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                        <option value="empas.com">empas.com</option>
+                                        <option value="dreamwiz.com">dreamwiz.com</option>
+                                        <option value="freechal.com">freechal.com</option>
+                                        <option value="lycos.co.kr">lycos.co.kr</option>
+                                        <option value="korea.com">korea.com</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="hanmir.com">hanmir.com</option>
+                                        <option value="paran.com">paran.com</option>
+                                    </select>
+                                </div>
+
+                                <!--사진이미지 첨부-->
+                                <div class="form-group">
+                                    <label>사진이미지</label>
+                                    <input type="file"  id="fileInputOwner" name="ownerFname" filestyle=""data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <div class="bootstrap-filestyle joinform-size input-group">
+                                        <input type="text" id="ownerFnameFileOnly" class="joinform-size form-control" name="ownerFnameFileOnly" value="" readonly>
+                                        <span class="group-span-filestyle joinform-size input-group-btn" tabindex="0">
+				                            <label for="fileInputOwner" class="btn btn-default ">
+				                                <span class="fa fa-upload"></span>
+				                            </label>
+				                       </span>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="form-group">
+                                    <label>성별</label><br>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="ownerGender" id="ownerMan" value="남" checked="checked">  남자
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="ownerGender" id="ownerWoman" value="여">  여자
+                                    </label>
+                                </div>
+
+
+                                <center>
+                                    <button type="submit" id="ownerForm" class="btn btn-primary" style="background-color: #18777F;">회원가입</button>
+                                </center>
+                            </form>
+
+                                <div class="form-group">
+                                    <label style="display:block">주소</label>
+                                    <input type="text" class="joinform-size-address-zipcode form-control" placeholder="우편번호" style="display:inline-block; display:inline;" id="ownerAddrCode" disabled>
+                                    <input type="text" class="joinform-size-address-first form-control" name="ownerAddr" id="ownerAddr" placeholder="주소" style="margin-top:15px; display:inline;" readonly>
+                                    <input type="button" id="ownerSearch" class="btn btn-default" value="우편번호검색" onclick="execPostCodeOwner();">
+                                    <input type="text" class="joinform-size-address-second form-control" name="ownerDetailAddr" id="ownerDetailAddr" placeholder="상세주소" style="margin-top:15px;">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>핸드폰 번호</label>
+                                    <input id="ownerPhone" name="ownerPhone" type="text" class="joinform-size form-control" placeholder="핸드폰 번호 입력('-'없이 입력)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label style="display:block">이메일</label>
+                                    <input type="text" class="joinform-email form-control" name="ownerEmail1" id="ownerEmail1" placeholder="이메일 주소" style="display:inline-block">
+                                    <label>&nbsp; @ &nbsp;</label>
+                                    <input type="text" name="ownerEmail_empty" id="ownerEmail_empty" style="width:150px; display:inline;" disabled value="naver.com" class="form-control join">
+                                    <select class="form-control joinform-email" name="ownerEmail2" id="ownerEmail2" style="display:inline">
+                                        <option value="1">직접입력</option>
+                                        <option value="naver.com" selected>naver.com</option>
+                                        <option value="hanmail.net">hanmail.net</option>
+                                        <option value="hotmail.com">hotmail.com</option>
+                                        <option value="nate.com">nate.com</option>
+                                        <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                        <option value="empas.com">empas.com</option>
+                                        <option value="dreamwiz.com">dreamwiz.com</option>
+                                        <option value="freechal.com">freechal.com</option>
+                                        <option value="lycos.co.kr">lycos.co.kr</option>
+                                        <option value="korea.com">korea.com</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="hanmir.com">hanmir.com</option>
+                                        <option value="paran.com">paran.com</option>
+                                    </select>
+                                </div>
+
+                                <!--사진이미지 첨부-->
+                                <div class="form-group">
+                                    <label>사진이미지</label>
+                                    <input type="file"  id="fileInputOwner" name="ownerFname" filestyle=""data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <div class="bootstrap-filestyle joinform-size input-group">
+                                        <input type="text" id="ownerFnameFileOnly" class="joinform-size form-control" name="ownerFnameFileOnly" value="" readonly>
+                                        <span class="group-span-filestyle joinform-size input-group-btn" tabindex="0">
+				                            <label for="fileInputOwner" class="btn btn-default ">
+				                                <span class="fa fa-upload"></span>
+				                            </label>
+				                       </span>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="form-group">
+                                    <label>성별</label><br>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="ownerGender" id="ownerMan" value="남" checked="checked">  남자
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="ownerGender" id="ownerWoman" value="여">  여자
+                                    </label>
+                                </div>
+
+
+                                <center>
+                                    <button type="submit" id="ownerForm" class="btn btn-primary" style="background-color: #18777F;">회원가입</button>
+                                </center>
+                            </form>
+
+                                <div class="form-group">
+                                    <label style="display:block">주소</label>
+                                    <input type="text" class="joinform-size-address-zipcode form-control" placeholder="우편번호" style="display:inline-block; display:inline;" id="ownerAddrCode" disabled>
+                                    <input type="text" class="joinform-size-address-first form-control" name="ownerAddr" id="ownerAddr" placeholder="주소" style="margin-top:15px; display:inline;" readonly>
+                                    <input type="button" id="ownerSearch" class="btn btn-default" value="우편번호검색" onclick="execPostCodeOwner();">
+                                    <input type="text" class="joinform-size-address-second form-control" name="ownerDetailAddr" id="ownerDetailAddr" placeholder="상세주소" style="margin-top:15px;">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>핸드폰 번호</label>
+                                    <input id="ownerPhone" name="ownerPhone" type="text" class="joinform-size form-control" placeholder="핸드폰 번호 입력('-'없이 입력)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label style="display:block">이메일</label>
+                                    <input type="text" class="joinform-email form-control" name="ownerEmail1" id="ownerEmail1" placeholder="이메일 주소" style="display:inline-block">
+                                    <label>&nbsp; @ &nbsp;</label>
+                                    <input type="text" name="ownerEmail_empty" id="ownerEmail_empty" style="width:150px; display:inline;" disabled value="naver.com" class="form-control join">
+                                    <select class="form-control joinform-email" name="ownerEmail2" id="ownerEmail2" style="display:inline">
+                                        <option value="1">직접입력</option>
+                                        <option value="naver.com" selected>naver.com</option>
+                                        <option value="hanmail.net">hanmail.net</option>
+                                        <option value="hotmail.com">hotmail.com</option>
+                                        <option value="nate.com">nate.com</option>
+                                        <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                        <option value="empas.com">empas.com</option>
+                                        <option value="dreamwiz.com">dreamwiz.com</option>
+                                        <option value="freechal.com">freechal.com</option>
+                                        <option value="lycos.co.kr">lycos.co.kr</option>
+                                        <option value="korea.com">korea.com</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="hanmir.com">hanmir.com</option>
+                                        <option value="paran.com">paran.com</option>
+                                    </select>
+                                </div>
+
+                                <!--사진이미지 첨부-->
+                                <div class="form-group">
+                                    <label>사진이미지</label>
+                                    <input type="file"  id="fileInputOwner" name="ownerFname" filestyle=""data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <div class="bootstrap-filestyle joinform-size input-group">
+                                        <input type="text" id="ownerFnameFileOnly" class="joinform-size form-control" name="ownerFnameFileOnly" value="" readonly>
+                                        <span class="group-span-filestyle joinform-size input-group-btn" tabindex="0">
+				                            <label for="fileInputOwner" class="btn btn-default ">
+				                                <span class="fa fa-upload"></span>
+				                            </label>
+				                       </span>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="form-group">
+                                    <label>성별</label><br>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="ownerGender" id="ownerMan" value="남" checked="checked">  남자
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="ownerGender" id="ownerWoman" value="여">  여자
+                                    </label>
+                                </div>
+
+
+                                <center>
+                                    <button type="submit" id="ownerForm" class="btn btn-primary" style="background-color: #18777F;">회원가입</button>
+                                </center>
+                            </form>
+
                         </div>
                         <div class="form-group">
                             <label>패스워드</label>
