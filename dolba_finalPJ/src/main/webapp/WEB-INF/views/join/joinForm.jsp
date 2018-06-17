@@ -24,7 +24,7 @@
 
                     <!-- 토글 탭 -->
                     <div class="container">
-                        <ul class="nav custom-nav-toggle nav-tabs " id="myTab" style="margin-left : 380px;">
+                        <ul class="nav custom-nav-toggle nav-tabs " id="myTab" style="margin-left : 320px;">
                             <li><a class="panel-title" href="#userForm" data-toggle="tab">일반회원으로 회원가입</a></li>
                             <li class="active"><a class="panel-title" href="#petsitForm" data-toggle="tab">펫시터로 회원가입</a></li>
                         </ul>
@@ -94,7 +94,7 @@
                                     <input type="file"  id="fileInputOwner" name="ownerFname" filestyle=""data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
                                     <div class="bootstrap-filestyle joinform-size input-group">
                                         <input type="text" id="ownerFnameFileOnly" class="joinform-size form-control" name="ownerFnameFileOnly" value="" readonly>
-                                        <span class="group-span-filestyle joinform-size input-group-btn" tabindex="0">
+                                        <span class="group-span-filestyle input-group-btn" tabindex="0">
 				                            <label for="fileInputOwner" class="btn btn-default ">
 				                                <span class="fa fa-upload"></span>
 				                            </label>
@@ -125,7 +125,7 @@
                         <div class="tab-pane" id="petsitForm">
                             
                             <!-- 펫시터 회원가입 -->
-                            <form role="form" method="post" action="${pageContext.request.contextPath}/admin/joinSitter">
+                            <form role="form" method="post" action="${pageContext.request.contextPath}/admin/joinSitter?${_csrf.parameterName}=${_csrf.token}">
                             	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
                                 <div class="form-group">
                                     <label>아이디(ID)</label>

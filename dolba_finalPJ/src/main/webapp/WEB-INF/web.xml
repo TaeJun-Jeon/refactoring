@@ -20,6 +20,7 @@
     classpath:com/domain/config/spring-db.xml
     classpath:com/domain/config/spring-security.xml
     classpath:com/domain/config/spring-updown.xml
+    classpath:com/domain/config/spring-exception.xml
     </param-value>
 	</context-param>
 	<listener>
