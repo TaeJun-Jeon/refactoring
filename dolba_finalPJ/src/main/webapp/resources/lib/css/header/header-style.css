@@ -45,6 +45,29 @@
 
 .navbar-default .navbar-nav > li > a {
     color: white;
-    font-size : 16px;
+    font-size : 16px; 
 }
+
+
+.dropdown-custom-a-tag{
+	color : black !important;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.dropdown-custom-a-tag:hover{
+	text-decoration : none !important;
+	color : black !important;
+}
+
+.navbar-header > a > img{
+	display : inline;
+}
+.navbar-header > a > span{
+	display: inline;
+	color: white;
+	font-size : 20px;
+}
+
+
 
