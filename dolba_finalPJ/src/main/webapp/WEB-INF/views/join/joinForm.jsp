@@ -11,7 +11,36 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/lib/css/joinForm/joinForm.css">
 </head>
 <body>
-
+<script>
+$(document).ready(function(){
+	var checkResultId="";
+	$("#joinForm :input[name=ownerId]").keyup(function(){
+		var ownerId=$(this).val().trim();
+		if(ownerId.length<5 || ownerId.length>11){
+			$("#idCheckView").html("아이디는 4글자 이상 10글자이상 작성해주세요").css("background","pink");
+			checkResultId="";
+			return;
+		}
+		
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/admin/idcheck",				
+			data:"${_csrf.parameterName}=${_csrf.token}&&userId="+ownerId,	
+			success:function(data){						
+				if(data=="fail"){
+				$("#idCheckView").html("  "+ownerId+" 는 사용할 수 없습니다!! ").css("background","red");
+					checkResultId="";
+				}else{						
+					$("#idCheckView").html("  "+ownerId+" 는 사용할 수 있습니다!! ").css("background","yellow");		
+					checkResultId=id;
+				}					
+			}//callback			
+		});//ajax
+	});//keyup
+})
+	
+	
+</script>
 <div class="container">
     <div class="row">
         <div class="col-md-12 entire-margin">
@@ -23,11 +52,11 @@
                 </div>
                 <div class="panel-body form-margin">
 
-                    <form role="form" method="post" action="${pageContext.request.contextPath}/admin/joinOwner">
+                    <form role="form" method="post" action="${pageContext.request.contextPath}/admin/joinOwner" id="joinForm">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
                         <div class="form-group">
                             <label>아이디(ID)</label>
-                            <input type="text" name="ownerId" id="userId" class="joinform-size form-control" placeholder="아이디(ID)">
+                            <input type="text" name="ownerId" id="userId" class="joinform-size form-control" placeholder="아이디(ID)"><span id="idCheckView"></span>
                         </div>
                         <div class="form-group">
                             <label>패스워드</label>

@@ -30,6 +30,7 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.joinOwner(ownerDTO);
 		authority.setUserId(ownerDTO.getOwnerId());
 		authority.setPassword(ownerDTO.getOwnerPassword());
+		authority.setUserName(ownerDTO.getOwnerName());
 		authority.setRole(Constants.ROLE_OWNER);
 		authoritiesDAO.insertAuthority(authority);
 		return 0;
@@ -40,9 +41,16 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.joinSitter(sitterDTO);
 		authority.setUserId(sitterDTO.getSitterId());
 		authority.setPassword(sitterDTO.getSitterPassword());
+		authority.setUserName(sitterDTO.getSitterName());
 		authority.setRole(Constants.ROLE_SITTER);
 		authoritiesDAO.insertAuthority(authority);
 		return 0;
+	}
+
+	@Override
+	public String idCheck(String userId) {
+		int count= adminDAO.idCheck(userId);;
+		return (count==0) ? "ok":"fail";
 	}
 
 }

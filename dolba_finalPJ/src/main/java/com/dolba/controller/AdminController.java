@@ -3,6 +3,7 @@ package com.dolba.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dolba.admin.service.AdminService;
 import com.dolba.dto.OwnerDTO;
@@ -34,6 +35,13 @@ public class AdminController {
 	public String joinSitter(SitterDTO sitterDTO) {
 		adminService.joinSitter(sitterDTO);
 		return "/";
+	}
+	
+	@RequestMapping("/idcheck")
+	@ResponseBody
+	public String idCheck(String userId) {
+		System.out.println("id="+userId);
+		return adminService.idCheck(userId);
 	}
 
 }

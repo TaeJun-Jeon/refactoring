@@ -23,4 +23,11 @@ public class AdminDAOImpl implements AdminDAO {
 		return session.insert("adminMapper.joinSitter", sitterDTO);
 	}
 
+
+	@Override
+	public int idCheck(String userId) {
+		return session.selectOne("authorityMapper.idCheck", userId);
+
+	}
+
 }

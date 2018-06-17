@@ -33,8 +33,12 @@ public class OwnerController {
 	
 	
 	@RequestMapping("/myPage")
-	public String myPage() {
-		return "myPage/myPage";
+	public String myPage(String role) {
+		String root ="myPage/myPage";
+		if(role.equals("SITTER")) {
+			root ="myPage/sitterPage";
+		}
+		return root;
 	}
 	
 	@RequestMapping("/callForm")
@@ -49,32 +53,40 @@ public class OwnerController {
 	
 	@RequestMapping("/allSelectOwnerRequest")
 	@ResponseBody
-	public List<OwnerRequestDTO> allSelectOwnerRequest() {
-		return ownerService.allSelectOwnerRequest();
+	public List<OwnerRequestDTO> allSelectOwnerRequest(String role, String userId) {
+		return ownerService.allSelectOwnerRequest(role,userId);
 	}
 	
 	@RequestMapping("/allSelectOwnerRequestApproval")
 	@ResponseBody
-	public List<OwnerRequestDTO> allSelectOwnerRequestApproval() {
-		return ownerService.allSelectOwnerRequestApproval();
+	public List<OwnerRequestDTO> allSelectOwnerRequestApproval(String role, String userId) {
+		System.out.println("approle="+role);
+		return ownerService.allSelectOwnerRequestApproval(role, userId);
 	}
 	
 	@RequestMapping("/allSelectCall")
 	@ResponseBody
-	public List<CallDTO> allSelectCall(){
-		return ownerService.allSelectCall();
+	public List<CallDTO> allSelectCall(String role, String userId){
+		return ownerService.allSelectCall(role,userId);
 	}
 	
 	@RequestMapping("/allSelectCallApproval")
 	@ResponseBody
-	public List<CallDTO> allSelectCallApproval(){
-		return ownerService.allSelectCallApproval();
+	public List<CallDTO> allSelectCallApproval(String role,String userId){
+		System.out.println("approvalrole="+role);
+		return ownerService.allSelectCallApproval(role, userId);
 	}
 	
 	@RequestMapping("/updateOwnerApproval")
 	@ResponseBody
 	public int updateOwnerApproval(String callId, String state) {
 		return ownerService.updateOwnerApproval(callId,state);
+	}
+	
+	@RequestMapping("/updateSitterApproval")
+	@ResponseBody
+	public int updateSitterApproval(String callId,String state) {
+		return ownerService.updateSitterApproval(callId,state);
 	}
 	
 	@RequestMapping("/selectPetInfo")

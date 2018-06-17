@@ -8,16 +8,18 @@ import com.dolba.dto.PetDTO;
 
 public interface OwnerService {
 
-	List<OwnerRequestDTO> allSelectOwnerRequest();
+	List<OwnerRequestDTO> allSelectOwnerRequest(String role, String userId);
 
-	List<CallDTO> allSelectCall();
+	List<CallDTO> allSelectCall(String userId, String userId2);
 
 	int updateOwnerApproval(String callId, String state);
 
-	List<OwnerRequestDTO> allSelectOwnerRequestApproval();
+	List<OwnerRequestDTO> allSelectOwnerRequestApproval(String role, String userId);
 
-	List<CallDTO> allSelectCallApproval();
+	List<CallDTO> allSelectCallApproval(String role, String userId);
 
 	PetDTO selectPetInfo(String ownerId);
+
+	int updateSitterApproval(String callId, String state);
 
 }
