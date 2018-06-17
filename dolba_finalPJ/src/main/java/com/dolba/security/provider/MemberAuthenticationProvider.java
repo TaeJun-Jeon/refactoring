@@ -26,6 +26,7 @@ import com.dolba.owner.dao.OwnerDAO;
 @Service //id="memberAuthenticationProvider"
 public class MemberAuthenticationProvider implements AuthenticationProvider {
 
+	
 	@Autowired
 	private OwnerDAO ownerDAO;
 
@@ -48,7 +49,7 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		AuthorityDTO authorityDTO = authoritiesDAO.selectAuthorityByUserId(userId);
 
 		if (authorityDTO == null) {
-			throw new UsernameNotFoundException(userId + "는 없는 회원입니다.");
+			throw new UsernameNotFoundException(userId + "는 없는 회원입니다. 다시 로그인 하여 주십시오.");
 		}
 
 		//2. db에서 사용자 정보를 가져온다

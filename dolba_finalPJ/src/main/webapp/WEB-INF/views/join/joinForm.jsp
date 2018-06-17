@@ -68,21 +68,29 @@ $(document).ready(function(){
 </script>
 <div class="container">
     <div class="row">
+
         <div class="col-md-12 entire-margin">
 
-
             <div class="joinform panel panel-primary" style="margin-top:120px;">
+
                 <div class="joinform-heading panel-heading">
 
                     <!-- 토글 탭 -->
                     <div class="container">
+<<<<<<< HEAD
                         <ul class="nav custom-nav-toggle nav-tabs " id="myTab" style="margin-left : 380px;">
                             <li><a class="panel-title active" href="#userForm" data-toggle="tab">일반회원으로 회원가입</a></li>
                             <li><a class="panel-title" href="#petsitForm" data-toggle="tab">펫시터로 회원가입</a></li>
+=======
+                        <ul class="nav custom-nav-toggle nav-tabs " id="myTab" style="margin-left : 320px;">
+                            <li><a class="panel-title" href="#userForm" data-toggle="tab">일반회원으로 회원가입</a></li>
+                            <li class="active"><a class="panel-title" href="#petsitForm" data-toggle="tab">펫시터로 회원가입</a></li>
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
                         </ul>
                     </div>
 
                 </div>
+
                 <div class="panel-body form-margin">
                     <div class="tab-content">
                         <div class="tab-pane active" id="userForm">
@@ -146,7 +154,7 @@ $(document).ready(function(){
                                     <input type="file"  id="fileInputOwner" name="file" filestyle=""data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
                                     <div class="bootstrap-filestyle joinform-size input-group">
                                         <input type="text" id="ownerFnameFileOnly" class="joinform-size form-control" name="ownerFnameFileOnly" value="" readonly>
-                                        <span class="group-span-filestyle joinform-size input-group-btn" tabindex="0">
+                                        <span class="group-span-filestyle input-group-btn" tabindex="0">
 				                            <label for="fileInputOwner" class="btn btn-default ">
 				                                <span class="fa fa-upload"></span>
 				                            </label>
@@ -171,6 +179,7 @@ $(document).ready(function(){
                                 </center>
                             </form>
 
+<<<<<<< HEAD
                                            </div>
 
 <!-- --------------------------------------------펫시터 가입--------------------------------------------------------------------- -->
@@ -183,6 +192,19 @@ $(document).ready(function(){
                                     <label>아이디(ID)</label>
                                     <input type="text" name="sitterId" id="sitterId" class="joinform-size form-control" placeholder="아이디(ID)">
                                 	<span id="idCheckView1"></span>
+=======
+                        </div>
+
+
+                        <div class="tab-pane" id="petsitForm">
+                            
+                            <!-- 펫시터 회원가입 -->
+                            <form role="form" method="post" action="${pageContext.request.contextPath}/admin/joinSitter?${_csrf.parameterName}=${_csrf.token}">
+                            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
+                                <div class="form-group">
+                                    <label>아이디(ID)</label>
+                                    <input type="text" name="sitterId" id="sitterId" class="joinform-size form-control" placeholder="아이디(ID)">
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
                                 </div>
                                 <div class="form-group">
                                     <label>패스워드</label>
@@ -196,8 +218,13 @@ $(document).ready(function(){
 
                                 <div class="form-group">
                                     <label style="display:block">주소</label>
+<<<<<<< HEAD
                                     <input type="text" class="joinform-size-address-zipcode form-control" placeholder="우편번호" style="display:inline-block; display:inline;" id="sitterAddrCode" readonly>
                                     <input type="text" name="sitterAddr" id="sitterAddr" class="joinform-size-address-first form-control" placeholder="주소" style="margin-top:15px; display:inline;" readonly>
+=======
+                                    <input type="text" class="joinform-size-address-zipcode form-control" placeholder="우편번호" style="display:inline-block; display:inline;" id="sitterAddrCode" disabled>
+                                    <input type="text" name="sitterAddr" id="sitterAddr" class="joinform-size-address-first form-control" placeholder="주소" style="margin-top:15px; display:inline;" disabled>
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
                                     <input type="button" class="btn btn-default" value="우편번호검색" id="sitterSearch" onclick="execPostCodeSitter();">
                                     <input type="text" class="joinform-size-address-second form-control" name="sitterDetailAddr" id="sitterDetailAddr" placeholder="상세주소" style="margin-top:15px;">
                                 </div>
@@ -233,14 +260,25 @@ $(document).ready(function(){
                                <!-- 사진이미지 첨부-->
                                 <div class="form-group">
                                     <label>사진이미지</label>
+<<<<<<< HEAD
                                     <input type="file" id="fileInputSitter" name="file1" filestyle="" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+=======
+                                    <input id="fileInputSitter" filestyle="" type="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
                                     <div class="bootstrap-filestyle joinform-size input-group">
                                         <input type="text" id="userfileSitter" class="joinform-size form-control" name="sitterFname" disabled="">
                                         <span class="group-span-filestyle input-group-btn" tabindex="0">
+<<<<<<< HEAD
                                            <label for="fileInputSitter" class="btn btn-default ">
                                              <span class="fa fa-upload"></span>
                                         </label>
                                         </span>
+=======
+                           					 <label for="fileInputSitter" class="btn btn-default ">
+			                                 	<span class="fa fa-upload"></span>
+			                            	</label>
+                           				 </span>
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
                                     </div>
                                 </div>
                                 <br>
@@ -248,10 +286,18 @@ $(document).ready(function(){
                                 <div class="form-group">
                                     <label>성별</label><br>
                                     <label class="radio-inline">
+<<<<<<< HEAD
                                         <input type="radio" name="sitterGender" id="sitterMan" value="남" checked="checked">  남자
+=======
+                                        <input type="radio" name="sitterGender" id="sitterMan" value="sitterMan" checked="checked">  남자
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
                                     </label>
                                     <label class="radio-inline">
+<<<<<<< HEAD
                                         <input type="radio" name="sitterGender" id="sitterWoman" value="여">  여자
+=======
+                                        <input type="radio" name="sitterGender" id="sitterWoman" value="sitterWoman">  여자
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
                                     </label>
                                 </div>
 
@@ -269,6 +315,7 @@ $(document).ready(function(){
                                 <!--자격증 첨부-->
                                 <div class="form-group">
                                     <label>자격증</label>
+<<<<<<< HEAD
                                     <input type="file" id="certInput" filestyle=""  name="file1" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
                                     <div class="bootstrap-filestyle joinform-size input-group">
                                         <input type="text" id="certFile" class="joinform-size form-control" name="sitterCertification" disabled="">
@@ -277,6 +324,16 @@ $(document).ready(function(){
                                          <span class="glyphicon fa fa-upload"></span>
                                            </label>
                                         </span>
+=======
+                                    <input id="certInput" filestyle="" type="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <div class="bootstrap-filestyle joinform-size input-group">
+                                        <input type="text" id="certFile" class="joinform-size form-control" name="sitterCertification" disabled="">
+                                       	 <span class="group-span-filestyle input-group-btn" tabindex="0">
+                            				<label for="certInput" class="btn btn-default ">
+                                			<span class="glyphicon fa fa-upload"></span>
+                           					 </label>
+                            				</span>
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
                                     </div>
                                 </div>
                                 <br>
@@ -318,15 +375,18 @@ $(document).ready(function(){
                                 </center>
                             </form>
                         </div>
+<<<<<<< HEAD
 
 
+=======
+                    </div>
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
                 </div>
-            </div>
-
-
         </div>
     </div>
 </div>
+
+
 <script src="${pageContext.request.contextPath}/resources/lib/js/joinForm/joinForm.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/js/address/addressapi.js"></script>
