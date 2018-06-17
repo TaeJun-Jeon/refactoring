@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
@@ -11,42 +12,14 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/lib/css/joinForm/joinForm.css">
 </head>
 <body>
-<script>
-$(document).ready(function(){
-	var checkResultId="";
-	$("#userForm :input[name=ownerId]").keyup(function(){
-		var ownerId=$(this).val().trim();
-		if(ownerId.length<4 || ownerId.length>10){
-			$("#idCheckView").html("아이디는 4글자 이상 10글자이하 작성해주세요").css("background","pink");
-			checkResultId="";
-			return;
-		}
-		
-		$.ajax({
-			type:"POST",
-			url:"${pageContext.request.contextPath}/admin/idcheck",				
-			data:"${_csrf.parameterName}=${_csrf.token}&&userId="+ownerId,	
-			success:function(data){						
-				if(data=="fail"){
-				$("#idCheckView").html("  "+ownerId+" 는 사용할 수 없습니다!! ").css("background","red");
-					checkResultId="";
-				}else{						
-					$("#idCheckView").html("  "+ownerId+" 는 사용할 수 있습니다!! ").css("background","yellow");		
-					checkResultId=ownerId;
-				}					
-			}//callback			
-		});//ajax
-	});//keyup
-})
-	
-	
-</script>
+
 <div class="container">
     <div class="row">
+
         <div class="col-md-12 entire-margin">
 
-
             <div class="joinform panel panel-primary" style="margin-top:120px;">
+
                 <div class="joinform-heading panel-heading">
 
                     <!-- 토글 탭 -->
@@ -58,16 +31,16 @@ $(document).ready(function(){
                     </div>
 
                 </div>
+
                 <div class="panel-body form-margin">
                     <div class="tab-content">
                         <div class="tab-pane active" id="userForm">
                         
-                        	<form method="post" action="${pageContext.request.contextPath}/admin/joinOwner?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+                           <form method="post" action="${pageContext.request.contextPath}/admin/joinOwner?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <div class="form-group">
                                     <label>아이디(ID)</label>
                                     <input type="text" name="ownerId" id="ownerId" class="joinform-size form-control" placeholder="아이디(ID)">
-                                    <span id="idCheckView"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>패스워드</label>
@@ -118,14 +91,14 @@ $(document).ready(function(){
                                 <!--사진이미지 첨부-->
                                 <div class="form-group">
                                     <label>사진이미지</label>
-                                    <input type="file"  id="fileInputOwner" name="file" filestyle=""data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <input type="file"  id="fileInputOwner" name="ownerFname" filestyle=""data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
                                     <div class="bootstrap-filestyle joinform-size input-group">
                                         <input type="text" id="ownerFnameFileOnly" class="joinform-size form-control" name="ownerFnameFileOnly" value="" readonly>
-                                        <span class="group-span-filestyle joinform-size input-group-btn" tabindex="0">
-				                            <label for="fileInputOwner" class="btn btn-default ">
-				                                <span class="fa fa-upload"></span>
-				                            </label>
-				                       </span>
+                                        <span class="group-span-filestyle input-group-btn" tabindex="0">
+                                        <label for="fileInputOwner" class="btn btn-default ">
+                                            <span class="fa fa-upload"></span>
+                                        </label>
+                                   </span>
                                     </div>
                                 </div>
                                 <br>
@@ -146,9 +119,9 @@ $(document).ready(function(){
                                 </center>
                             </form>
 
-                                           </div>
+                        </div>
 
-<!-- --------------------------------------------펫시터 가입--------------------------------------------------------------------- -->
+
                         <div class="tab-pane" id="petsitForm">
                             
                             <!-- 펫시터 회원가입 -->
@@ -207,7 +180,7 @@ $(document).ready(function(){
                                <!-- 사진이미지 첨부-->
                                 <div class="form-group">
                                     <label>사진이미지</label>
-                                    <input id="fileInputSitter" name="file1" filestyle="" type="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <input id="fileInputSitter" filestyle="" type="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
                                     <div class="bootstrap-filestyle joinform-size input-group">
                                         <input type="text" id="userfileSitter" class="joinform-size form-control" name="sitterFname" disabled="">
                                         <span class="group-span-filestyle input-group-btn" tabindex="0">
@@ -243,7 +216,7 @@ $(document).ready(function(){
                                 <!--자격증 첨부-->
                                 <div class="form-group">
                                     <label>자격증</label>
-                                    <input id="certInput" filestyle="" type="file" name="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <input id="certInput" filestyle="" type="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
                                     <div class="bootstrap-filestyle joinform-size input-group">
                                         <input type="text" id="certFile" class="joinform-size form-control" name="sitterCertification" disabled="">
                                            <span class="group-span-filestyle input-group-btn" tabindex="0">
@@ -292,17 +265,15 @@ $(document).ready(function(){
                                 </center>
                             </form>
                         </div>
-
-
+                    </div>
                 </div>
-            </div>
-
-
         </div>
     </div>
 </div>
+
+
 <script src="${pageContext.request.contextPath}/resources/lib/js/joinForm/joinForm.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/js/address/addressapi.js"></script>
 </body>
-</html>
+</html>\
