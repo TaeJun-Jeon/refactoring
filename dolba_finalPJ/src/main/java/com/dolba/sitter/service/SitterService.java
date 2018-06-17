@@ -22,4 +22,7 @@ public interface SitterService {
 	 * @return
 	 */
 	public List<SitterDTO> selectAllWaitingSitter();
+
+	public SitterDTO selectSitterInfo(String userId);
+
 }

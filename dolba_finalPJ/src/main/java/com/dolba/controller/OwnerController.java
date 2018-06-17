@@ -6,12 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dolba.dto.CallDTO;
 import com.dolba.dto.OptionsDTO;
+import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.PetDTO;
 import com.dolba.dto.SitterDTO;
@@ -36,10 +38,16 @@ public class OwnerController {
 	
 	
 	@RequestMapping("/myPage")
-	public String myPage(String role) {
+	public String myPage(Model md, String role, String userId) {
 		String root ="myPage/myPage";
 		if(role.equals("SITTER")) {
+			SitterDTO sitterDTO = sitterService.selectSitterInfo(userId);
+			md.addAttribute("sitterDTO", sitterDTO);
 			root ="myPage/sitterPage";
+		}else {
+			OwnerDTO ownerDTO = ownerService.selectOwnerInfo(userId);
+			md.addAttribute("ownerDTO", ownerDTO);
+			System.out.println("ownerName"+ownerDTO.getOwnerName());
 		}
 		return root;
 	}

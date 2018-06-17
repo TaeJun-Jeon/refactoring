@@ -109,8 +109,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 												<sec:authorize access="isAuthenticated()">
 													<sec:authentication var="user" property="principal"/>
-												
-													<li><a href="${pageContext.request.contextPath}/owner/myPage?role=${user.role}"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;마이페이지</a></li>
+
+													<li><a href="${pageContext.request.contextPath}/owner/myPage?role=${user.role}&userId=${user.userId}"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;마이페이지</a></li>
 													<li><a href="javascript:logout();"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;로그아웃</a></li>
 													</sec:authorize>
 													<form id="logoutFrm" action="${pageContext.request.contextPath}/admin/logout" method="post" style:"display:none">

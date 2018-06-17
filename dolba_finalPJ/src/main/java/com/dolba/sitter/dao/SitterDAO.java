@@ -30,4 +30,6 @@ public interface SitterDAO {
 	 * @return
 	 */
 	public List<SitterOptionDTO> selectSitterOptions(String sitterId);
+
+	public SitterDTO selectSitterInfo(String userId);
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dolba.dto.CallDTO;
+import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.PetDTO;
 import com.dolba.owner.dao.OwnerDAO;
@@ -54,6 +55,11 @@ public class OwnerServiceImpl implements OwnerService {
 	@Override
 	public int updateSitterApproval(String callId, String state) {
 		return ownerDAO.updateSitterApproval(callId,state);
+	}
+
+	@Override
+	public OwnerDTO selectOwnerInfo(String userId) {
+		return ownerDAO.selectOwnerInfo(userId);
 	}
 
 }

@@ -35,5 +35,10 @@ public class SitterDAOImpl implements SitterDAO {
 	public List<SitterOptionDTO> selectSitterOptions(String sitterId) {
 		return session.selectList("sitterMapper.selectSitterOption", sitterId);
 	}
+
+	@Override
+	public SitterDTO selectSitterInfo(String userId) {
+		return session.selectOne("sitterMapper.selectSitterInfo", userId);
+	}
 	
 }

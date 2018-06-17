@@ -5,4 +5,7 @@
  
 <mapper namespace="ownerMapper">
 
+<select id="selectOwnerInfo" parameterType="string" resultType="ownerDTO">
+select * from owner where owner_id=#{_parameter}
+</select>
 </mapper>

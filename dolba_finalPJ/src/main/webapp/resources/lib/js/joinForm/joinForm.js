@@ -33,15 +33,15 @@
 
 /* ----------------------------------------  .js파일에서 Jquery코드를 사용할 수 있도록 해주는 코드 (끝)  ----------------------------------------------  */
 
-
-    $('#myTab a').click(function (e) {
+/*
+    $('#myTab').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
     })
-    $('#myTab a:first').tab('show')
+    $('#myTab:first').tab('show')
 
 
-
+*/
 
 
     $(document).ready(function (){
@@ -73,7 +73,7 @@
                 var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
             }
             // 추출한 파일명 삽입
-            $("#certFile").val(filename1);
+            $("#certFile").val(filename);
         });
 
 

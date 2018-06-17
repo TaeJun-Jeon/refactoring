@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.filefilter.FileFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.dolba.admin.service.AdminService;
 import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.SitterDTO;
 import com.dolba.dto.SitterMultiFilesDTO;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -49,11 +51,21 @@ public class AdminController {
 		return "redirect:/";
 	}
 
-	@RequestMapping("/joinSitter")
-	public String joinSitter(SitterDTO sitterDTO,MultipartFile file1, SitterMultiFilesDTO sitterMultiFilesDTO, HttpServletRequest request) {
+	@RequestMapping(value= "/joinSitter",  produces = { "text/html;charset=utf-8" })
+	public String joinSitter(SitterDTO sitterDTO,MultipartFile file1, SitterMultiFilesDTO sitterMultiFilesDTO, HttpServletRequest request) throws IllegalStateException, IOException {
+		String rootPath = request.getSession().getServletContext().getRealPath("/");
+		String attachPath = "resources/lib/save/";
+		sitterDTO.setSitterEmail(sitterDTO.getSitterEmail1() + "@" + sitterDTO.getSitterEmail2());
+
+		for(MultipartFile file: sitterMultiFilesDTO.getFile1()) {
+			System.out.println("fileName="+file.getOriginalFilename());
+			
+			file.transferTo(new File(rootPath+attachPath+file.getOriginalFilename()));
+		}
+		
 		
 		adminService.joinSitter(sitterDTO);
-		return "/";
+		return "redirect:/";
 	}
 
 	@RequestMapping("/idcheck")

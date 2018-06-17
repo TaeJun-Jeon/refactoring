@@ -32,4 +32,8 @@
 		on	o.option_id = s.option_id
 		where sitter_id = #{_parameter}
 	</select>
+	
+	<select id="selectSitterInfo" parameterType="string" resultType="sitterDTO">
+	select *from sitter where sitter_id=#{_parameter}
+	</select>
 </mapper>

@@ -107,4 +107,11 @@ public class OwnerDAOImpl implements OwnerDAO {
 		return session.update("requestMapper.updateSitterApproval", map); 
 	}
 
+
+
+	@Override
+	public OwnerDTO selectOwnerInfo(String userId) {
+		return session.selectOne("ownerMapper.selectOwnerInfo", userId);
+	}
+
 }

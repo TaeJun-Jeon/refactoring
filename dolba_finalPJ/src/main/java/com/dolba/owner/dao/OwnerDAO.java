@@ -31,4 +31,6 @@ public interface OwnerDAO {
 
 	int updateSitterApproval(String callId, String state);
 
+	OwnerDTO selectOwnerInfo(String userId);
+
 }

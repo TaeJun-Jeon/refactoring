@@ -37,6 +37,31 @@ $(document).ready(function(){
 			}//callback			
 		});//ajax
 	});//keyup
+	
+	var checkResultId1="";
+	$("#petsitForm :input[name=sitterId]").keyup(function(){
+		var sitterId=$(this).val().trim();
+		if(sitterId.length<4 || sitterId.length>10){
+			$("#idCheckView1").html("아이디는 4글자 이상 10글자이하 작성해주세요").css("background","pink");
+			checkResultId1="";
+			return;
+		}
+		
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/admin/idcheck",				
+			data:"${_csrf.parameterName}=${_csrf.token}&&userId="+sitterId,	
+			success:function(data){						
+				if(data=="fail"){
+				$("#idCheckView1").html("  "+sitterId+" 는 사용할 수 없습니다!! ").css("background","red");
+					checkResultId1="";
+				}else{						
+					$("#idCheckView1").html("  "+sitterId+" 는 사용할 수 있습니다!! ").css("background","yellow");		
+					checkResultId1=ownerId;
+				}					
+			}//callback			
+		});//ajax
+	});//keyup
 })
 	
 	
@@ -52,8 +77,8 @@ $(document).ready(function(){
                     <!-- 토글 탭 -->
                     <div class="container">
                         <ul class="nav custom-nav-toggle nav-tabs " id="myTab" style="margin-left : 380px;">
-                            <li><a class="panel-title" href="#userForm" data-toggle="tab">일반회원으로 회원가입</a></li>
-                            <li class="active"><a class="panel-title" href="#petsitForm" data-toggle="tab">펫시터로 회원가입</a></li>
+                            <li><a class="panel-title active" href="#userForm" data-toggle="tab">일반회원으로 회원가입</a></li>
+                            <li><a class="panel-title" href="#petsitForm" data-toggle="tab">펫시터로 회원가입</a></li>
                         </ul>
                     </div>
 
@@ -152,11 +177,12 @@ $(document).ready(function(){
                         <div class="tab-pane" id="petsitForm">
                             
                             <!-- 펫시터 회원가입 -->
-                            <form role="form" method="post" action="${pageContext.request.contextPath}/admin/joinSitter">
+                            <form role="form" method="post" action="${pageContext.request.contextPath}/admin/joinSitter?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
                                 <div class="form-group">
                                     <label>아이디(ID)</label>
                                     <input type="text" name="sitterId" id="sitterId" class="joinform-size form-control" placeholder="아이디(ID)">
+                                	<span id="idCheckView1"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>패스워드</label>
@@ -170,8 +196,8 @@ $(document).ready(function(){
 
                                 <div class="form-group">
                                     <label style="display:block">주소</label>
-                                    <input type="text" class="joinform-size-address-zipcode form-control" placeholder="우편번호" style="display:inline-block; display:inline;" id="sitterAddrCode" disabled>
-                                    <input type="text" name="sitterAddr" id="sitterAddr" class="joinform-size-address-first form-control" placeholder="주소" style="margin-top:15px; display:inline;" disabled>
+                                    <input type="text" class="joinform-size-address-zipcode form-control" placeholder="우편번호" style="display:inline-block; display:inline;" id="sitterAddrCode" readonly>
+                                    <input type="text" name="sitterAddr" id="sitterAddr" class="joinform-size-address-first form-control" placeholder="주소" style="margin-top:15px; display:inline;" readonly>
                                     <input type="button" class="btn btn-default" value="우편번호검색" id="sitterSearch" onclick="execPostCodeSitter();">
                                     <input type="text" class="joinform-size-address-second form-control" name="sitterDetailAddr" id="sitterDetailAddr" placeholder="상세주소" style="margin-top:15px;">
                                 </div>
@@ -207,7 +233,7 @@ $(document).ready(function(){
                                <!-- 사진이미지 첨부-->
                                 <div class="form-group">
                                     <label>사진이미지</label>
-                                    <input id="fileInputSitter" name="file1" filestyle="" type="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <input type="file" id="fileInputSitter" name="file1" filestyle="" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
                                     <div class="bootstrap-filestyle joinform-size input-group">
                                         <input type="text" id="userfileSitter" class="joinform-size form-control" name="sitterFname" disabled="">
                                         <span class="group-span-filestyle input-group-btn" tabindex="0">
@@ -222,10 +248,10 @@ $(document).ready(function(){
                                 <div class="form-group">
                                     <label>성별</label><br>
                                     <label class="radio-inline">
-                                        <input type="radio" name="sitterGender" id="sitterMan" value="sitterMan" checked="checked">  남자
+                                        <input type="radio" name="sitterGender" id="sitterMan" value="남" checked="checked">  남자
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="sitterGender" id="sitterWoman" value="sitterWoman">  여자
+                                        <input type="radio" name="sitterGender" id="sitterWoman" value="여">  여자
                                     </label>
                                 </div>
 
@@ -243,7 +269,7 @@ $(document).ready(function(){
                                 <!--자격증 첨부-->
                                 <div class="form-group">
                                     <label>자격증</label>
-                                    <input id="certInput" filestyle="" type="file" name="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <input type="file" id="certInput" filestyle=""  name="file1" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
                                     <div class="bootstrap-filestyle joinform-size input-group">
                                         <input type="text" id="certFile" class="joinform-size form-control" name="sitterCertification" disabled="">
                                            <span class="group-span-filestyle input-group-btn" tabindex="0">

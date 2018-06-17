@@ -398,7 +398,7 @@ $(document).ready(function() {
 												<div class="col-lg-12">
 													<div class="col-xs-12 col-sm-4">
 														<figure>
-															<img class="img-circle img-responsive" alt="" src="http://placehold.it/300x300">
+															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/김진주.jpg">
 														</figure>
 														<div class="row">
 															<div class="col-xs-12 social-btns"></div>
@@ -406,11 +406,11 @@ $(document).ready(function() {
 													</div>
 													<div class="col-xs-12 col-sm-8">
 														<ul class="list-group">
-															<li class="list-group-item">John Doe</li>
-															<li class="list-group-item">Software Engineer</li>
-															<li class="list-group-item">Google Inc.</li>
-															<li class="list-group-item"><i class="fa fa-phone"></i> 000-000-0000</li>
-															<li class="list-group-item"><i class="fa fa-envelope"></i> john@example.com</li>
+															<li class="list-group-item">${ownerDTO.ownerName}</li>
+															<li class="list-group-item">${ownerDTO.ownerAddr}</li>
+															<li class="list-group-item">${ownerDTO.ownerDetailAddr}</li>
+															<li class="list-group-item"><i class="fa fa-phone"></i> ${ownerDTO.ownerPhone}</li>
+															<li class="list-group-item"><i class="fa fa-envelope"></i> ${ownerDTO.ownerEmail}</li>
 														</ul>
 													</div>
 													<div class="profile-userbuttons">
