@@ -2,6 +2,8 @@ package com.dolba.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import com.dolba.dto.SitterOptionDTO;
 import com.dolba.owner.service.OwnerService;
 import com.dolba.request.service.RequestService;
 import com.dolba.sitter.service.SitterService;
+import com.dolba.util.PagingUtil;
 
 @Controller
 @RequestMapping("/owner")
@@ -85,12 +88,24 @@ public class OwnerController {
 	}
 	
 	@RequestMapping("/request/sitterList")
-	public ModelAndView requestSitterList() {
+	public ModelAndView requestSitterList(String pageNum) {
 		List<OptionsDTO> optionList = requestService.selectAllOption();
 		List<SitterDTO> sitterList = sitterService.selectAllPermittedSitter();
+		PagingUtil pagingUtil;
+		if(pageNum == null || Integer.parseInt(pageNum) <0) {
+			pagingUtil = new PagingUtil(sitterList, 0);
+			sitterList = pagingUtil.getCurList(0);
+		}else {
+			pagingUtil = new PagingUtil(sitterList, Integer.parseInt(pageNum));
+			pageNum = Integer.toString(pagingUtil.getCurPage());
+			sitterList = pagingUtil.getCurList(Integer.parseInt(pageNum));
+		}
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("optionList",optionList);
 		mv.addObject("sitterList", sitterList);
+		mv.addObject("pagingUtil", pagingUtil);
+		System.out.println("startPage="+pagingUtil.getStartPage()+"endPage="+pagingUtil.getEndPage());
 		/*for(SitterDTO sitterdto : sitterList) {
 			System.out.println("-----------------------------");
 			System.out.println(sitterdto.getSitterName());
@@ -103,6 +118,4 @@ public class OwnerController {
 		mv.setViewName("owner/sitterList");
 		return mv;
 	}
-	
-	
 }
