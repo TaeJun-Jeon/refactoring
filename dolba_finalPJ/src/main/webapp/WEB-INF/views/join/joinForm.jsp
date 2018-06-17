@@ -12,7 +12,36 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/lib/css/joinForm/joinForm.css">
 </head>
 <body>
-
+<script>
+$(document).ready(function(){
+	var checkResultId="";
+	$("#joinForm :input[name=ownerId]").keyup(function(){
+		var ownerId=$(this).val().trim();
+		if(ownerId.length<5 || ownerId.length>11){
+			$("#idCheckView").html("아이디는 4글자 이상 10글자이상 작성해주세요").css("background","pink");
+			checkResultId="";
+			return;
+		}
+		
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/admin/idcheck",				
+			data:"${_csrf.parameterName}=${_csrf.token}&&userId="+ownerId,	
+			success:function(data){						
+				if(data=="fail"){
+				$("#idCheckView").html("  "+ownerId+" 는 사용할 수 없습니다!! ").css("background","red");
+					checkResultId="";
+				}else{						
+					$("#idCheckView").html("  "+ownerId+" 는 사용할 수 있습니다!! ").css("background","yellow");		
+					checkResultId=id;
+				}					
+			}//callback			
+		});//ajax
+	});//keyup
+})
+	
+	
+</script>
 <div class="container">
     <div class="row">
 
@@ -91,7 +120,7 @@
                                 <!--사진이미지 첨부-->
                                 <div class="form-group">
                                     <label>사진이미지</label>
-                                    <input type="file"  id="fileInputOwner" name="ownerFname" filestyle=""data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <input type="file"  id="fileInputOwner" name="file" filestyle=""data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
                                     <div class="bootstrap-filestyle joinform-size input-group">
                                         <input type="text" id="ownerFnameFileOnly" class="joinform-size form-control" name="ownerFnameFileOnly" value="" readonly>
                                         <span class="group-span-filestyle input-group-btn" tabindex="0">

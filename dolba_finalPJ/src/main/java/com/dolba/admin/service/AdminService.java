@@ -9,4 +9,6 @@ public interface AdminService {
 
 	int joinSitter(SitterDTO sitterDTO);
 
+	String idCheck(String userId);
+
 }

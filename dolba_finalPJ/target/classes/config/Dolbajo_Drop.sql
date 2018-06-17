@@ -15,6 +15,7 @@ DROP table pet;
 DROP table OWNER;
 DROP table SITTER;
 DROP table OPTIONS;
+DROP table AUTHORITIES;
 
 DROP SEQUENCE sequence_pet;
 DROP SEQUENCE sequence_review;
@@ -30,11 +31,5 @@ DROP SEQUENCE sequence_DIARY;
 DROP SEQUENCE sequence_SITTING_OPTION;
 DROP SEQUENCE sequence_NOTICE_ID;
 DROP SEQUENCE sequence_SITTER_IMG_ID;
-
-COMMIT;
-
-select*from options
-
-
 
 COMMIT

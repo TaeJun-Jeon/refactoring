@@ -9,4 +9,7 @@ public interface AdminDAO {
 
 	int joinSitter(SitterDTO sitterDTO);
 
+	int idCheck(String userId);
+
+
 }

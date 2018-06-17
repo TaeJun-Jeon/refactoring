@@ -17,13 +17,14 @@ public class OwnerServiceImpl implements OwnerService {
 	private OwnerDAO ownerDAO;
 	
 	@Override
-	public List<OwnerRequestDTO> allSelectOwnerRequest() {
-		return ownerDAO.allSelectOwnerRequest();
+	public List<OwnerRequestDTO> allSelectOwnerRequest(String role,String userId) {
+		return ownerDAO.allSelectOwnerRequest(role,userId);
 	}
 
 	@Override
-	public List<CallDTO> allSelectCall() {
-		return ownerDAO.allSelectCall();
+	public List<CallDTO> allSelectCall(String role, String userId) {
+	
+			return ownerDAO.allSelectCallOwner(role, userId);
 	}
 
 	@Override
@@ -32,18 +33,27 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public List<OwnerRequestDTO> allSelectOwnerRequestApproval() {
-		return ownerDAO.allSelectOwnerRequestApproval();
+	public List<OwnerRequestDTO> allSelectOwnerRequestApproval(String role, String userId) {
+		return ownerDAO.allSelectOwnerRequestApproval(role, userId);
 	}
 
-	@Override
-	public List<CallDTO> allSelectCallApproval() {
-		return ownerDAO.allSelectCallApproval();
-	}
 
 	@Override
 	public PetDTO selectPetInfo(String ownerId) {
 		return ownerDAO.selectPetInfo(ownerId);
+	}
+
+	@Override
+	public List<CallDTO> allSelectCallApproval(String role, String userId) {
+		if(role.equals("OWNER")) {
+			return ownerDAO.allSelectCallApprovalOwner(userId);
+		}
+		return ownerDAO.allSelectCallApprovalSitter(userId);
+	}
+
+	@Override
+	public int updateSitterApproval(String callId, String state) {
+		return ownerDAO.updateSitterApproval(callId,state);
 	}
 
 }

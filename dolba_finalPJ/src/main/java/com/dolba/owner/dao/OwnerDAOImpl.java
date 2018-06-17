@@ -20,14 +20,16 @@ public class OwnerDAOImpl implements OwnerDAO {
 	private SqlSession session;
 	
 	@Override
-	public List<OwnerRequestDTO> allSelectOwnerRequest() {
-		return session.selectList("requestMapper.allSelectOwnerRequest");
+	public List<OwnerRequestDTO> allSelectOwnerRequest(String role,String userId) {
+		if(role.equals("OWNER")) {
+			return session.selectList("requestMapper.allSelectOwnerRequest",userId);
+
+		}
+		return session.selectList("requestMapper.allSelectSitterRequest",userId);
+
 	}
 
-	@Override
-	public List<CallDTO> allSelectCall() {
-		return session.selectList("requestMapper.allSelectCall");
-	}
+	
 
 	@Override
 	public int updateOwnerApproval(String callId,String state) {
@@ -38,12 +40,16 @@ public class OwnerDAOImpl implements OwnerDAO {
 	}
 
 	@Override
-	public List<OwnerRequestDTO> allSelectOwnerRequestApproval() {
-		return session.selectList("requestMapper.allSelectOwnerRequestApproval");
+	public List<OwnerRequestDTO> allSelectOwnerRequestApproval(String role, String userId) {
+		if(role.equals("OWNER")) {
+			return session.selectList("requestMapper.allSelectOwnerRequestApproval",userId);
+
+		}
+		return session.selectList("requestMapper.allSelectSitterRequestApproval",userId);
 	}
 
 	@Override
-	public List<CallDTO> allSelectCallApproval() {
+	public List<CallDTO> allSelectCallApproval(String role, String userId) {
 		return session.selectList("requestMapper.allSelectCallApproval");
 
 	}
@@ -56,6 +62,49 @@ public class OwnerDAOImpl implements OwnerDAO {
 	@Override
 	public OwnerDTO selectUserById(String userId) {
 		return session.selectOne("requestMapper.selectUserById");
+	}
+
+
+
+	@Override
+	public List<CallDTO> allSelectCallOwner(String role, String userId) {
+		if(role.equals("OWNER")) {
+			return session.selectList("requestMapper.allSelectCallOwner", userId);
+
+		}
+		return session.selectList("requestMapper.allSelectCallSitter", userId);
+	}
+
+
+
+	@Override
+	public List<CallDTO> allSelectCallSitter(String userId) {
+		return session.selectList("requestMapper.allSelectCallSitter", userId);
+
+	}
+
+
+
+	@Override
+	public List<CallDTO> allSelectCallApprovalOwner(String userId) {
+		return session.selectList("requestMapper.allSelectCallApprovalOwner", userId);
+	}
+
+
+
+	@Override
+	public List<CallDTO> allSelectCallApprovalSitter(String userId) {
+		return session.selectList("requestMapper.allSelectCallApprovalSitter", userId);
+	}
+
+
+
+	@Override
+	public int updateSitterApproval(String callId, String state) {
+		Map<String, String> map = new HashMap<>();
+		map.put("callId", callId);
+		map.put("state", state);
+		return session.update("requestMapper.updateSitterApproval", map); 
 	}
 
 }
