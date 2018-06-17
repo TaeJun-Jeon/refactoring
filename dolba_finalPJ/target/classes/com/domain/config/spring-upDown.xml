@@ -13,13 +13,11 @@
 <!-- 다운로드를 위한 ViewResolver를 등록한다.
 	
  -->
-<<<<<<< HEAD
+
  <!-- 
   <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-=======
  
-  <!-- <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
->>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
+<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
     <property name="order" value="3"/>
   </bean> -->
   
