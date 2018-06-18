@@ -8,7 +8,7 @@
 insert into owner values(#{ownerId},#{ownerPassword},#{ownerName},#{ownerAddr},#{ownerDetailAddr},#{ownerPhone},#{ownerEmail},#{ownerfName},#{ownerGender})
 </insert>
 <insert id="joinSitter" parameterType="sitterDTO">
-insert into sitter values(#{sitterId},#{sitterPassword},#{sitterName},#{sitterPhone},#{sitterEmail},#{sitterAddr},#{sitterDetailAddr},#{sitterIntroduce},0,#{sitterCertification},#{sitterPetAmount},#{sitterBasisPrice},#{sitterPermit},#{sitterGender})
+insert into sitter values(#{sitterId},#{sitterPassword},#{sitterName},#{sitterPhone},#{sitterEmail},#{sitterAddr},#{sitterDetailAddr},#{sitterIntroduce},0,#{sitterCertification},#{sitterPetAmount},#{sitterBasisPrice},#{sitterPermit},#{sitterFname},#{scertificationFname},#{sitterGender})
 </insert>
 
 </mapper>

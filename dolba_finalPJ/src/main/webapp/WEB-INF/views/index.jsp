@@ -86,11 +86,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<li><a href="#about" class="scroll">About</a></li>
 								<li><a href="#services" class="scroll">서비스소개</a></li>
 								<li><a href="#price" class="scroll">가격정책</a></li>
-								<sec:authorize access="hasRole('OWNER')">
+								<sec:authorize access="hasAuthority('OWNER')">
 									<li><a href="#protector-service" class="scroll">보호자서비스</a></li>
 								</sec:authorize>
-								<sec:authorize access="hasRole('SITTER')">
-								<li><a href="#petsit-service" class="scroll">펫시터서비스</a></li>
+								<sec:authorize access="hasAuthority('SITTER')">
+									<li><a href="#petsit-service" class="scroll">펫시터서비스</a></li>
 								</sec:authorize>
 								<li><a href="#qna" class="scroll">Q & A</a></li>
 								<li>
@@ -618,7 +618,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	
 
-<sec:authorize access="hasRole('OWNER')">
+<sec:authorize access="hasAuthority('OWNER')">
 
 <!--Protector-->
 	<div class="protector-service" id="protector-service">
@@ -641,7 +641,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div><br><br>
 
 					<div class="col-xs-6">
-						<input type="button" class="btn btn-primary btn-radius-1" value="부르기">
+						<a href="${pageContext.request.contextPath}/owner/call/callForm"><input type="button" class="btn btn-primary btn-radius-1" value="부르기"></a>
 					</div>
 					<div class="col-xs-6">
 						<a href="${pageContext.request.contextPath}/owner/request/sitterList"><input type="button" class="btn btn-primary btn-radius-1" value="맡기기"></a>
@@ -656,7 +656,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </sec:authorize>
 			
 
-<sec:authorize access="hasRole('SITTER')">
+<sec:authorize access="hasAuthority('SITTER')">
 		<!--//protector-->
 
 	<!--petsitter-->

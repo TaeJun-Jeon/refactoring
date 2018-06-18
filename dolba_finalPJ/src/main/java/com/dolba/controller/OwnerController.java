@@ -1,5 +1,6 @@
 package com.dolba.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,9 @@ import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.PetDTO;
 import com.dolba.dto.SitterDTO;
+import com.dolba.dto.SitterImgDTO;
 import com.dolba.dto.SitterOptionDTO;
+import com.dolba.dto.SitterReviewDTO;
 import com.dolba.option.service.OptionService;
 import com.dolba.owner.service.OwnerService;
 import com.dolba.request.service.RequestService;
@@ -57,7 +60,7 @@ public class OwnerController {
 		return root;
 	}
 	
-	@RequestMapping("/callForm")
+	@RequestMapping("/call/callForm")
 	public String callForm() {
 		return "owner/callForm";
 	}
@@ -155,4 +158,47 @@ public class OwnerController {
 		mv.setViewName("owner/sitterList");
 		return mv;
 	}
+	
+	@RequestMapping("/request/sitterDetailRead")
+	public ModelAndView requestSitterDetailRead(String sitterId) {
+		ModelAndView mv = new ModelAndView();
+		List<String> list= new ArrayList<>();
+		
+		SitterDTO sitterDTO = sitterService.selectSitterById(sitterId);
+		List<SitterOptionDTO> sitterOptionList = sitterService.selectSitterOption(sitterId);
+		List<SitterReviewDTO> sitterReviewList = sitterService.selectSitterReviewById(sitterId);
+		List<SitterImgDTO> sitterImgList = sitterService.selectSitterImg(sitterId);
+		
+		for(SitterOptionDTO dto :sitterOptionList) {
+			list.add(dto.getOptionsDTO().getOptionName());
+		}
+		
+		for(int i=0; i<sitterImgList.size(); i++) {
+			System.out.println(sitterImgList);
+		}
+		
+		mv.addObject("sitterDTO", sitterDTO);
+		mv.addObject("sitterOption", list);
+		mv.addObject("sitterReviewList", sitterReviewList);
+		mv.addObject("sitterImgList", sitterImgList);
+		
+		mv.setViewName("owner/sitterListRead");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/request/insertOwnerRequest")
+	public String insertOwnerRequest(OwnerRequestDTO ownerRequestDTO, String [] checkArr) {
+		sitterService.insertOwnerRequest(ownerRequestDTO);
+		String ownerRequestId = sitterService.selectOwnerRequestId(ownerRequestDTO);
+		List<String> optionIdList = new ArrayList<>();
+		List<OptionsDTO> optionList = sitterService.selectOpIdByCheckOption(checkArr);
+		for(OptionsDTO dto : optionList) {
+			optionIdList.add(dto.getOptionId());
+		}
+		sitterService.insertSittingOpByCheckOp(optionIdList, ownerRequestId);
+		
+		return "redirect:/owner/request/sitterList";
+	}
+	
 }

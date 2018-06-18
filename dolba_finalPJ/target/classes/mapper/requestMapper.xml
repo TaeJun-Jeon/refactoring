@@ -5,7 +5,6 @@
  
 <mapper namespace="requestMapper">
 
-
 <select id="allSelectOwnerRequest" parameterType="string" resultType="ownerRequestDTO">
 select * from owner_request where owner_id=#{_parameter} and sitter_approval is null or sitter_approval = 'x' 
 </select>
@@ -15,7 +14,7 @@ select * from owner_request where sitter_approval = 'y' and owner_id=#{userId}
 </select>
 
 <select id="allSelectSitterRequest" parameterType="string" resultType="ownerRequestDTO">
-select * from owner_request where sitter_id=#{_parameter} and sitter_approval is null or sitter_approval = 'x' 
+select * from owner_request where sitter_id=#{_parameter} and sitter_approval is null
 </select>
 
 <select id="allSelectSitterRequestApproval" parameterType="string" resultType="ownerRequestDTO">

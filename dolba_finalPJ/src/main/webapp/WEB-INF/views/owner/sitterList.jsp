@@ -70,7 +70,7 @@
 							<div class="col-xs-7 preview-left">
 								<div class="row" style="margin-top: 25px">
 									<h5>
-										<b><a href="#" class="sitter-desc">${sitterInfo.sitterIntroduce}</a></b>
+										<b><a href="${pageContext.request.contextPath}/owner/request/sitterDetailRead?sitterId=${sitterInfo.sitterId}" class="sitter-desc">${sitterInfo.sitterIntroduce}</a></b>
 									</h5>
 									<span class="">${sitterInfo.sitterName }</span>
 								</div>
@@ -164,10 +164,12 @@
 		//var addrList = new Array();
 		var addressArray = [];
 		var sitterNameArr = [];
+		var sitterIdArr = [];
 		<c:forEach items="${sitterList}" var="sitter" varStatus="status">
 			//alert('${sitter.sitterAddr}');
 			//alert('${sitter.sitterAddr}');
 			addressArray.push('${sitter.sitterAddr}');
+			sitterIdArr.push('${sitter.sitterId}');
 			sitterNameArr.push('${sitter.sitterName}');
 		</c:forEach>
 		//변환된 좌표 목록 저장할 변수
@@ -202,6 +204,8 @@
 						// 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
 						daum.maps.event.addListener(markers[counter], 'click', function() {
 							//location.href="${pageContext.request.contextPath}/"+url;
+							//location.href="${pageContext.request.contextPath}/owner/request/sitterDetailRead?sitterId="+sitterIdArr[counter];
+							//alert(sitterIdArr[]);
 						});
 						// 마커에 마우스오버 이벤트를 등록
 						daum.maps.event.addListener(markers[counter], 'mouseover', function() {

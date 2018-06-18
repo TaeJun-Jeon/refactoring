@@ -29,7 +29,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<form class="form-horizontal">
+							<div class="form-horizontal">
 								<br>
 								<br>
 								<form role="form" method="post" action="${pageContext.request.contextPath}/admin/login">
@@ -96,6 +96,7 @@
 										</div>
 									</fieldset>
 								</form>
+						</div>
 						</div>
 					</div>
 				</div>

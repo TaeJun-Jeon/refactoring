@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dolba.dto.OptionsDTO;
+import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.SitterDTO;
+import com.dolba.dto.SitterImgDTO;
 import com.dolba.dto.SitterOptionDTO;
+import com.dolba.dto.SitterReviewDTO;
 import com.dolba.sitter.dao.SitterDAO;
 
 @Service
@@ -58,4 +61,42 @@ public class SitterServiceImpl implements SitterService {
 		return sitterDao.selectSitterInfo(userId);
 	}
 
+	@Override
+	public SitterDTO selectSitterById(String sitterId) {
+		return sitterDao.selectSitterById(sitterId);
+	}
+	
+	@Override
+	public List<SitterOptionDTO> selectSitterOption(String sitterId){
+		return sitterDao.selectSitterOptions(sitterId);
+	}
+	
+	@Override
+	public List<SitterReviewDTO> selectSitterReviewById(String sitterId) {
+		return sitterDao.selectSitterReviewById(sitterId);
+	}
+	
+	@Override
+	public List<SitterImgDTO> selectSitterImg(String sitterId){
+		return sitterDao.selectSitterImg(sitterId);
+	}
+	
+	@Override
+	public int insertOwnerRequest(OwnerRequestDTO ownerRequestDTO) {
+		return sitterDao.insertOwnerRequest(ownerRequestDTO);
+	}
+	
+	@Override
+	public List<OptionsDTO> selectOpIdByCheckOption(String [] checkArr) {
+		return sitterDao.selectOpIdByCheckOption(checkArr);
+	}
+	
+	@Override
+	public String selectOwnerRequestId(OwnerRequestDTO ownerRequestDTO) {
+		return sitterDao.selectOwnerRequestId(ownerRequestDTO);
+	}
+	@Override
+	public int insertSittingOpByCheckOp(List<String> optionIdList, String ownerRequestId) {
+		return sitterDao.insertSittingOpByCheckOp(optionIdList, ownerRequestId);
+	}
 }

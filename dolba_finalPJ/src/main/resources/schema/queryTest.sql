@@ -43,7 +43,7 @@ update SITTER set sitter_grade = 5 where sitter_id = 'sitter8';
 update SITTER set sitter_grade = 2 where sitter_id = 'sitter9';
 update SITTER set sitter_grade = 3 where sitter_id = 'sitter10';
 
-
+select * from owner_request 
 select count(*) from sitter
 
 select *
@@ -60,6 +60,10 @@ where option_id in ('OPTION_ID-1','OPTION_ID-2','OPTION_ID-3');
 
 
 SELECT * FROM SITTER_OPTION 
+select * from owner_request
+select * from sitting_option
+select * from authorities
+select * from role
 
 commit
 

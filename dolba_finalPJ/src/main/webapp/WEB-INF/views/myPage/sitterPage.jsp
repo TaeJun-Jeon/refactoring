@@ -273,13 +273,13 @@ $(document).ready(function() {
 		
 		$(document).on("click",	"#reject",function() {
 							
-			var result = confirm("수락하시겠습니까?");
+			var result = confirm("거절하시겠습니까?");
 			if(result){
 				var id = $(this).parent().parent().parent().find("td:nth-child(6)").text();
 				$.ajax({
 					type : "post", //전송방식
 					url : "${pageContext.request.contextPath}/owner/updateSitterApproval", //서버주소
-					data:"${_csrf.parameterName}=${_csrf.token}&ownerRequestId="+ id +"&state=x",//서버에게 보낼 parameter 정보
+					data:"${_csrf.parameterName}=${_csrf.token}&callId="+ id +"&state=x",//서버에게 보낼 parameter 정보
 					dataType : "text", //서버가 front로 보내주는 데이터 타입 (text ,html, xml, json)
 					success : function(result) {
 						alert("예약 거절되었습니다");

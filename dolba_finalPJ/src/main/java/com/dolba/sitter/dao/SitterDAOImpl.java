@@ -8,8 +8,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dolba.dto.OptionsDTO;
+import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.SitterDTO;
+import com.dolba.dto.SitterImgDTO;
 import com.dolba.dto.SitterOptionDTO;
+import com.dolba.dto.SitterReviewDTO;
 
 @Repository
 public class SitterDAOImpl implements SitterDAO {
@@ -51,4 +55,51 @@ public class SitterDAOImpl implements SitterDAO {
 		return session.selectOne("sitterMapper.selectSitterInfo", userId);
 	}
 	
+	@Override
+	public SitterDTO selectSitterById(String sitterId) {
+		return session.selectOne("sitterMapper.selectSitterById", sitterId);
+	}
+	
+	@Override
+	public List<SitterReviewDTO> selectSitterReviewById(String sitterId) {
+		return session.selectList("sitterMapper.selectSitterReviewById", sitterId);
+	}
+	
+	@Override
+	public List<SitterImgDTO> selectSitterImg(String sitterId){
+		return session.selectList("sitterMapper.selectSitterImg", sitterId);
+	}
+	
+	@Override
+	public int insertOwnerRequest(OwnerRequestDTO ownerRequestDTO) {
+		return session.insert("sitterMapper.insertOwnerRequest", ownerRequestDTO);
+	}
+	
+	@Override
+	public List<OptionsDTO> selectOpIdByCheckOption(String [] checkArr){
+		HashMap<String, String[]> map = new HashMap<>();
+		map.put("checkArr", checkArr);
+		
+		return session.selectList("sitterMapper.selectOpIdByCheckOption", map);
+	}
+	
+	@Override
+	public String selectOwnerRequestId(OwnerRequestDTO ownerRequestDTO) {
+		return session.selectOne("sitterMapper.selectOwnerRequestId", ownerRequestDTO);
+	}
+	
+	@Override
+	public int insertSittingOpByCheckOp(List<String> optionIdList, String ownerRequestId) {
+		Map<String, Object> map = new HashMap<>();
+		
+		
+		for(String id : optionIdList) {
+			map.put("ownerRequestId", ownerRequestId);
+			map.put("id", id);
+			session.insert("sitterMapper.insertSittingOpByCheckOp", map);
+		}
+		
+		return 1;
+		
+	}
 }

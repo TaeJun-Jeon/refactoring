@@ -104,7 +104,8 @@ public class OwnerDAOImpl implements OwnerDAO {
 		Map<String, String> map = new HashMap<>();
 		map.put("callId", callId);
 		map.put("state", state);
-		return session.update("requestMapper.updateSitterApproval", map); 
+		System.out.println("dssssssssssssssssssssssss"+session.update("requestMapper.updateSitterApproval", map)); 
+		return 1;
 	}
 
 

@@ -79,7 +79,7 @@ $(document).ready(function(){
                     <div class="container">
 
                         <ul class="nav custom-nav-toggle nav-tabs " id="myTab" style="margin-left : 380px;">
-                            <li><a class="panel-title active" href="#userForm" data-toggle="tab">일반회원으로 회원가입</a></li>
+                            <li><a class="panel-title active" href="#userForm" data-toggle="tab">보호자로 회원가입</a></li>
                             <li><a class="panel-title" href="#petsitForm" data-toggle="tab">펫시터로 회원가입</a></li>
 
 </ul>

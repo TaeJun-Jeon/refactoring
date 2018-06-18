@@ -51,13 +51,13 @@
 	                    		</a>
 	                    	</div>
 	                    	<div class="col-md-2"  style="margin-left:40px;">
-	                    		<a href="#"  class="dropdown-custom-a-tag">
+	                    		<a href="${pageContext.request.contextPath}/owner/request/sitterList"  class="dropdown-custom-a-tag">
 	                    			<img src="${pageContext.request.contextPath}/resources/lib/img/entrustSitter.png" width="95px" height="75px"><br>
 	                    			<span class="text-center" style="padding-left:20px">펫 맡기기</span>
 	                    		</a>
 	                    	</div>
 	                    	<div class="col-md-2" style="margin-left:50px;">
-	                    		<a href="#"  class="dropdown-custom-a-tag">
+	                    		<a href="${pageContext.request.contextPath}/owner/call/callForm"  class="dropdown-custom-a-tag">
 	                    			<img src="${pageContext.request.contextPath}/resources/lib/img/petsit.png" width="65px" height="75px"><br>
 	                    			<span class="text-center">돌보기 신청</span>
 	                    		</a>

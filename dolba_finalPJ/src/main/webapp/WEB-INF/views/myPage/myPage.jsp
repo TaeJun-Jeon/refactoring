@@ -276,7 +276,7 @@ $(document).ready(function() {
 	
 	$(document).on("click",	"#reject",function() {
 						
-		var result = confirm("수락하시겠습니까?");
+		var result = confirm("거절하시겠습니까?");
 		if(result){
 			var id = $(this).parent().parent().parent().find("td:nth-child(6)").text();
 			$.ajax({
