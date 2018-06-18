@@ -1,5 +1,6 @@
 package com.dolba.sitter.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,4 +40,17 @@ public class SitterServiceImpl implements SitterService {
 		return null;
 	}
 
+	@Override
+	public List<SitterDTO> selectSittersByOpGrade(String[] opIds, int grade) {
+		List<String> opList = new ArrayList<>();
+		for(int i=0;i<opIds.length;i++) {
+			opList.add(opIds[i]);
+		}
+		List<SitterDTO> list = sitterDao.selectSittersByOpGrade(opList,grade);
+		for(SitterDTO dto : list) {
+			List<SitterOptionDTO> optionList = sitterDao.selectSitterOptions(dto.getSitterId());
+			dto.setSitterOptionDTO(optionList);
+		}
+		return list;
+	}
 }

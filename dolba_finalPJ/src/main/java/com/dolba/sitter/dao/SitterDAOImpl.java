@@ -1,6 +1,8 @@
 package com.dolba.sitter.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +37,14 @@ public class SitterDAOImpl implements SitterDAO {
 	public List<SitterOptionDTO> selectSitterOptions(String sitterId) {
 		return session.selectList("sitterMapper.selectSitterOption", sitterId);
 	}
+
+	@Override
+	public List<SitterDTO> selectSittersByOpGrade(List<String> opList, int grade) {
+		Map<String , Object> map = new HashMap<>();
+		map.put("opList", opList);
+		map.put("grade", grade);
+		return session.selectList("sitterMapper.selectSittersByOpGrade",map);
+	}
 	
 }
+

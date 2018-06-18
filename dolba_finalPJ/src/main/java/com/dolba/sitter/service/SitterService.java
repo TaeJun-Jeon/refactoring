@@ -22,4 +22,12 @@ public interface SitterService {
 	 * @return
 	 */
 	public List<SitterDTO> selectAllWaitingSitter();
+	
+	/**
+	 * Option 조건과 Grade 조건에 따라 sitter 검색
+	 * @param opIds
+	 * @param grade
+	 * @return
+	 */
+	public List<SitterDTO> selectSittersByOpGrade(String [] opIds,int grade);
 }

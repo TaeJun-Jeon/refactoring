@@ -10,8 +10,6 @@ create table OWNER(
         OWNER_gender VARCHAR(5) NOT NULL 
     ); 
     
-    
-    
     insert into OWNER values('happymom','1234','김진주','경기도','수지구','000-000-0000','abcd@naver.com',null,'여');
     insert into OWNER values('cloud','1234','백승현','경기도','광교','000-000-0000','defg@naver.com',null,'남');
     insert into OWNER values('any6103','1234','김시연','서울','강남','000-000-0000','hijk@naver.com',null,'여');
@@ -36,18 +34,17 @@ create table SITTER(
         SITTER_PERMIT VARCHAR(5) NULL,
         Sitter_gender VARCHAR(5) NOT NULL
     ); 
-    
-	    
-	insert into SITTER values('sitter1','1234','이름1','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 901호','안녕하세요','5',null,1,10000,'Y','남');
-	insert into SITTER values('sitter2','1234','이름2','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 902호','안녕하세요','5',null,1,20000,'Y','남');
-	insert into SITTER values('sitter3','1234','이름3','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 903호','안녕하세요','5',null,1,30000,'Y','남');
-	insert into SITTER values('sitter4','1234','이름4','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 904호','안녕하세요','5',null,1,40000,'Y','여');
-	insert into SITTER values('sitter5','1234','이름5','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 905호','안녕하세요','5',null,1,50000,'Y','남');
-	insert into SITTER values('sitter6','1234','이름6','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 906호','안녕하세요','5',null,1,60000,'Y','여');
-	insert into SITTER values('sitter7','1234','이름7','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 907호','안녕하세요','5',null,1,70000,'Y','남');
-	insert into SITTER values('sitter8','1234','이름8','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 908호','안녕하세요','5',null,1,80000,'Y','남');
-	insert into SITTER values('sitter9','1234','이름9','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 909호','안녕하세요','5',null,1,90000,'Y','남');
-	insert into SITTER values('sitter10','1234','이름10','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','남');
+
+    insert into SITTER values('sitter1','1234','이름1','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 901호','안녕하세요','5',null,1,10000,'Y','남');
+	insert into SITTER values('sitter2','1234','이름2','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 12-1', '3010동 902호','안녕하세요','5',null,1,20000,'Y','남');
+	insert into SITTER values('sitter3','1234','이름3','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 38', '3010동 903호','안녕하세요','5',null,1,30000,'Y','남');
+	insert into SITTER values('sitter4','1234','이름4','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 129', '3010동 904호','안녕하세요','5',null,1,40000,'Y','여');
+	insert into SITTER values('sitter5','1234','이름5','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 145', '3010동 905호','안녕하세요','5',null,1,50000,'Y','남');
+	insert into SITTER values('sitter6','1234','이름6','000-000-0000','abcd@naver.com','경기도 수원시 영통구 광교로 32', '3010동 906호','안녕하세요','5',null,1,60000,'Y','여');
+	insert into SITTER values('sitter7','1234','이름7','000-000-0000','abcd@naver.com','경기도 수원시 영통구 광교로 66', '3010동 907호','안녕하세요','5',null,1,70000,'Y','남');
+	insert into SITTER values('sitter8','1234','이름8','000-000-0000','abcd@naver.com','경기도 수원시 영통구 광교로 105', '3010동 908호','안녕하세요','5',null,1,80000,'Y','남');
+	insert into SITTER values('sitter9','1234','이름9','000-000-0000','abcd@naver.com','경기도 수원시 영통구 광교로 107', '3010동 909호','안녕하세요','5',null,1,90000,'Y','남');
+	insert into SITTER values('sitter10','1234','이름10','000-000-0000','abcd@naver.com','경기도 수원시 영통구 광교로 152', '3010동 910호','안녕하세요','5',null,1,24000,'Y','남');
 	insert into SITTER values('sitter11','1234','이름11','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','여');
 	insert into SITTER values('sitter12','1234','이름12','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','남');
 	insert into SITTER values('sitter13','1234','이름13','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','여');
@@ -70,26 +67,29 @@ create table SITTER(
 	insert into SITTER values('sitter30','1234','이름30','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','남');
 	insert into SITTER values('sitter31','1234','이름31','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','여');
 	insert into SITTER values('sitter32','1234','이름32','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','여');
-	insert into SITTER values('sitter33','1234','이름33','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'O','여');
-	insert into SITTER values('sitter34','1234','이름34','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'O','여');
-	insert into SITTER values('sitter35','1234','이름35','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'O','여');
-	insert into SITTER values('sitter36','1234','이름36','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'O','남');
-	insert into SITTER values('sitter37','1234','이름37','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'O','남');
-	insert into SITTER values('sitter38','1234','이름38','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'O','남');
-	insert into SITTER values('sitter39','1234','이름39','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'O','남');
-	insert into SITTER values('sitter40','1234','이름40','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'O','남');
+	insert into SITTER values('sitter33','1234','이름33','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','여');
+	insert into SITTER values('sitter34','1234','이름34','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','여');
+	insert into SITTER values('sitter35','1234','이름35','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','여');
+	insert into SITTER values('sitter36','1234','이름36','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','남');
+	insert into SITTER values('sitter37','1234','이름37','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','남');
+	insert into SITTER values('sitter38','1234','이름38','000-000-0000','abcd@naver.com','경기도 수원시 영통구 하동 법조로 134', '3010동 910호','안녕하세요','5',null,1,24000,'Y','남');
 	
-	-- insert into SITTER values('goodsitter','1234','이효리','000-000-0000','abcd@naver.com','경기도', '신봉동','안녕하세요','5',null,1,50000,null,'여');
-    -- insert into SITTER values('bestsitter','1234','박보검','000-000-0000','abdd@naver.com','경기도', '상현동','열정이넘치는','5',null,0,50000,null,'남');
-    -- insert into SITTER values('kind','1234','박민영','000-000-0000','efg@naver.com','경기도', '광교','내 아이처럼','0',null,1,27000,null,'여');
-    -- insert into SITTER values('happysis','1234','박서준','000-000-0000','happy@naver.com','수원시', '기흥','맡겨만주세요','1',null,1,30000,null,'남');
-    -- insert into SITTER values('meme','1234','설리','000-000-0000','hijk@naver.com','서울시', '잠원동','최고의서비스','3',null,1,40000,null,'여');
+	delete from sitter where sitter_id='sitter37' or sitter_id='sitter38'
+    
+    
+    
+    insert into SITTER values('goodsitter','1234','이효리','000-000-0000','abcd@naver.com','경기도', '신봉동','안녕하세요','5',null,1,50000,null,'여');
+    insert into SITTER values('bestsitter','1234','박보검','000-000-0000','abdd@naver.com','경기도', '상현동','열정이넘치는','5',null,0,50000,null,'남');
+    insert into SITTER values('kind','1234','박민영','000-000-0000','efg@naver.com','경기도', '광교','내 아이처럼','0',null,1,27000,null,'여');
+    insert into SITTER values('happysis','1234','박서준','000-000-0000','happy@naver.com','수원시', '기흥','맡겨만주세요','1',null,1,30000,null,'남');
+    insert into SITTER values('meme','1234','설리','000-000-0000','hijk@naver.com','서울시', '잠원동','최고의서비스','3',null,1,40000,null,'여');
     
     select * from SITTER; 
 
 create table pet(
         pet_id VARCHAR(50) not null constraint pet_id_pk primary key,
         OWNER_ID VARCHAR(50) not null constraint pet_OWNER_ID_fk references OWNER(OWNER_ID),
+        PET_NAME VARCHAR(20) NOT NULL, 
         pet_species VARCHAR(20) not null ,
         pet_size VARCHAR(10) not null,
         pet_liness VARCHAR(50) not null,
@@ -104,12 +104,12 @@ create table pet(
     START WITH 1
     INCREMENT BY 1;
     
-    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'happymom','푸들','소','없음',3,'여',13,null, null);
-    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'cloud','푸들','소','없음',3,'남',1,null, null);
-    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'any6103','푸들','소','없음',4,'여',1,null, null);
-    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'flower','꼬똥','중','없음',6,'남',3,null, null);
-    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'happy','말티푸','소','없음',4,'여',2,null, null);
-    
+    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'happymom','해피','푸들','소','없음',3,'여',13,null, null);
+    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'cloud','구름이','푸들','소','없음',3,'남',1,null, null);
+    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'any6103','꽃님이','푸들','소','없음',4,'여',1,null, null);
+    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'flower','나나','꼬똥','중','없음',6,'남',3,null, null);
+    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'happy','꾸루','말티푸','소','없음',4,'여',2,null, null);
+
     select * from pet;
 
 create table review(
@@ -220,13 +220,19 @@ create table call(
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'flower',NULL,60000,'약을꼭 챙겨주세요','18-08-02','18-08-03',sysdate,2,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happy',NULL,29000,'실외배변입니다','18-06-30','18-07-02',sysdate,1,NULL);
     
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','goodsitter',30000,'예민합니다','18-07-02','18-07-03',sysdate,1,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','bestsitter',30000,'예민합니다','18-07-02','18-07-03',sysdate,1,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','kind',30000,'예민합니다','18-07-02','18-07-03',sysdate,1,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','happysis',30000,'예민합니다','18-07-02','18-07-03',sysdate,1,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','meme',30000,'예민합니다','18-07-02','18-07-03',sysdate,1,NULL);
+    
     select * from call; 
     
 Create table SITTER_REQUEST(
-        SITTER_REQUEST_id VARCHAR(50) not null constraint SITTER_REQUEST_id_pk primary key,--펫시터가 신청
-        call_id VARCHAR(50) not null constraint SITTER_REQUEST_call_id_fk references call(call_id),--부르기id
-        OWNER_ID VARCHAR(50) not null constraint SITTER_REQUEST_OWNER_ID_fk references OWNER(OWNER_ID),--견주id
-        SITTER_ID VARCHAR(50) null constraint SITTER_REQUEST_SITTER_ID_fk  references SITTER(SITTER_ID)--펫시터id
+        SITTER_REQUEST_id VARCHAR(50) not null constraint SITTER_REQUEST_id_pk primary key,
+        call_id VARCHAR(50) not null constraint SITTER_REQUEST_call_id_fk references call(call_id),
+        OWNER_ID VARCHAR(50) not null constraint SITTER_REQUEST_OWNER_ID_fk references OWNER(OWNER_ID),
+        SITTER_ID VARCHAR(50) null constraint SITTER_REQUEST_SITTER_ID_fk  references SITTER(SITTER_ID)
     );
     
     CREATE SEQUENCE sequence_SITTER_REQUEST
@@ -257,11 +263,15 @@ Create table OWNER_REQUEST(
     INCREMENT BY 1;
     
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'happymom','goodsitter',27000,'18-07-02','18-07-03',1,NULL);
+    insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'cloud','goodsitter',35000,'18-06-28','18-06-29',2,NULL);
+    insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'any6103','goodsitter',28000,'18-06-30','18-07-01',1,NULL);
+    insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'flower','goodsitter',50000,'18-07-02','18-07-05',1,NULL);
+    insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'happy','goodsitter',30000,'18-07-02','18-07-03',1,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'cloud','bestsitter',35000,'18-06-28','18-06-29',2,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'any6103','kind',28000,'18-06-30','18-07-01',1,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'flower','happysis',50000,'18-07-02','18-07-05',1,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'happy','meme',30000,'18-07-02','18-07-03',1,NULL);
- 
+
     select * from OWNER_REQUEST; 
     
 create table OPTIONS(
@@ -293,9 +303,9 @@ Create table SITTER_OPTION(
     CREATE SEQUENCE sequence_SITTER_OPTION
     START WITH 1
     INCREMENT BY 1;
-	    
-	    
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter1','OPTION_ID-1');
+    
+    
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter1','OPTION_ID-1');
 	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter1','OPTION_ID-2');
 	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter2','OPTION_ID-1');
 	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter2','OPTION_ID-2');
@@ -335,24 +345,23 @@ Create table SITTER_OPTION(
 	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-6');
 	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-7');
 	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'sitter10','OPTION_ID-8');
-	
-	
-	
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-1');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-2');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-3');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-4');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-5');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-6');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-7');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-8');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'bestsitter','OPTION_ID-1');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'bestsitter','OPTION_ID-2');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'bestsitter','OPTION_ID-3');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'kind','OPTION_ID-1');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'happysis','OPTION_ID-1');
-	insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'meme','OPTION_ID-1');
-	   
+    
+    
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-1');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-2');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-3');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-4');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-5');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-6');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-7');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'goodsitter','OPTION_ID-8');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'bestsitter','OPTION_ID-1');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'bestsitter','OPTION_ID-2');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'bestsitter','OPTION_ID-3');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'kind','OPTION_ID-1');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'happysis','OPTION_ID-1');
+    insert into SITTER_OPTION values('SITTER_OPTION_id-'||sequence_SITTER_OPTION.NEXTVAL,'meme','OPTION_ID-1');
+    
     select * from SITTER_OPTION; 
     
 
@@ -383,7 +392,7 @@ Create table DIARY(
 create table SITTING_OPTION(
     SITTING_OPTION_ID VARCHAR(50) not null constraint SITTING_OPTION_ID_pk primary key,
     OPTION_ID VARCHAR(50) not null constraint SITTING_OPTION_OPTION_ID_Fk references OPTIONS(OPTION_ID),
-    REQUEST_ID VARCHAR(50) not null
+    sitting_id VARCHAR(50) not null
     );
     
     CREATE SEQUENCE sequence_SITTING_OPTION
@@ -486,7 +495,33 @@ Create table SITTER_IMG(
     insert into SITTER_IMG VALUES ('SITTER_IMG_ID-'||sequence_SITTER_IMG_ID.NEXTVAL,'meme',null,null);
     
     select * from sitter_img;
+
+CREATE TABLE AUTHORITIES(
+       USER_ID VARCHAR2(100) NOT NULL, /* ID*/
+       ROLE VARCHAR(30) NOT NULL,    
+       PASSWORD VARCHAR(30) NULL,
+       USER_NAME VARCHAR(30) NULL,
+       CONSTRAINT AUTHORITIES_PK PRIMARY KEY(USER_ID,ROLE)
+    );
+    select * from AUTHORITIES;
+    select * from OWNER;
+    select * from SITTER;
     
+    insert into AUTHORITIES VALUES ('ADMIN','ADMIN','1234','관리자');
+    
+    insert into AUTHORITIES VALUES ('happymom','OWNER','1234','김진주');
+    insert into AUTHORITIES VALUES ('cloud','OWNER','1234','백승현');
+    insert into AUTHORITIES VALUES ('any6103','OWNER','1234','김시연');
+    insert into AUTHORITIES VALUES ('flower','OWNER','1234','전태준');
+    insert into AUTHORITIES VALUES ('happy','OWNER','1234','정한별');
+    
+    insert into AUTHORITIES VALUES ('goodsitter','SITTER','1234','이효리');
+    insert into AUTHORITIES VALUES ('bestsitter','SITTER','1234','박보검');
+    insert into AUTHORITIES VALUES ('kind','SITTER','1234','박민영');
+    insert into AUTHORITIES VALUES ('happysis','SITTER','1234','박서준');
+    insert into AUTHORITIES VALUES ('meme','SITTER','1234','설리');
+
+
 COMMIT;
 
     

@@ -7,80 +7,16 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/optionSelect.css?v=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/request/sitterPreview.css?v=2">
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ba4b9793fc0330bc556842d113ad5aaa"></script>
-<script type="text/javascript">
-	/* $(function () {
-		$(document).on("click","#pageElement",function(){
-			alert($(this).html());
-			$.ajax({
-				url: "${pageContext.request.contextPath}/owner/request/sitterListAjax", //서버 요청 주소
-				type:"POST", //메소드 방식 GET , POST
-				dataType:"json", //요청 결과 데이터 타입(text, html,xml,json)
-				data:"curPage="+$(this).html(), //서버에게 보낼 parameter 정보
-				success:function(data){						
-					$.each(data,function(index,item){
-						var content="<li class='row sitter-li preview-container'>";
-						content += "<div class='col-xs-7 preview-left'>";
-						content += "<div class='row' style='margin-top: 25px'>";
-						content += "<h5><b><a href='#' class='sitter-desc'>"+item.sitterIntroduce+"</a></b></h5>"
-						content += "<span class=''>"+item.sitterName+"</span>";
-						content += "</div>"
-						content += "<hr>";
-						content += "<div class='row'>";
-						$.each(item.sitterOptionDTO,function(opIndex,opItem){
-							content += "<span class='label label-success option-label'>"+opItem.optionName+"</span>";
-						});
-						content += "</div>";
-						content += "</div>";
-						content += "<div class='col-xs-2 preview-grade'>";
-						content += "<div class='row'>";
-						content += "<h4>"+item.sitterGrade+"</h4>"
-						content += "<h6><a href='#'>고객후기 n개</a></h6>"
-						content +=
-						content +=
-						content +=
-						content +=
-						content +=
-						content +=
-						content +=
-						content +=
-						content +=
-					})
-					
-					alert(data);
-				},//callback	
-				error:function(err){
-					alert(err +"=>오류발생!!!");
-				}
-			});//ajax 
-		})
-		$("#pagingPrev").click(function(){
-			alert(110);
-			/* $.ajax({
-				type:"POST",
-				url:"${pageContext.request.contextPath}/idcheckAjax",				
-				data:"${_csrf.parameterName}=${_csrf.token}&id="+id,	
-				success:function(data){						
-					if(data=="fail"){
-					$("#idCheckView").html("  "+id+" ID Can't Use!! ").css("background","red");
-						checkResultId="";
-					}else{						
-						$("#idCheckView").html("  "+id+" ID Can Use!! ").css("background","yellow");		
-						checkResultId=id;
-					}					
-				}//callback			
-			});//ajax 
-		});//keyup
-	})
- */
-</script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ba4b9793fc0330bc556842d113ad5aaa&libraries=services,clusterer,drawing"></script>
 </head>
 <body>
-	
 	<!-- sitter 검색 조건 -->
 	<div class="container-fluid option-filter-container">
 		<div class="row filter-row">
-			<form class="option-filters">
+			<form class="option-filters" action="" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			<input type="hidden" name="optionSelect" id="optionSelect">
+			<input type="hidden" name="gradeSelect" id="gradeSelect" >
 				<ul>
 					<li class="col-tags col-md-8">
 						<dl>
@@ -89,8 +25,8 @@
 								<div class="row ">
 									<c:forEach items="${optionList}" var="option">
 										<div class="btn-group col-xs-3" data-toggle="buttons">
-											<label class="btn btn-xs btn-block"> <input type="checkbox" name="tag" autocomplete="off" value="${option.optionId}">
-												${option.optionName}
+											<label class="btn btn-xs btn-block"> <input type="checkbox" name="optionId" id="optionId" autocomplete="off" value="${option.optionId}">
+												<span id="optionName">${option.optionName}</span>
 											</label>
 										</div>
 									</c:forEach>
@@ -116,7 +52,7 @@
 					<li class="col-btn col-md-2 pull-left">
 						<dl>
 							<dd>
-								<button class="btn">찾기</button>
+								<input type="button" class="btn" id="option-btn" value="찾기">
 							</dd>
 						</dl>
 					</li>
@@ -133,7 +69,9 @@
 						<li class="row sitter-li preview-container">
 							<div class="col-xs-7 preview-left">
 								<div class="row" style="margin-top: 25px">
-									<h5><b><a href="#" class="sitter-desc">${sitterInfo.sitterIntroduce}</a></b></h5>
+									<h5>
+										<b><a href="#" class="sitter-desc">${sitterInfo.sitterIntroduce}</a></b>
+									</h5>
 									<span class="">${sitterInfo.sitterName }</span>
 								</div>
 								<hr>
@@ -146,7 +84,9 @@
 							<div class="col-xs-2 preview-grade">
 								<div class="row">
 									<h4>${sitterInfo.sitterGrade}</h4>
-									<h6><a href="#">고객후기 n개</a></h6>
+									<h6>
+										<a href="#">고객후기 n개</a>
+									</h6>
 									<c:forEach begin="1" end="${sitterInfo.sitterGrade}">
 										<i class="glyphicon glyphicon-star gi-star"></i>
 									</c:forEach>
@@ -173,82 +113,118 @@
 				<div class="col-md-6 text-center">
 					<nav>
 					<ul class="pagination sitter-pagination">
-						<li class="page-item"><a class="page-link" id="pagingPrev" href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.curPage}">Previous</a></li>
-						<c:forEach begin="${pagingUtil.startPage}" end="${pagingUtil.endPage}" varStatus="status" >
+						<li class="page-item"><a class="page-link" id="pagingPrev"
+								href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.curPage}"
+							>Previous</a></li>
+						<c:forEach begin="${pagingUtil.startPage}" end="${pagingUtil.endPage}" varStatus="status">
 							<c:choose>
 								<c:when test="${pagingUtil.startPage+status.count-1 eq pagingUtil.curPage+1}">
-									<li class="page-item active"><a class="page-link" id="pageElement" href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.startPage+status.count-1}">${pagingUtil.startPage+status.count-1}</a></li>
+									<li class="page-item active"><a class="page-link" id="pageElement"
+											href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.startPage+status.count-1}"
+										>${pagingUtil.startPage+status.count-1}</a></li>
 								</c:when>
 								<c:when test="${pagingUtil.startPage+status.count-1 gt pagingUtil.totalPage}">
 									<li class="page-item disabled"><a class="page-link" id="pageElement" href="#">${pagingUtil.startPage+status.count-1}</a></li>
 								</c:when>
 								<c:otherwise>
-		 							<li class="page-item"><a class="page-link" id="pageElement" href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.startPage+status.count-1}">${pagingUtil.startPage+status.count-1}</a></li>
+									<li class="page-item"><a class="page-link" id="pageElement"
+											href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.startPage+status.count-1}"
+										>${pagingUtil.startPage+status.count-1}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<li class="page-item"><a class="page-link" id="paingNext" href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.curPage+2}">Next</a></li>
+						<li class="page-item"><a class="page-link" id="paingNext"
+								href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.curPage+2}"
+							>Next</a></li>
 					</ul>
 					</nav>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- 지도 로드 -->
-	<script>
-		var container = document.getElementById('map');
-		var options = {
-			center : new daum.maps.LatLng(33.450701, 126.570667),
-			level : 3
-		};
-
-		var map = new daum.maps.Map(container, options);
+	<script type="text/javascript">
+		$(function(){
+			$(document).on("click","#option-btn",function(){
+				var gradeSelected = $("#grade-select option:selected").val();
+				var optionTags = [];
+				$("#optionId:checked").each(function() {
+					//optionTags[$(this).val()] = $(this).next().text();
+					optionTags.push($(this).val());
+				});
+				$("#optionSelect").val(optionTags);
+				$("#gradeSelect").val(gradeSelected);
+				$(".option-filters").attr("action","${pageContext.request.contextPath}/owner/request/sitterSearch");
+				$(".option-filters").submit();
+				//alert(optionTags["OPTION_ID-1"]);
+			})
+		})
 	</script>
-	<!-- Scroll 따라다니는 지도 -->
-	<script>
-		$(function() {
-			var currentPosition = parseInt($(".div-map").css("top")); //지도의 현재 position
-			var pagingPosition = $("#paging-div").offset();  //paging 태그 div top position
-			var positionMin = pagingPosition.top -730;
-			$(window).scroll(function() {
-				/* var positionMap = $(".div-map").offset();
-				var positionMapBottom = positionMap.top + $("#map").css("height");
-				 */
-				var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다. 
-				var positionRe = position + currentPosition - 150; 
-				/* console.log("footercustom="+pagingPosition.top);
-				
-				if(positionMin<0){
-					$(".div-map").stop().animate({
-						"top" : 0
-					}, 500);
-				}else if(positionMapBottom>pagingPosition.top){
-					$(".div-map").stop().animate({
-						"top" : positionMin
-					}, 500);
-				}else{
-					$(".div-map").stop().animate({
-						"top" : pagingPosition.top
-					}, 500);
-				} */
-				
-				var positionMapBottom = $("#map").css("height");
-				console.log(positionMapBottom);
-				if(position > 530){
-					$(".div-map").stop().animate({
-						"top" : 530
-					}, 500);	
-				}else if (positionRe > 0 ) { //지도위치가 0보다 클경우
-					$(".div-map").stop().animate({
-						"top" : positionRe
-					}, 500);
-				} else { //지도위치가 0보다 작을경우 0으로 고정
-					$(".div-map").stop().animate({
-						"top" : 0
-					}, 500);
-				}
-			});
-		});
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/lib/js/map/map.js"></script>
+	<script type="text/javascript">
+		//var addrList = new Array();
+		var addressArray = [];
+		var sitterNameArr = [];
+		<c:forEach items="${sitterList}" var="sitter" varStatus="status">
+			//alert('${sitter.sitterAddr}');
+			//alert('${sitter.sitterAddr}');
+			addressArray.push('${sitter.sitterAddr}');
+			sitterNameArr.push('${sitter.sitterName}');
+		</c:forEach>
+		//변환된 좌표 목록 저장할 변수
+		var coordsArray = {};
+		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new daum.maps.services.Geocoder();
+
+		/*****************************************************************/
+		var counter = 0;
+		var markers = [];
+		addressArray.forEach(function (addr) {
+			  geocoder.addressSearch(addr, function(result, status) {
+				// 정상적으로 검색이 완료됐으면 
+					if (status === daum.maps.services.Status.OK) {
+						var coords = new daum.maps.LatLng(result[0].y,
+								result[0].x);
+						
+						coordsArray[counter] = coords;
+						
+						// 결과값으로 받은 위치를 마커로 표시합니다
+						var marker = new daum.maps.Marker({
+							map : map,
+							position : coordsArray[counter]
+						});
+						
+						markers.push(marker);
+						var infowindow = new daum.maps.InfoWindow({
+						    content : '<div id="info'+counter+'" style="padding:5px;">'+sitterNameArr[counter]+'</div>', // 인포윈도우에 표시할 내용
+						   	removable : true
+						});
+						// 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
+						daum.maps.event.addListener(markers[counter], 'click', function() {
+							//location.href="${pageContext.request.contextPath}/"+url;
+						});
+						// 마커에 마우스오버 이벤트를 등록
+						daum.maps.event.addListener(markers[counter], 'mouseover', function() {
+							// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시
+							infowindow.open(map, this);
+						});
+
+						// 마커에 마우스아웃 이벤트를 등록
+						daum.maps.event.addListener(markers[counter], 'mouseout', function() {
+							// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거
+							infowindow.close();
+						});
+						counter++;
+						if(counter == addressArray.length){
+							// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+							map.setCenter(coordsArray[0]);
+							map.setLevel(7);
+						}
+					} //if문 종료
+			  }); //addressSearch종료
+		});//each 종료
+		/*****************************************************************/
+		
 	</script>
 </body>
 </html>

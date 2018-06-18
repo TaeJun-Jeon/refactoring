@@ -6,11 +6,11 @@
 <mapper namespace="requestMapper">
 
 <select id="allSelectOwnerRequest" resultType="ownerRequestDTO">
-select * from owner_request where sitter_approval is null or sitter_approval = 'x'
+select * from owner_request where sitter_approval is null or sitter_approval = 'N'
 </select>
 
 <select id="allSelectOwnerRequestApproval" resultType="ownerRequestDTO">
-select * from owner_request where sitter_approval = 'y'
+select * from owner_request where sitter_approval = 'Y'
 </select>
 
 <select id="allSelectCall" resultType="callDTO">

@@ -24,6 +24,7 @@
 		select
 		<include refid="sitterColumn" />
 		from sitter
+		where sitter_permit='Y'
 	</select>
 	
 	<select id="selectSitterOption" parameterType="String" resultMap="sitterOptionJoinOption"> 
@@ -32,4 +33,30 @@
 		on	o.option_id = s.option_id
 		where sitter_id = #{_parameter}
 	</select>
+	
+	<select id="selectSittersByOpGrade" parameterType="Map" resultType="sitterDTO">
+		select <include refid="sitterColumn" />
+		from sitter
+		where 
+		<if test="#{grade}!=null">
+			(sitter_grade >= #{grade}) and 
+		</if>
+		sitter_id in 
+		(select DISTINCT sitter_id from sitter_Option 
+		<if test="#{opList.size}!=null">
+			where option_id in
+			<foreach collection="opList" open="(" close=")" item="item" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		 ) and
+		sitter_permit='Y'
+	</select>
+	
+<!-- 	<select id="selectSittersByOpGrade" resultType="sitterDTO">
+	select
+		<include refid="sitterColumn" />
+		from sitter
+		where sitter_permit='Y'
+	</select> -->
 </mapper>

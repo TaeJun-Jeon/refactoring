@@ -30,4 +30,12 @@ public interface SitterDAO {
 	 * @return
 	 */
 	public List<SitterOptionDTO> selectSitterOptions(String sitterId);
+
+	/**
+	 * option들과 grade 검색조건으로 sitter 검색하는 메소드
+	 * @param opList
+	 * @param grade
+	 * @return
+	 */
+	public List<SitterDTO> selectSittersByOpGrade(List<String> opList, int grade);
 }

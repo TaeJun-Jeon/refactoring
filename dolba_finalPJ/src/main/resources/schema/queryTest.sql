@@ -46,5 +46,20 @@ update SITTER set sitter_grade = 3 where sitter_id = 'sitter10';
 
 select count(*) from sitter
 
+select *
+from sitter
+where (sitter_grade > 1) and sitter_id in 
+(select DISTINCT sitter_id from sitter_Option where option_id in ('OPTION_ID-5','OPTION_ID-6','OPTION_ID-9') )
+and sitter_permit='Y'
+
+select option_id from sitter_option where sitter_id in select DISTINCT sitter_id from sitter_Option where option_id='OPTION_ID-1'
+
+select DISTINCT sitter_id 
+from sitter_Option 
+where option_id in ('OPTION_ID-1','OPTION_ID-2','OPTION_ID-3');
+
+
+SELECT * FROM SITTER_OPTION 
+
 commit
 

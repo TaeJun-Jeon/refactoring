@@ -1,7 +1,9 @@
 package com.dolba.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.PetDTO;
 import com.dolba.dto.SitterDTO;
 import com.dolba.dto.SitterOptionDTO;
+import com.dolba.option.service.OptionService;
 import com.dolba.owner.service.OwnerService;
 import com.dolba.request.service.RequestService;
 import com.dolba.sitter.service.SitterService;
@@ -34,6 +37,8 @@ public class OwnerController {
 	@Autowired
 	private SitterService sitterService;
 	
+	@Autowired
+	private OptionService optionService;
 	
 	@RequestMapping("/myPage")
 	public String myPage() {
@@ -115,6 +120,18 @@ public class OwnerController {
 			System.out.println("-----------------------------");
 			
 		}*/
+		mv.setViewName("owner/sitterList");
+		return mv;
+	}
+	@RequestMapping("/request/sitterSearch")
+	public ModelAndView requestSitterSearch(HttpServletRequest request,String[] optionSelect,String gradeSelect,String pageNum) {
+		List<OptionsDTO> optionList = requestService.selectAllOption();
+		List<SitterDTO> sitterList = sitterService.selectSittersByOpGrade(optionSelect, Integer.parseInt(gradeSelect));
+		
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("optionList",optionList);
+		mv.addObject("sitterList", sitterList);
 		mv.setViewName("owner/sitterList");
 		return mv;
 	}
