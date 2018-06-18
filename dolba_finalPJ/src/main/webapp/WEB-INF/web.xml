@@ -19,10 +19,8 @@
 		<param-value>
     classpath:com/domain/config/spring-db.xml
     classpath:com/domain/config/spring-security.xml
-<<<<<<< HEAD
-=======
+
     <!-- classpath:com/domain/config/spring-exception.xml -->
->>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
     </param-value>
 	</context-param>
 	<listener>
