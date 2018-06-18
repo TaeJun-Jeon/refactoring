@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +12,17 @@
 <link href="${pageContext.request.contextPath}/resources/lib/css/myPage/fullcalendar.min.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/resources/lib/css/myPage/fullcalendar.print.min.css" rel="stylesheet" media="print" />
 <link href="${pageContext.request.contextPath}/resources/lib/css/myPage/myPage.css" rel="stylesheet"/>
+
+
 </head>
 <script>
+function logout() {
+	var result = confirm("로그아웃하시겠습니까?");
+	if(result){
+		document.getElementById("logoutFrm").submit();
+	}
+}
+
 $(document).ready(function() {
 	$("#mytable #checkall").click(function() {
 						if ($("#mytable #checkall").is(':checked')) {
@@ -27,11 +38,20 @@ $(document).ready(function() {
 					});
 
 	$("[data-toggle=tooltip]").tooltip();
-
+	
+	var userId = '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}';
+	var role ='${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.role}';
+	
+/* 	<-------------------------------------------보호자 기능------------------------------------------------->*/
+ 
+/*	<-----------------------------------보호자의 부르기 탭--------------------------------------> */
 	var ownerCallTab = document.getElementById('ownerCallTab');
 	ownerCallTab.onclick = function() {
+		
 		$.ajax({
+			
 					type : "post",//전송방식
+					data: "${_csrf.parameterName}=${_csrf.token}&role="+role+"&userId="+userId,
 					url : "${pageContext.request.contextPath}/owner/allSelectCall", //서버요청주소
 					dataType : "json", //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
 					success : function(result) {//개수|단어,단어,단어,...
@@ -66,11 +86,13 @@ $(document).ready(function() {
 
 	}
 	
+	
 	var ownerCallTabAfter= document.getElementById('ownerCallTabAfter');
 	ownerCallTabAfter.onclick = function() {
 		$.ajax({
 					type : "post",//전송방식
 					url : "${pageContext.request.contextPath}/owner/allSelectCallApproval", //서버요청주소
+					data : "${_csrf.parameterName}=${_csrf.token}&role="+role+"&userId="+userId,
 					dataType : "json", //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
 					success : function(result) {//개수|단어,단어,단어,...
 						$("#callAfterTable tr:gt(0)").remove();
@@ -93,16 +115,10 @@ $(document).ready(function() {
 							    	eventLimit : true, // allow "more" link when too many events
 							   
 							    	 events: function (start, end, timezone, callback) {
-							        	 $.ajax({
-								          url: '${pageContext.request.contextPath}/owner/allSelectCallApproval',
-								          type: "GET",
-								          async:false,
-								          datatype: 'json',
-								          success: function(data){
-								             // var json = data.calendarList;
+							        	
 								              var events = [];
 								              
-								              $.each(data, function(index,item) {
+								              $.each(result, function(index,item) {
 								               
 								               var startTime = item.callReservateStart.split(" ");
 								               var endTime = item.callReservateEnd.split(" ");
@@ -111,8 +127,8 @@ $(document).ready(function() {
 								           });
 								              callback(events);
 								          },
-								         });
-								     },
+								         
+								
 								     eventAfterRender: function (event, element, view) {
 								     },
 								     dayClick: function(date, jsEvent, view) {
@@ -136,11 +152,15 @@ $(document).ready(function() {
 
 	}
 
+	
+/* 	<-----------------------------------보호자의 맡기기 탭--------------------------------------> */
+
 	var ownerRequestTab = document.getElementById('ownerRequestTab');
 	ownerRequestTab.onclick = function() {
 		$.ajax({
 					type : "post",//전송방식
 					url : "${pageContext.request.contextPath}/owner/allSelectOwnerRequest", //서버요청주소
+					data: "${_csrf.parameterName}=${_csrf.token}&role="+role+"&userId="+userId,
 					dataType : "json", //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
 					success : function(result) {//개수|단어,단어,단어,...
 						$("#requestBeforeTable tr:gt(0)").remove();
@@ -174,6 +194,7 @@ $(document).ready(function() {
 		$.ajax({
 			type : "post",//전송방식
 			url : "${pageContext.request.contextPath}/owner/allSelectOwnerRequestApproval", //서버요청주소
+			data: "${_csrf.parameterName}=${_csrf.token}&role="+role+"&userId="+userId,
 			dataType : "json", //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
 			success : function(result) {//개수|단어,단어,단어,...
 				$("#requestAfterTable tr:gt(0)").remove();
@@ -196,16 +217,12 @@ $(document).ready(function() {
 					    	eventLimit : true, // allow "more" link when too many events
 					   
 					    	 events: function (start, end, timezone, callback) {
-					        	 $.ajax({
-						          url: '${pageContext.request.contextPath}/owner/allSelectOwnerRequestApproval',
-						          type: "GET",
-						          async:false,
-						          datatype: 'json',
-						          success: function(data){
+					        
+						          
 						             // var json = data.calendarList;
 						              var events = [];
 						              
-						              $.each(data, function(index,item) {
+						              $.each(result, function(index,item) {
 						               
 						               var startTime = item.ownerRequestStart.split(" ");
 						               var endTime = item.ownerRequestEnd.split(" ");
@@ -213,8 +230,6 @@ $(document).ready(function() {
 						               events.push({title: item.sitterId, start: startTime[0], end: endTime[0]});
 						           });
 						              callback(events);
-						          },
-						         });
 						     },
 						     eventAfterRender: function (event, element, view) {
 						     },
@@ -244,7 +259,7 @@ $(document).ready(function() {
 	$.ajax({
 				type : "post", //전송방식
 				url : "${pageContext.request.contextPath}/owner/updateOwnerApproval", //서버주소
-				data : "callId="+ id +"&state=y",//서버에게 보낼 parameter 정보
+				data: "${_csrf.parameterName}=${_csrf.token}&callId="+ id +"&state=y",//서버에게 보낼 parameter 정보
 				dataType : "text", //서버가 front로 보내주는 데이터 타입 (text ,html, xml, json)
 				success : function(result) {
 					alert("예약 수락되었습니다");
@@ -267,7 +282,7 @@ $(document).ready(function() {
 			$.ajax({
 				type : "post", //전송방식
 				url : "${pageContext.request.contextPath}/owner/updateOwnerApproval", //서버주소
-				data : "callId="+ id +"&state=x",//서버에게 보낼 parameter 정보
+				data:"${_csrf.parameterName}=${_csrf.token}&callId="+ id +"&state=x",//서버에게 보낼 parameter 정보
 				dataType : "text", //서버가 front로 보내주는 데이터 타입 (text ,html, xml, json)
 				success : function(result) {
 					alert("예약 거절되었습니다");
@@ -281,10 +296,10 @@ $(document).ready(function() {
 		}
 					
 	})
-
 })
 </script>
 <body>
+<sec:authorize access="isAuthenticated()">
 	<div class="container myPage-padding">
 		<div class="row profile">
 			<div class="col-md-3">
@@ -294,27 +309,33 @@ $(document).ready(function() {
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->
 					<div class="profile-usertitle">
-						<div class="profile-usertitle-name">정한별</div>
+					
+					<sec:authentication var="user" property="principal"/>
+					<div class="profile-usertitle-name">${user.userName}</div>
 						<div class="profile-usertitle-job">보호자</div>
+						
 					</div>
 					<!-- END SIDEBAR USER TITLE -->
 					<!-- SIDEBAR BUTTONS -->
 					<div class="profile-userbuttons">
-						<button type="button" class="btn btn-success btn-sm">로그아웃</button>
+						<button type="button" class="btn btn-success btn-sm" onclick="javascript:logout();">로그아웃</button>
 						<button type="button" class="btn btn-danger btn-sm">회원탈퇴</button>
+						<form id="logoutFrm" action="${pageContext.request.contextPath}/admin/logout" method="post" style:"display:none">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
+						</form>
 					</div>
 					<!-- END SIDEBAR BUTTONS -->
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu">
 						<ul class="nav">
-							<li class="active"><a href="#petInfo" data-toggle="tab" > <i class="fa fa-paw"></i> 펫정보
-							</a></li>
-							<li><a href="#userInfo" data-toggle="tab" > <i class="fa fa-user"></i> 나의정보
-							</a></li>
-							<li><a href="#tab3" data-toggle="tab" id="ownerCallTab"> <i class="fa fa-calendar"></i> 부르기
-							</a></li>
-							<li><a href="#tab4" data-toggle="tab" id="ownerRequestTab"> <i class="fa fa-child"></i> 맡기기
-							</a></li>
+						
+							<li class="active"><a href="#petInfo" data-toggle="tab" > <i class="fa fa-paw"></i> 펫정보</a></li>
+							<li><a href="#userInfo" data-toggle="tab" > <i class="fa fa-user"></i> 나의정보</a></li>
+						
+							<li><a href="#tab3" data-toggle="tab" id="ownerCallTab"> <i class="fa fa-calendar"></i> 부르기</a></li>
+							<li><a href="#tab4" data-toggle="tab" id="ownerRequestTab"> <i class="fa fa-child"></i> 맡기기</a></li>
+				
+
 						</ul>
 					</div>
 					<!-- END MENU -->
@@ -377,7 +398,7 @@ $(document).ready(function() {
 												<div class="col-lg-12">
 													<div class="col-xs-12 col-sm-4">
 														<figure>
-															<img class="img-circle img-responsive" alt="" src="http://placehold.it/300x300">
+															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/김진주.jpg">
 														</figure>
 														<div class="row">
 															<div class="col-xs-12 social-btns"></div>
@@ -385,11 +406,11 @@ $(document).ready(function() {
 													</div>
 													<div class="col-xs-12 col-sm-8">
 														<ul class="list-group">
-															<li class="list-group-item">John Doe</li>
-															<li class="list-group-item">Software Engineer</li>
-															<li class="list-group-item">Google Inc.</li>
-															<li class="list-group-item"><i class="fa fa-phone"></i> 000-000-0000</li>
-															<li class="list-group-item"><i class="fa fa-envelope"></i> john@example.com</li>
+															<li class="list-group-item">${ownerDTO.ownerName}</li>
+															<li class="list-group-item">${ownerDTO.ownerAddr}</li>
+															<li class="list-group-item">${ownerDTO.ownerDetailAddr}</li>
+															<li class="list-group-item"><i class="fa fa-phone"></i> ${ownerDTO.ownerPhone}</li>
+															<li class="list-group-item"><i class="fa fa-envelope"></i> ${ownerDTO.ownerEmail}</li>
 														</ul>
 													</div>
 													<div class="profile-userbuttons">
@@ -476,7 +497,7 @@ $(document).ready(function() {
 					<!-- ---------------------------------------맡기기------------------------------------------------------------- -->
 					<div class="tab-pane" id="tab4">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tabb3" data-toggle="tab">확정전 </a></li>
+							<li class="active"><a href="#tabb3" data-toggle="tab" >확정전 </a></li>
 							<li><a href="#tabb4" data-toggle="tab" id="ownerRequestTabAfter">확정후</a></li>
 						</ul>
 						<div class="tab-content">
@@ -542,10 +563,15 @@ $(document).ready(function() {
 							</div>
 						</div>
 					</div>
+			
+			
 				</div>
 			</div>
 		</div>
 	</div>
+</sec:authorize>
+	
+
 	<script src='${pageContext.request.contextPath}/resources/lib/js/fullCalendar/moment.min.js'></script>
 	<script src='${pageContext.request.contextPath}/resources/lib/js/fullCalendar/fullcalendar.min.js'></script>
 </body>

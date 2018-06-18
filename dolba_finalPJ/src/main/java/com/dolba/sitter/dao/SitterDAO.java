@@ -38,4 +38,6 @@ public interface SitterDAO {
 	 * @return
 	 */
 	public List<SitterDTO> selectSittersByOpGrade(List<String> opList, int grade);
+
+	public SitterDTO selectSitterInfo(String userId);
 }

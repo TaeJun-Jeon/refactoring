@@ -13,11 +13,11 @@
     width: 30%;
 }
 .joinform-size-address-first{
-	width: 35%;
+    width: 37%;
 }
 
 .joinform-size-address-second{
-	width: 35%;
+    width: 37%;
 }
 
 .joinform-size-address-zipcode{
@@ -29,10 +29,18 @@
 }
 
 .form-margin{
-	margin : 25px 25px 25px 50px;
-	
+    margin : 25px 25px 25px 50px;
+
 }
 
 .entire-margin{
-	margin : 50px 0 80px 0;
+    margin : 50px 0 80px 0;
+}
+
+.select-size{
+    width: 15%;
+}
+
+.custom-nav-toggle{
+    border : none;
 }

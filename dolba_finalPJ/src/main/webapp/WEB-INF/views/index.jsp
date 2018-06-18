@@ -86,8 +86,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<li><a href="#about" class="scroll">About</a></li>
 								<li><a href="#services" class="scroll">서비스소개</a></li>
 								<li><a href="#price" class="scroll">가격정책</a></li>
-								<li><a href="#protector-service" class="scroll">보호자서비스</a></li>
+								<sec:authorize access="hasRole('ROLE_OWNER')">
+									<li><a href="#protector-service" class="scroll">보호자서비스</a></li>
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_SITTER')">
 								<li><a href="#petsit-service" class="scroll">펫시터서비스</a></li>
+								</sec:authorize>
 								<li><a href="#qna" class="scroll">Q & A</a></li>
 								<li>
 									<div class="showback">
@@ -97,15 +101,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												<span class="fa fa-user"></span> <span class="caret"></span>
 											</button>
 											<ul class="dropdown-menu" role="menu">
-												<li><a href="#myModal" data-toggle="modal"><span class="fa fa-sign-in"></span>&nbsp;&nbsp;로그인</a></li>
-												<li><a href="${pageContext.request.contextPath}/admin/joinForm"><span class="fa fa-pencil-square-o"></span>&nbsp;&nbsp;회원가입</a></li>
-												<li class="divider"></li>
-												<sec:authorize access="isAuthenticated()">
-												<li><a href="${pageContext.request.contextPath}/owner/myPage"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;마이페이지</a></li>
-												<li><a href="javascript:logout();"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+												<sec:authorize access="isAnonymous()">
+													<li><a href="#myModal" data-toggle="modal"><span class="fa fa-sign-in"></span>&nbsp;&nbsp;로그인</a></li>
+													<li><a href="${pageContext.request.contextPath}/admin/joinForm"><span class="fa fa-pencil-square-o"></span>&nbsp;&nbsp;회원가입</a></li>
+													<li class="divider"></li>
 												</sec:authorize>
-												<form id="logoutFrm" action="${pageContext.request.contextPath}/admin/logout" method="post" style:"display:none">
-												<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+											
+												<sec:authorize access="isAuthenticated()">
+													<sec:authentication var="user" property="principal"/>
+
+													<li><a href="${pageContext.request.contextPath}/owner/myPage?role=${user.role}&userId=${user.userId}"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;마이페이지</a></li>
+													<li><a href="javascript:logout();"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;로그아웃</a></li>
+													</sec:authorize>
+													<form id="logoutFrm" action="${pageContext.request.contextPath}/admin/logout" method="post" style:"display:none">
+													<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 												</form>
 											</ul>
 										</div>
@@ -133,9 +142,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="slider-info">
 									<h4> <span class="home-banner">O</span>ur <span class="home-banner">B</span>est <span class="home-banner">S</span>ervice</h4>
 									<p>Pet Sitting Service</p>
+									<sec:authorize access="isAnonymous()">
 									<div class="outs_more-buttn">
 										<a href="#" data-toggle="modal" data-target="#myModal">지금 시작하기</a>
 									</div>
+									</sec:authorize>
+									
 								</div>
 							</div>
 						</div>
@@ -146,9 +158,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="slider-info">
 									<h4><span class="home-banner">L</span>ovely And <span class="home-banner">C</span>ute <span class="home-banner">P</span>ets</h4>
 									<p>Personalized care for your pet</p>
+									<sec:authorize access="isAnonymous()">
 									<div class="outs_more-buttn">
 										<a href="#" data-toggle="modal" data-target="#myModal">지금 시작하기</a>
 									</div>
+									</sec:authorize>
 								</div>
 							</div>
 						</div>
@@ -214,7 +228,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<a href="#"><p class="login-form-text">비밀번호 혹은 아이디를 잊어버리셨나요?</p></a>
 								</div>
 								<div class="col-xs-12 col-sm-6">
-									아직 아이디가 없으신가요?<a href="#" class="login-form-text">&nbsp;&nbsp;회원가입</a>
+									아직 아이디가 없으신가요?<a href="${pageContext.request.contextPath}/admin/joinForm" class="login-form-text">&nbsp;&nbsp;회원가입</a>
+									
 								</div>
 							</div>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -601,7 +616,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!--//price table-->
 
 
-	<!--Protector-->
+	
+
+<sec:authorize access="hasRole('ROLE_OWNER')">
+
+<!--Protector-->
 	<div class="protector-service" id="protector-service">
 		<div class="container">
 			<div class="about-top-grids">
@@ -610,8 +629,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div id="small-dialog1" class="mfp-hide w3ls_small_dialog wthree_pop">
 					</div>
 				</div>
-
-				<div class="col-md-7 about-top-grid protector-service-padding">
+	<div class="col-md-7 about-top-grid protector-service-padding">
 
 					<h2>보호자 서비스 </h2>
 					<br><br>
@@ -630,12 +648,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 
 				</div>
-
-				<div class="clearfix"> </div>
+				
+						<div class="clearfix"> </div>
 			</div>
 		</div>
 	</div>
-	<!--//protector-->
+</sec:authorize>
+			
+
+<sec:authorize access="hasRole('ROLE_SITTER')">
+		<!--//protector-->
 
 	<!--petsitter-->
 	<div class="petsit-service" id="petsit-service">
@@ -662,7 +684,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 	</div>
-	<!--//petsit-->
+	
+	<!-- //petsitter -->
+</sec:authorize>
+	
+
+
 
 	<!--qna-->
 	<div class="about" id="qna">
@@ -1172,7 +1199,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 		
 		function logout() {
-			document.getElementById("logoutFrm").submit();
+			var result = confirm("로그아웃하시겠습니까?");
+			if(result){
+				document.getElementById("logoutFrm").submit();
+			}
 		}
 	</script>
 	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>

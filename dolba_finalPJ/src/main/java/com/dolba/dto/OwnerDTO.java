@@ -1,5 +1,7 @@
 package com.dolba.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class OwnerDTO {
 	
 	private String ownerId;
@@ -13,6 +15,8 @@ public class OwnerDTO {
 	private String ownerEmail2;
 	private String ownerFname;
 	private String ownerGender;
+	
+	private MultipartFile file;
 	
 	public OwnerDTO() {}
 	public OwnerDTO(String ownerId, String ownerPassword, String ownerName, String ownerAddr, String ownerDetailAddr, String ownerPhone,String ownerEmail,
@@ -98,6 +102,14 @@ public class OwnerDTO {
 	public void setOwnerEmail(String ownerEmail) {
 		this.ownerEmail = ownerEmail;
 	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	
+	
 	
 	
 	

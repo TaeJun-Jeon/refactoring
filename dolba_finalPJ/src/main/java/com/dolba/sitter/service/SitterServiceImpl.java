@@ -53,4 +53,9 @@ public class SitterServiceImpl implements SitterService {
 		}
 		return list;
 	}
+	@Override
+	public SitterDTO selectSitterInfo(String userId) {
+		return sitterDao.selectSitterInfo(userId);
+	}
+
 }

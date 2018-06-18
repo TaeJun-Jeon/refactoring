@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dolba.dto.CallDTO;
 import com.dolba.dto.OptionsDTO;
+import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.PetDTO;
 import com.dolba.dto.SitterDTO;
@@ -41,8 +43,18 @@ public class OwnerController {
 	private OptionService optionService;
 	
 	@RequestMapping("/myPage")
-	public String myPage() {
-		return "myPage/myPage";
+	public String myPage(Model md, String role, String userId) {
+		String root ="myPage/myPage";
+		if(role.equals("SITTER")) {
+			SitterDTO sitterDTO = sitterService.selectSitterInfo(userId);
+			md.addAttribute("sitterDTO", sitterDTO);
+			root ="myPage/sitterPage";
+		}else {
+			OwnerDTO ownerDTO = ownerService.selectOwnerInfo(userId);
+			md.addAttribute("ownerDTO", ownerDTO);
+			System.out.println("ownerName"+ownerDTO.getOwnerName());
+		}
+		return root;
 	}
 	
 	@RequestMapping("/callForm")
@@ -57,32 +69,40 @@ public class OwnerController {
 	
 	@RequestMapping("/allSelectOwnerRequest")
 	@ResponseBody
-	public List<OwnerRequestDTO> allSelectOwnerRequest() {
-		return ownerService.allSelectOwnerRequest();
+	public List<OwnerRequestDTO> allSelectOwnerRequest(String role, String userId) {
+		return ownerService.allSelectOwnerRequest(role,userId);
 	}
 	
 	@RequestMapping("/allSelectOwnerRequestApproval")
 	@ResponseBody
-	public List<OwnerRequestDTO> allSelectOwnerRequestApproval() {
-		return ownerService.allSelectOwnerRequestApproval();
+	public List<OwnerRequestDTO> allSelectOwnerRequestApproval(String role, String userId) {
+		System.out.println("approle="+role);
+		return ownerService.allSelectOwnerRequestApproval(role, userId);
 	}
 	
 	@RequestMapping("/allSelectCall")
 	@ResponseBody
-	public List<CallDTO> allSelectCall(){
-		return ownerService.allSelectCall();
+	public List<CallDTO> allSelectCall(String role, String userId){
+		return ownerService.allSelectCall(role,userId);
 	}
 	
 	@RequestMapping("/allSelectCallApproval")
 	@ResponseBody
-	public List<CallDTO> allSelectCallApproval(){
-		return ownerService.allSelectCallApproval();
+	public List<CallDTO> allSelectCallApproval(String role,String userId){
+		System.out.println("approvalrole="+role);
+		return ownerService.allSelectCallApproval(role, userId);
 	}
 	
 	@RequestMapping("/updateOwnerApproval")
 	@ResponseBody
 	public int updateOwnerApproval(String callId, String state) {
 		return ownerService.updateOwnerApproval(callId,state);
+	}
+	
+	@RequestMapping("/updateSitterApproval")
+	@ResponseBody
+	public int updateSitterApproval(String callId,String state) {
+		return ownerService.updateSitterApproval(callId,state);
 	}
 	
 	@RequestMapping("/selectPetInfo")

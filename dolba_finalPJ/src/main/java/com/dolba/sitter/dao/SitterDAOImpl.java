@@ -45,6 +45,10 @@ public class SitterDAOImpl implements SitterDAO {
 		map.put("grade", grade);
 		return session.selectList("sitterMapper.selectSittersByOpGrade",map);
 	}
+
+	@Override
+	public SitterDTO selectSitterInfo(String userId) {
+		return session.selectOne("sitterMapper.selectSitterInfo", userId);
+	}
 	
 }
-

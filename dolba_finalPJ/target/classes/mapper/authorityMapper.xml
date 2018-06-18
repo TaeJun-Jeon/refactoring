@@ -5,10 +5,14 @@
  
 <mapper namespace="authorityMapper">
 <insert id="insertAuthority" parameterType="authorityDTO">
-insert into authorities values(${userId},#{role},${password})
+insert into authorities values (#{userId},#{role},#{password},#{userName})
 </insert>
 
 <select id="selectAuthority" parameterType="string" resultType="authorityDTO">
-select * from authorities where user_Id = ${_parameter}
+select * from authorities where user_Id = #{_parameter}
+</select>
+
+<select id="idCheck"  parameterType="string" resultType="int">
+select count(*) from authorities where user_id=#{_parameter}
 </select>
 </mapper>

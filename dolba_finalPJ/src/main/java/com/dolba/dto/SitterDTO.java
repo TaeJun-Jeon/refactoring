@@ -8,6 +8,10 @@ public class SitterDTO {
 	private String sitterName;
 	private String sitterPhone;
 	private String sitterEmail;
+	private String sitterEmail1;
+	private String sitterEmail2;
+	private String sitterFname;
+	private String sitterGender;
 	private String sitterAddr;
 	private String sitterDetailAddr;
 	private String sitterIntroduce;
@@ -43,11 +47,38 @@ public class SitterDTO {
 	public void setSitterPhone(String sitterPhone) {
 		this.sitterPhone = sitterPhone;
 	}
+	
 	public String getSitterEmail() {
 		return sitterEmail;
 	}
 	public void setSitterEmail(String sitterEmail) {
 		this.sitterEmail = sitterEmail;
+	}
+	
+	public String getSitterEmail1() {
+		return sitterEmail1;
+	}
+	public void setSitterEmail1(String sitterEmail1) {
+		this.sitterEmail1 = sitterEmail1;
+	}
+	public String getSitterEmail2() {
+		return sitterEmail2;
+	}
+	public void setSitterEmail2(String sitterEmail2) {
+		this.sitterEmail2 = sitterEmail2;
+	}
+	
+	public String getSitterFname() {
+		return sitterFname;
+	}
+	public void setSitterFname(String sitterFname) {
+		this.sitterFname = sitterFname;
+	}
+	public String getSitterGender() {
+		return sitterGender;
+	}
+	public void setSitterGender(String sitterGender) {
+		this.sitterGender = sitterGender;
 	}
 	public String getSitterAddr() {
 		return sitterAddr;

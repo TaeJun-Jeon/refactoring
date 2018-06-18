@@ -30,4 +30,7 @@ public interface SitterService {
 	 * @return
 	 */
 	public List<SitterDTO> selectSittersByOpGrade(String [] opIds,int grade);
+
+	public SitterDTO selectSitterInfo(String userId);
+
 }

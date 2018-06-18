@@ -33,51 +33,90 @@
 
 /* ----------------------------------------  .js파일에서 Jquery코드를 사용할 수 있도록 해주는 코드 (끝)  ----------------------------------------------  */
 
+/*
+    $('#myTab').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+    $('#myTab:first').tab('show')
 
 
-
-
-
-
+*/
 
 
     $(document).ready(function (){
 
-        $("#fileInput").on('change', function(){  // 값이 변경되면
+        $("#fileInputOwner").on('change', function(){  // 값이 변경되면
             if(window.FileReader){  // modern browser
                 var filename = $(this)[0].files[0].name;
             } else {  // old IE
                 var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
             }
             // 추출한 파일명 삽입
-            $("#userfile").val(filename);
+            $("#ownerFnameFileOnly").val(filename);
+        });
+        
+        $("#fileInputSitter").on('change', function(){  // 값이 변경되면
+            if(window.FileReader){  // modern browser
+                var filename = $(this)[0].files[0].name;
+            } else {  // old IE
+                var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
+            }
+            // 추출한 파일명 삽입
+            $("#userfileSitter").val(filename);
         });
 
+        $("#certInput").on('change', function(){  // 값이 변경되면
+            if(window.FileReader){  // modern browser
+                var filename = $(this)[0].files[0].name;
+            } else {  // old IE
+                var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
+            }
+            // 추출한 파일명 삽입
+            $("#certFile").val(filename);
+        });
+
+
+
         /* -------------------------유효성체크---------------------------- */
-        $('#selectEmail').change(function(){
-            $("#selectEmail option:selected").each(function () {
+        $('#ownerEmail2').change(function(){
+            $("#ownerEmail2 option:selected").each(function () {
 
                 if($(this).val()== '1'){ //직접입력일 경우
-                    $("#str_email02").val('');                        //값 초기화
-                    $("#str_email02").attr("disabled",false); //활성화
+                    $("#ownerEmail_empty").val('');                        //값 초기화
+                    $("#ownerEmail_empty").attr("disabled",false); //활성화
                 }else{ //직접입력이 아닐경우
-                    $("#str_email02").val($(this).text());      //선택값 입력
-                    $("#str_email02").attr("disabled",true); //비활성화
+                    $("#ownerEmail_empty").val($(this).text());      //선택값 입력
+                    $("#ownerEmail_empty").attr("disabled",true); //비활성화
+                }
+            });
+        });
+        
+        $('#sitterEmail2').change(function(){
+            $("#sitterEmail2 option:selected").each(function () {
+
+                if($(this).val()== '1'){ //직접입력일 경우
+                    $("#sitterEmail_empty").val('');                        //값 초기화
+                    $("#sitterEmail_empty").attr("disabled",false); //활성화
+                }else{ //직접입력이 아닐경우
+                    $("#sitterEmail_empty").val($(this).text());      //선택값 입력
+                    $("#sitterEmail_empty").attr("disabled",true); //비활성화
                 }
             });
         });
 
 
-        $('button[type=submit]').click(function(){
+        $('#ownerForm').click(function(){
 
-            if($("#userId").val()==""){
+            if($("#ownerId").val()==""){
                 alert("아이디를 입력해주세요")
-                $("#userId").focus();
+                $("#ownerId").focus();
                 return false;
             }
-            if($("#password").val()==""){
+
+            if($("#ownerPassword").val()==""){
                 alert("비밀번호를 입력해주세요")
-                $("#password").focus();
+                $("#ownerPassword").focus();
                 return false;
             }
 
@@ -86,43 +125,71 @@
                 $("#ownerName").focus();
                 return false;
             }
-            
 
-            if($("#ownerAddr").val()==""){
-                alert("주소를 입력해주세요")
-                $("#ownerAddr").focus();
-                return false;
-            }
-            
-            if($("#ownerDetailAddr").val()==""){
-                alert("상세주소를 입력해주세요")
-                $("#ownerDetailAddr").focus();
-                return false;
-            }
-            
-            if($("#phone").val()==""){
-                alert("휴대전화번호를 입력해주세요")
-                $("#phone").focus();
-                return false;
-            }
-
-            if($("#str_email01").val()==""){
+            if($("#ownerEmail1").val()==""){
                 alert("이메일을 입력해주세요")
-                $("#email1").focus();
+                $("#ownerEmail1").focus();
                 return false;
             }
-            if($("#str_email02").val()==""){
+            if($("#ownerEmail2").val()==""){
                 alert("이메일을 입력해주세요")
-                $("#email1").focus();
+                $("#ownerEmail2").focus();
                 return false;
             }
-            
             /* if($("#addr").val()==""){
                alert("주소를 입력해주세요")
                $("#addr").focus();
                return false;
             } */
-         
+            if($("#ownerDetailAddr").val()==""){
+                alert("상세주소를 입력해주세요")
+                $("#ownerDetailAddr").focus();
+                return false;
+            }
+
+        })
+        
+        /* sitter 유효성 체크 */
+         $('#sitterForm').click(function(){
+
+            if($("#sitterId").val()==""){
+                alert("아이디를 입력해주세요")
+                $("#sitterId").focus();
+                return false;
+            }
+
+            if($("#sitterPassword").val()==""){
+                alert("비밀번호를 입력해주세요")
+                $("#sitterPassword").focus();
+                return false;
+            }
+
+            if($("#sitterName").val()==""){
+                alert("이름을 입력해주세요")
+                $("#sitterName").focus();
+                return false;
+            }
+
+            if($("#sitterEmail1").val()==""){
+                alert("이메일을 입력해주세요")
+                $("#sitterEmail1").focus();
+                return false;
+            }
+            if($("#sitterEmail2").val()==""){
+                alert("이메일을 입력해주세요")
+                $("#sitterEmail2").focus();
+                return false;
+            }
+            /* if($("#addr").val()==""){
+               alert("주소를 입력해주세요")
+               $("#addr").focus();
+               return false;
+            } */
+            if($("#sitterDetailAddr").val()==""){
+                alert("상세주소를 입력해주세요")
+                $("#sitterDetailAddr").focus();
+                return false;
+            }
 
         })
     })

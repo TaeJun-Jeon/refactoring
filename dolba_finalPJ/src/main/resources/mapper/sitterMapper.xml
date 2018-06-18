@@ -59,4 +59,8 @@
 		from sitter
 		where sitter_permit='Y'
 	</select> -->
+	
+	<select id="selectSitterInfo" parameterType="string" resultType="sitterDTO">
+	select *from sitter where sitter_id=#{_parameter}
+	</select>
 </mapper>

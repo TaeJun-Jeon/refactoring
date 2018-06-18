@@ -1,13 +1,3 @@
-
-CREATE TABLE AUTHORITIES(
-	USER_ID VARCHAR2(100) NOT NULL, /* ID*/
-	ROLE VARCHAR(30) NOT NULL,    /**/
-	CONSTRAINT AUTHORITIES_PK PRIMARY KEY(USER_ID,ROLE)
-);
-alter table authorities add(password varchar(30))
-select*from AUTHORITIES
-delete from authorities where user_id='1234'
-
 create table OWNER(
         OWNER_ID VARCHAR(50) not null constraint OWNER_ID_pk primary key,
         OWNER_PASSWORD VARCHAR(20) NOT NULL, 
@@ -20,8 +10,6 @@ create table OWNER(
         OWNER_gender VARCHAR(5) NOT NULL 
     ); 
     
-    select*from owner
-    
     insert into OWNER values('happymom','1234','김진주','경기도','수지구','000-000-0000','abcd@naver.com',null,'여');
     insert into OWNER values('cloud','1234','백승현','경기도','광교','000-000-0000','defg@naver.com',null,'남');
     insert into OWNER values('any6103','1234','김시연','서울','강남','000-000-0000','hijk@naver.com',null,'여');
@@ -29,7 +17,6 @@ create table OWNER(
     insert into OWNER values('happy','1234','정한별','서울','압구정','000-000-0000','qrst@naver.com',null,'남');
    
     select * from OWNER;
-    delete from owner where owner_id='1234'
     
 create table SITTER(
         SITTER_ID VARCHAR(50) not null constraint SITTER_ID_pk primary key,
@@ -59,6 +46,7 @@ create table SITTER(
 create table pet(
         pet_id VARCHAR(50) not null constraint pet_id_pk primary key,
         OWNER_ID VARCHAR(50) not null constraint pet_OWNER_ID_fk references OWNER(OWNER_ID),
+        PET_NAME VARCHAR(20) NOT NULL, 
         pet_species VARCHAR(20) not null ,
         pet_size VARCHAR(10) not null,
         pet_liness VARCHAR(50) not null,
@@ -73,12 +61,12 @@ create table pet(
     START WITH 1
     INCREMENT BY 1;
     
-    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'happymom','푸들','소','없음',3,'여',13,null, null);
-    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'cloud','푸들','소','없음',3,'남',1,null, null);
-    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'any6103','푸들','소','없음',4,'여',1,null, null);
-    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'flower','꼬똥','중','없음',6,'남',3,null, null);
-    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'happy','말티푸','소','없음',4,'여',2,null, null);
-    
+    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'happymom','해피','푸들','소','없음',3,'여',13,null, null);
+    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'cloud','구름이','푸들','소','없음',3,'남',1,null, null);
+    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'any6103','꽃님이','푸들','소','없음',4,'여',1,null, null);
+    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'flower','나나','꼬똥','중','없음',6,'남',3,null, null);
+    insert into pet values('pet_id-'||sequence_pet.NEXTVAL,'happy','꾸루','말티푸','소','없음',4,'여',2,null, null);
+
     select * from pet;
 
 create table review(
@@ -189,13 +177,19 @@ create table call(
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'flower',NULL,60000,'약을꼭 챙겨주세요','18-08-02','18-08-03',sysdate,2,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happy',NULL,29000,'실외배변입니다','18-06-30','18-07-02',sysdate,1,NULL);
     
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','goodsitter',30000,'예민합니다','18-07-02','18-07-03',sysdate,1,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','bestsitter',30000,'예민합니다','18-07-02','18-07-03',sysdate,1,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','kind',30000,'예민합니다','18-07-02','18-07-03',sysdate,1,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','happysis',30000,'예민합니다','18-07-02','18-07-03',sysdate,1,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','meme',30000,'예민합니다','18-07-02','18-07-03',sysdate,1,NULL);
+    
     select * from call; 
     
 Create table SITTER_REQUEST(
-        SITTER_REQUEST_id VARCHAR(50) not null constraint SITTER_REQUEST_id_pk primary key,--펫시터가 신청
-        call_id VARCHAR(50) not null constraint SITTER_REQUEST_call_id_fk references call(call_id),--부르기id
-        OWNER_ID VARCHAR(50) not null constraint SITTER_REQUEST_OWNER_ID_fk references OWNER(OWNER_ID),--견주id
-        SITTER_ID VARCHAR(50) null constraint SITTER_REQUEST_SITTER_ID_fk  references SITTER(SITTER_ID)--펫시터id
+        SITTER_REQUEST_id VARCHAR(50) not null constraint SITTER_REQUEST_id_pk primary key,
+        call_id VARCHAR(50) not null constraint SITTER_REQUEST_call_id_fk references call(call_id),
+        OWNER_ID VARCHAR(50) not null constraint SITTER_REQUEST_OWNER_ID_fk references OWNER(OWNER_ID),
+        SITTER_ID VARCHAR(50) null constraint SITTER_REQUEST_SITTER_ID_fk  references SITTER(SITTER_ID)
     );
     
     CREATE SEQUENCE sequence_SITTER_REQUEST
@@ -226,11 +220,15 @@ Create table OWNER_REQUEST(
     INCREMENT BY 1;
     
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'happymom','goodsitter',27000,'18-07-02','18-07-03',1,NULL);
+    insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'cloud','goodsitter',35000,'18-06-28','18-06-29',2,NULL);
+    insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'any6103','goodsitter',28000,'18-06-30','18-07-01',1,NULL);
+    insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'flower','goodsitter',50000,'18-07-02','18-07-05',1,NULL);
+    insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'happy','goodsitter',30000,'18-07-02','18-07-03',1,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'cloud','bestsitter',35000,'18-06-28','18-06-29',2,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'any6103','kind',28000,'18-06-30','18-07-01',1,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'flower','happysis',50000,'18-07-02','18-07-05',1,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'happy','meme',30000,'18-07-02','18-07-03',1,NULL);
- 
+
     select * from OWNER_REQUEST; 
     
 create table OPTIONS(
@@ -308,7 +306,7 @@ Create table DIARY(
 create table SITTING_OPTION(
     SITTING_OPTION_ID VARCHAR(50) not null constraint SITTING_OPTION_ID_pk primary key,
     OPTION_ID VARCHAR(50) not null constraint SITTING_OPTION_OPTION_ID_Fk references OPTIONS(OPTION_ID),
-    REQUEST_ID VARCHAR(50) not null
+    sitting_id VARCHAR(50) not null
     );
     
     CREATE SEQUENCE sequence_SITTING_OPTION
@@ -411,7 +409,33 @@ Create table SITTER_IMG(
     insert into SITTER_IMG VALUES ('SITTER_IMG_ID-'||sequence_SITTER_IMG_ID.NEXTVAL,'meme',null,null);
     
     select * from sitter_img;
+
+CREATE TABLE AUTHORITIES(
+       USER_ID VARCHAR2(100) NOT NULL, /* ID*/
+       ROLE VARCHAR(30) NOT NULL,    
+       PASSWORD VARCHAR(30) NULL,
+       USER_NAME VARCHAR(30) NULL,
+       CONSTRAINT AUTHORITIES_PK PRIMARY KEY(USER_ID,ROLE)
+    );
+    select * from AUTHORITIES;
+    select * from OWNER;
+    select * from SITTER;
     
+    insert into AUTHORITIES VALUES ('ADMIN','ADMIN','1234','관리자');
+    
+    insert into AUTHORITIES VALUES ('happymom','OWNER','1234','김진주');
+    insert into AUTHORITIES VALUES ('cloud','OWNER','1234','백승현');
+    insert into AUTHORITIES VALUES ('any6103','OWNER','1234','김시연');
+    insert into AUTHORITIES VALUES ('flower','OWNER','1234','전태준');
+    insert into AUTHORITIES VALUES ('happy','OWNER','1234','정한별');
+    
+    insert into AUTHORITIES VALUES ('goodsitter','SITTER','1234','이효리');
+    insert into AUTHORITIES VALUES ('bestsitter','SITTER','1234','박보검');
+    insert into AUTHORITIES VALUES ('kind','SITTER','1234','박민영');
+    insert into AUTHORITIES VALUES ('happysis','SITTER','1234','박서준');
+    insert into AUTHORITIES VALUES ('meme','SITTER','1234','설리');
+
+
 COMMIT;
 
     
