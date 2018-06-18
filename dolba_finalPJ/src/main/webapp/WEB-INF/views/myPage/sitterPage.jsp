@@ -89,7 +89,6 @@ $(document).ready(function() {
 	
 	var sitterCallTabAfter= document.getElementById('sitterCallTabAfter');
 	sitterCallTabAfter.onclick = function() {
-		alert("바보")
 		$.ajax({
 					type : "post",//전송방식
 					url : "${pageContext.request.contextPath}/owner/allSelectOwnerRequestApproval", //서버요청주소

@@ -86,10 +86,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<li><a href="#about" class="scroll">About</a></li>
 								<li><a href="#services" class="scroll">서비스소개</a></li>
 								<li><a href="#price" class="scroll">가격정책</a></li>
-								<sec:authorize access="hasRole('ROLE_OWNER')">
+								<sec:authorize access="hasRole('OWNER')">
 									<li><a href="#protector-service" class="scroll">보호자서비스</a></li>
 								</sec:authorize>
-								<sec:authorize access="hasRole('ROLE_SITTER')">
+								<sec:authorize access="hasRole('SITTER')">
 								<li><a href="#petsit-service" class="scroll">펫시터서비스</a></li>
 								</sec:authorize>
 								<li><a href="#qna" class="scroll">Q & A</a></li>
@@ -618,7 +618,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	
 
-<sec:authorize access="hasRole('ROLE_OWNER')">
+<sec:authorize access="hasRole('OWNER')">
 
 <!--Protector-->
 	<div class="protector-service" id="protector-service">
@@ -656,7 +656,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </sec:authorize>
 			
 
-<sec:authorize access="hasRole('ROLE_SITTER')">
+<sec:authorize access="hasRole('SITTER')">
 		<!--//protector-->
 
 	<!--petsitter-->
