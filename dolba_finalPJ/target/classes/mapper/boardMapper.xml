@@ -4,5 +4,8 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="boardMapper">
-
+	<!-- qa리스트 검색 -->
+	<select id="selectAllQa" resultType="boardDTO">
+		select * from QA
+	</select>
 </mapper>
