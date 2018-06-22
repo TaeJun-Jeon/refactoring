@@ -13,12 +13,17 @@ import com.dolba.dto.SitterDTO;
 import com.dolba.dto.SitterImgDTO;
 import com.dolba.dto.SitterOptionDTO;
 import com.dolba.dto.SitterReviewDTO;
+import com.dolba.option.dao.OptionDAO;
+import com.dolba.request.dao.RequestDAO;
 import com.dolba.sitter.dao.SitterDAO;
 
 @Service
 public class SitterServiceImpl implements SitterService {
 	@Autowired
 	private SitterDAO sitterDao;
+	
+	@Autowired
+	private RequestDAO requestDAO;
 	
 	@Override
 	public List<SitterDTO> selectAllSitter() {
@@ -45,11 +50,20 @@ public class SitterServiceImpl implements SitterService {
 
 	@Override
 	public List<SitterDTO> selectSittersByOpGrade(String[] opIds, int grade) {
-		List<String> opList = new ArrayList<>();
-		for(int i=0;i<opIds.length;i++) {
-			opList.add(opIds[i]);
+		List<String> opsList = new ArrayList<>();
+		List<OptionsDTO> opList;
+		if(opIds == null) {
+			opList = requestDAO.selectAllOption();
+			for(OptionsDTO dto : opList) {
+				opsList.add(dto.optionId);
+			}
+		}else {	
+			for(int i=0;i<opIds.length;i++) {
+				opsList.add(opIds[i]);
+			}
 		}
-		List<SitterDTO> list = sitterDao.selectSittersByOpGrade(opList,grade);
+		
+		List<SitterDTO> list = sitterDao.selectSittersByOpGrade(opsList,grade);
 		for(SitterDTO dto : list) {
 			List<SitterOptionDTO> optionList = sitterDao.selectSitterOptions(dto.getSitterId());
 			dto.setSitterOptionDTO(optionList);

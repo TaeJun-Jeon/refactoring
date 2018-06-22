@@ -7,10 +7,10 @@ import java.util.Map;
 
 import com.dolba.dto.SitterDTO;
 
-public class PagingUtil {
+public class PagingUtilBak {
 	
-	private Map<Integer, List> map = new HashMap<>();
-	private List list;
+	private Map<Integer, List<SitterDTO>> map = new HashMap<>();
+	private List<SitterDTO> list;
 	private int curPage;
 	
 	private int startPage; //pagenav안의 시작페이지
@@ -22,23 +22,21 @@ public class PagingUtil {
 	
 	private static int pageWidth = 5; //pagenav에 보여줄 페이지 숫자 
 	
-	private static int pageHeight = 5;
-	
-	public PagingUtil(List list,int curPage) {
-		this.list = list;
+	public PagingUtilBak(List<SitterDTO> sitterList,int curPage) {
+		this.list = sitterList;
 		if(curPage > 0 ) {
 			this.curPage = curPage-1;
 		}
-		this.totalCount = list.size();
+		this.totalCount = sitterList.size();
 		
 		/*
 		 * 전체 게시물에 
 		 */
-		for(int i=0;i<(list.size()/pageWidth + 1) ;i++) {
-			List plist = new ArrayList<>(); //각 페이지당 보여지는 게시물 리스트
-			for(int j=0;j<pageHeight;j++) {
-				if(i*pageHeight+j < totalCount) {
-					plist.add(list.get(i*pageHeight+j));
+		for(int i=0;i<(sitterList.size()/pageWidth + 1) ;i++) {
+			List<SitterDTO> plist = new ArrayList<>(); //각 페이지당 보여지는 게시물 리스트
+			for(int j=0;j<pageWidth;j++) {
+				if(i*pageWidth+j < totalCount) {
+					plist.add(sitterList.get(i*pageWidth+j));
 				}
 			}
 			map.put(i, plist);
@@ -55,23 +53,23 @@ public class PagingUtil {
 		this.endPage=this.startPage+pageWidth-1;
 	}
 	
-	public List getCurList(int curPage){
+	public List<SitterDTO> getCurList(int curPage){
 		return map.get(curPage);
 	}
 
-	public Map<Integer, List> getMap() {
+	public Map<Integer, List<SitterDTO>> getMap() {
 		return map;
 	}
 
-	public void setMap(Map<Integer, List> map) {
+	public void setMap(Map<Integer, List<SitterDTO>> map) {
 		this.map = map;
 	}
 
-	public List getList() {
+	public List<SitterDTO> getList() {
 		return list;
 	}
 
-	public void setList(List list) {
+	public void setList(List<SitterDTO> list) {
 		this.list = list;
 	}
 
@@ -120,7 +118,7 @@ public class PagingUtil {
 	}
 
 	public static void setPageWidth(int pageWidth) {
-		PagingUtil.pageWidth = pageWidth;
+		PagingUtilBak.pageWidth = pageWidth;
 	}
 	
 	

@@ -34,31 +34,24 @@
 		where sitter_id = #{_parameter}
 	</select>
 	
-	<select id="selectSittersByOpGrade" parameterType="Map" resultType="sitterDTO">
+	<!-- ***********************검색 조건*************************************** -->
+		<select id="selectSittersByOpGrade" parameterType="Map" resultType="sitterDTO">
 		select <include refid="sitterColumn" />
 		from sitter
-		where 
-		<if test="#{grade}!=null">
-			(sitter_grade >= #{grade}) and 
+		where sitter_permit='Y' and (sitter_grade >= #{grade})
+		<if test="opList.size != 0">
+			and 
+			sitter_id in (
+				<foreach collection="opList" item="item" separator="intersect">
+					select distinct sitter_id
+					from sitter_option
+					where option_id = #{item}
+				</foreach>
+			)
 		</if>
-		sitter_id in 
-		(select DISTINCT sitter_id from sitter_Option 
-		<if test="#{opList.size}!=null">
-			where option_id in
-			<foreach collection="opList" open="(" close=")" item="item" separator=",">
-				#{item}
-			</foreach>
-		</if>
-		 ) and
-		sitter_permit='Y'
+		 
 	</select>
-	
-<!-- 	<select id="selectSittersByOpGrade" resultType="sitterDTO">
-	select
-		<include refid="sitterColumn" />
-		from sitter
-		where sitter_permit='Y'
-	</select> -->
+	<!-- ***********************검색 조건 끝*************************************** -->
 	
 	<select id="selectSitterInfo" parameterType="string" resultType="sitterDTO">
 	select *from sitter where sitter_id=#{_parameter}
@@ -107,14 +100,5 @@
 		insert into sitting_option(sitting_option_id, option_id,sitting_id)
 		values('SITTING_OPTION_ID-'||sequence_SITTING_OPTION.NEXTVAL , #{id}, #{ownerRequestId})
 	</insert>
-	
-	
-	<!-- sitter 프로필 사진 -->
-	<select id="selectSitterFnameBydiary" parameterType="string" resultType="string">
-		select sitter_fname
-		from sitter s join diary d
-		on s.sitter_id = d.sitter_id
-	</select>
-	
 	
 </mapper>

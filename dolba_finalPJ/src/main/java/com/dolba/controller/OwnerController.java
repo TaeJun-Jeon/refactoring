@@ -122,9 +122,23 @@ public class OwnerController {
 	}
 	
 	@RequestMapping("/request/sitterList")
-	public ModelAndView requestSitterList(String pageNum) {
+	public ModelAndView requestSitterList2(String[] optionSelect,String gradeSelect,String pageNum) {
 		List<OptionsDTO> optionList = requestService.selectAllOption();
-		List<SitterDTO> sitterList = sitterService.selectAllPermittedSitter();
+		List<OptionsDTO> optionSelectList=null;
+		List<SitterDTO> sitterList;
+		if(gradeSelect == null && optionSelect == null) {
+			sitterList = sitterService.selectAllPermittedSitter();
+		}else {
+			if(optionSelect != null) {
+				optionSelectList = optionService.selectOptionsByOptionIds(optionSelect);
+			}
+			if(gradeSelect == "" || gradeSelect == null) {
+				gradeSelect = "0";
+			}
+			sitterList = sitterService.selectSittersByOpGrade(optionSelect, Integer.parseInt(gradeSelect));
+		}
+
+		/**************paging Ã³¸® ******************/
 		PagingUtil pagingUtil;
 		if(pageNum == null || Integer.parseInt(pageNum) <0) {
 			pagingUtil = new PagingUtil(sitterList, 0);
@@ -135,35 +149,19 @@ public class OwnerController {
 			sitterList = pagingUtil.getCurList(Integer.parseInt(pageNum));
 		}
 		
+		/******************************************/
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("optionList",optionList);
 		mv.addObject("sitterList", sitterList);
+		mv.addObject("gradeSelect", gradeSelect);
+		mv.addObject("optionSelectList", optionSelectList);
 		mv.addObject("pagingUtil", pagingUtil);
-		System.out.println("startPage="+pagingUtil.getStartPage()+"endPage="+pagingUtil.getEndPage());
-		/*for(SitterDTO sitterdto : sitterList) {
-			System.out.println("-----------------------------");
-			System.out.println(sitterdto.getSitterName());
-			for(SitterOptionDTO sitteroptionDTO : sitterdto.getSitterOptionDTO()) {
-				System.out.println(sitteroptionDTO.getOptionsDTO().getOptionName());
-			}
-			System.out.println("-----------------------------");
-			
-		}*/
+	
 		mv.setViewName("owner/sitterList");
 		return mv;
 	}
-	@RequestMapping("/request/sitterSearch")
-	public ModelAndView requestSitterSearch(HttpServletRequest request,String[] optionSelect,String gradeSelect,String pageNum) {
-		List<OptionsDTO> optionList = requestService.selectAllOption();
-		List<SitterDTO> sitterList = sitterService.selectSittersByOpGrade(optionSelect, Integer.parseInt(gradeSelect));
-		
-		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("optionList",optionList);
-		mv.addObject("sitterList", sitterList);
-		mv.setViewName("owner/sitterList");
-		return mv;
-	}
+	
 	
 	@RequestMapping("/request/sitterDetailRead")
 	public ModelAndView requestSitterDetailRead(String sitterId) {
