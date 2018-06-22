@@ -2,6 +2,8 @@ package com.dolba.dto;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class SitterDTO {
 	private String sitterId;
 	private String sitterPassword;
@@ -20,9 +22,13 @@ public class SitterDTO {
 	private String sitterPetAmount;
 	private String sitterBasisPrice;
 	private String sitterPermit;
-	private String scertificationFname;
+	private String certificationFname;
+	
+	private MultipartFile[] file1;
 	
 	private List<SitterOptionDTO> sitterOptionDTO;
+	
+	
 
 	public String getSitterId() {
 		return sitterId;
@@ -160,12 +166,12 @@ public class SitterDTO {
 		this.sitterPermit = sitterPermit;
 	}
 
-	public String getScertificationFname() {
-		return scertificationFname;
+	public String getCertificationFname() {
+		return certificationFname;
 	}
 
-	public void setScertificationFname(String scertificationFname) {
-		this.scertificationFname = scertificationFname;
+	public void setCertificationFname(String scertificationFname) {
+		this.certificationFname = scertificationFname;
 	}
 
 	public List<SitterOptionDTO> getSitterOptionDTO() {
@@ -175,6 +181,16 @@ public class SitterDTO {
 	public void setSitterOptionDTO(List<SitterOptionDTO> sitterOptionDTO) {
 		this.sitterOptionDTO = sitterOptionDTO;
 	}
+
+	public MultipartFile[] getFile1() {
+		return file1;
+	}
+
+	public void setFile1(MultipartFile[] file1) {
+		this.file1 = file1;
+	}
+	
+
 	
 	
 }

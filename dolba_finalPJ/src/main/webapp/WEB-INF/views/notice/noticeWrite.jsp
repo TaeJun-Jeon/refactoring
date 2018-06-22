@@ -24,7 +24,7 @@
 <body>
 	<div class="container" style="width: 600px" >
 		<div class="row">
-			<form role="form" class="contact-form">
+			<form role="form" class="contact-form" enctype="multipart/form-data">
 				<h3 style="margin-bottom: 25px; text-align: center;">Notice Form </h3>
 				<div class="row">
 					<div class="col-md-6">

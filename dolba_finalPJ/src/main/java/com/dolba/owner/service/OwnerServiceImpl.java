@@ -62,4 +62,5 @@ public class OwnerServiceImpl implements OwnerService {
 		return ownerDAO.selectOwnerInfo(userId);
 	}
 
+
 }

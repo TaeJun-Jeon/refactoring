@@ -25,4 +25,5 @@ public interface OwnerService {
 
 	OwnerDTO selectOwnerInfo(String userId);
 
+
 }

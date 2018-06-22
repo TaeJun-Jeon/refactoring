@@ -19,6 +19,15 @@
 
 
 </head>
+
+<sec:authorize access="hasAuthority('ADMIN')">
+<style>
+.navbar-dolba{
+background-color:#FF8000;
+border-radius:4px;
+}
+</style>
+</sec:authorize>
 <body>
 
 
@@ -38,7 +47,7 @@
 			<li><a href="#">${user.userName}님 안녕하세요.</a></li>
 			</sec:authorize>
 			
-		
+		<sec:authorize access="hasAnyAuthority('OWNER','SITTER')">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-list"></span>&nbsp;메뉴</a>
                 <div class="dropdown-custom dropdown-menu">
@@ -78,6 +87,7 @@
                     </div>
                 </div>
             </li>
+            </sec:authorize>
         </ul>
     </div>
 </nav>

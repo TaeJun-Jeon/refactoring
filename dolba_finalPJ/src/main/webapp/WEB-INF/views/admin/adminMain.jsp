@@ -53,53 +53,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 </head>
-<sec:authorize access="hasAuthority('ADMIN')">
-<style>
-nav.navbar.navbar-default{
-background-color: #FF8000;
-padding: 2em 4em 1em;
-}
-.btn-theme{
-color: #fff;
-background-color: #F7D358;
-border-color:#F7D358;
-}
-span.home-banner{
-color: #FF8000;
-font-weight: 100;
-}
-.slider-info h4{
-font-weight:400;
-color:#F7D358;
-font-size: 5.5em;
-letter-spacing:3px;
-}
-.slider-info p{
-font-size:20px;
-letter-spacing:3px;
-padding:16px 0px;
-color: #F7D358
-}
-</style>
-</sec:authorize>
 
-<sec:authorize access="isAnonymous()">
-<style>
-nav.navbar.navbar-default{
-background-color: #18777F;
-padding: 2em 4em 1em;
-}
-</style>
-</sec:authorize>
-
-<sec:authorize access="hasAnyAuthority('OWNER','SITTER')">
-<style>
-nav.navbar.navbar-default{
-background-color: #18777F;
-padding: 2em 4em 1em;
-}
-</style>
-</sec:authorize>
 <body>
 
 	<div id="container">
@@ -112,9 +66,8 @@ padding: 2em 4em 1em;
 	<div class="header-outs">
 		<div class="header-w3layouts">
 			<!-- Navigation -->
-		
 			<div class="header-bar">
-				<nav class="navbar navbar-default">
+				<nav class="navbar navbar-default" style="background-color: #18777F">
 					<div class="navbar-header navbar-left">
 						<h1>
 							<!--로고시작-->
@@ -156,12 +109,8 @@ padding: 2em 4em 1em;
 											
 												<sec:authorize access="isAuthenticated()">
 													<sec:authentication var="user" property="principal"/>
-													<sec:authorize access="hasAnyAuthority('OWNER','SITTER')">
+
 													<li><a href="${pageContext.request.contextPath}/owner/myPage?role=${user.role}&userId=${user.userId}"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;마이페이지</a></li>
-													</sec:authorize>
-													<sec:authorize access="hasAuthority('ADMIN')">
-													<li><a href="${pageContext.request.contextPath}/admin/adminSitterList"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;펫시터 관리</a></li>
-													</sec:authorize>
 													<li><a href="javascript:logout();"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;로그아웃</a></li>
 													</sec:authorize>
 													<form id="logoutFrm" action="${pageContext.request.contextPath}/admin/logout" method="post" style:"display:none">
@@ -311,6 +260,7 @@ padding: 2em 4em 1em;
 		</div> <!-- 모달 전체 윈도우 -->
 	</div>
 	<!-- //modal -->
+
 
 	<div class="about" id="about" style="margin-top:120px;">
 		<div class="container">
@@ -705,41 +655,6 @@ padding: 2em 4em 1em;
 	</div>
 </sec:authorize>
 			
-
-<sec:authorize access="hasAuthority('SITTER')">
-		<!--//protector-->
-
-	<!--petsitter-->
-	<div class="petsit-service" id="petsit-service">
-		<div class="container">
-			<div class="about-top-grids">
-				<div class="col-md-7 about-top-grid petsit-service-padding">
-					<h2>펫시터 서비스</h2>
-					<br><br>
-					<div class="about-para">
-						<p>저희 펫데이트는 현재 서울, 경기, 인천 지역에서 펫시팅 서비스를 제공하고 있습니다. 당신의 도움이 필요한
-							애완동물을 찾으시고, 펫시팅 신청을 해주세요.</p>
-					</div><br><br>
-
-					<div id="col-xs-2 col-xs-offset-4">
-						<input type="button" class="btn btn-warning btn-radius-1" value="돌보기 신청">
-					</div>
-
-				</div>
-				<div class="col-md-5 pope petsit-image" id="video">
-					<div id="small-dialog1" class="mfp-hide w3ls_small_dialog wthree_pop">
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-	
-	<!-- //petsitter -->
-</sec:authorize>
-	
-
-
 	<!--qna-->
 	<div class="about" id="qna">
 		<div class="container">
@@ -786,9 +701,6 @@ padding: 2em 4em 1em;
 			</div>
 		</div>
 	</div>
-	
-	
-	<sec:authorize access="hasAnyAuthority('OWNER','SITTER')">
 	<!--//qna-->
 	<div class="insta-div">
 		<div class="container">
@@ -825,7 +737,7 @@ padding: 2em 4em 1em;
 			</div>
 		</div>
 	</div>
-</sec:authorize>
+
 
 	<div class="buttom-w3">
 		<div class="container">

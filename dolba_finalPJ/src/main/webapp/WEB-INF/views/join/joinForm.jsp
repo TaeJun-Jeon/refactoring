@@ -14,11 +14,14 @@
 <script>
 $(document).ready(function(){
 	var checkResultId="";
+	var joinOwnerButton = document.getElementById('ownerForm');
+	var joinSitterButton = document.getElementById('sitterForm');
 	$("#userForm :input[name=ownerId]").keyup(function(){
 		var ownerId=$(this).val().trim();
 		if(ownerId.length<4 || ownerId.length>10){
 			$("#idCheckView").html("아이디는 4글자 이상 10글자이하 작성해주세요").css("background","pink");
 			checkResultId="";
+			joinOwnerButton.disabled=true;
 			return;
 		}
 		
@@ -30,9 +33,11 @@ $(document).ready(function(){
 				if(data=="fail"){
 				$("#idCheckView").html("  "+ownerId+" 는 사용할 수 없습니다!! ").css("background","red");
 					checkResultId="";
+					joinOwnerButton.disabled=true;
 				}else{						
 					$("#idCheckView").html("  "+ownerId+" 는 사용할 수 있습니다!! ").css("background","yellow");		
 					checkResultId=ownerId;
+					joinOwnerButton.disabled=true;
 				}					
 			}//callback			
 		});//ajax
@@ -44,6 +49,7 @@ $(document).ready(function(){
 		if(sitterId.length<4 || sitterId.length>10){
 			$("#idCheckView1").html("아이디는 4글자 이상 10글자이하 작성해주세요").css("background","pink");
 			checkResultId1="";
+			joinSitterButton.disabled=true;
 			return;
 		}
 		
@@ -55,17 +61,110 @@ $(document).ready(function(){
 				if(data=="fail"){
 				$("#idCheckView1").html("  "+sitterId+" 는 사용할 수 없습니다!! ").css("background","red");
 					checkResultId1="";
+					joinSitterButton.disabled=true;
 				}else{						
 					$("#idCheckView1").html("  "+sitterId+" 는 사용할 수 있습니다!! ").css("background","yellow");		
 					checkResultId1=ownerId;
+					joinSitterButton.disabled=true;
+
 				}					
 			}//callback			
 		});//ajax
 	});//keyup
-})
+
+	var chk = -1;
+	var checkNumber= 0;
+	$('#userForm input[value=인증번호전송]').click(function(){
+		if($("#ownerOuth").val()=='인증번호전송'){
+			var data = {"email": $("#ownerEmail1").val()+"@"+$('#ownerEmail2').val()};
+		        
+		    $.ajax({
+		        url : "emailAuth",
+		        data : data,
+		        success : function (data) {
+		        	checkNumber = data;
+		        	alert("인증번호 전송완료.");
+		        	alert("checkNumger:"+checkNumber);
+		            var chk = 0;
+		          $('#ownerOuth').val("인증하기")
+				joinOwnerButton.disabled=true;
+
+		            
+		        }
+		        
+		    });
+
+	}else{
+		
+		alert("user_authNum:"+user_authNum);
+		var chk = 0;
+		// 인증번호 비교
+		if (checkNumber == $("#user_authNum").val()) {
+		    chk = 1;
+		    alert("인증에 성공하었습니다");
+		    joinOwnerButton.disabled=false;
+
+		} else {
+		    chk = -1;
+		    alert("인증에 실패하였습니다")
+			joinOwnerButton.disabled=true;
+
+		}
+
+		return chk;
+	}
+	})
 	
 	
+	var chk1 = -1;
+	var checkNumber1= 0;
+	$('#petsitForm input[value=인증번호전송]').click(function(){
+		if($("#sitterOuth").val()=='인증번호전송'){
+			var data = {"email": $("#sitterEmail1").val()+"@"+$('#sitterEmail2').val()};
+		        
+		    $.ajax({
+		        url : "emailAuth",
+		        data : data,
+		        success : function (data) {
+		        	checkNumber1 = data;
+		        	alert("인증번호 전송완료.");
+		            var chk1 = 0;
+		          $('#sitterOuth').val("인증하기")
+				joinSitterButton.disabled=true;
+
+		            
+		        }
+		        
+		    });
+
+	}else{
+		
+		var chk1 = 0;
+		// 인증번호 비교
+		if (checkNumber1 == $("#sitter_authNum").val()) {
+		    chk1 = 1;
+		    alert("인증에 성공하었습니다");
+		    joinSitterButton.disabled=false;
+
+		} else {
+		    chk1 = -1;
+		    alert("인증에 실패하였습니다")
+			joinSitterButton.disabled=true;
+
+		}
+
+		return chk1;
+	}
+	})
+	
+	
+ 
+});
+
+
+
 </script>
+  
 <div class="container">
     <div class="row">
 
@@ -82,7 +181,7 @@ $(document).ready(function(){
                             <li><a class="panel-title active" href="#userForm" data-toggle="tab">보호자로 회원가입</a></li>
                             <li><a class="panel-title" href="#petsitForm" data-toggle="tab">펫시터로 회원가입</a></li>
 
-</ul>
+						</ul>
                     </div>
 
                 </div>
@@ -142,7 +241,15 @@ $(document).ready(function(){
                                         <option value="hanmir.com">hanmir.com</option>
                                         <option value="paran.com">paran.com</option>
                                     </select>
+                                   
                                 </div>
+                                
+                                 <div class="form-group">
+	                                    <label style="display:block">인증번호</label>
+	                                    <input type="text" id="user_authNum" name="user_authNum"  class="joinform-size form-control" style="width:150px; display:inline-block;">
+	                                    <input type="button" id="ownerOuth" class="btn btn-default" value="인증번호전송">
+	                                    <div id="lab1" style="display:inline"></div>
+                               		</div>
 
                                 <!--사진이미지 첨부-->
                                 <div class="form-group">
@@ -171,7 +278,7 @@ $(document).ready(function(){
 
 
                                 <center>
-                                    <button type="submit" id="ownerForm" class="btn btn-primary" style="background-color: #18777F;">회원가입</button>
+                                    <button type="submit" id="ownerForm" class="btn btn-primary" style="background-color: #18777F;" onclick="join();">회원가입</button>
                                 </center>
                             </form>
 
@@ -236,6 +343,13 @@ $(document).ready(function(){
                                         <option value="paran.com">paran.com</option>
                                     </select>
                                 </div>
+                                
+                                  <div class="form-group">
+	                                    <label style="display:block">인증번호</label>
+	                                    <input type="text" id="sitter_authNum" name="sitter_authNum"  class="joinform-size form-control" style="width:150px; display:inline-block;">
+	                                    <input type="button" id="sitterOuth" class="btn btn-default" value="인증번호전송">
+	                                    <div id="lab1" style="display:inline"></div>
+                               		</div>
 
                                <!-- 사진이미지 첨부-->
                                 <div class="form-group">

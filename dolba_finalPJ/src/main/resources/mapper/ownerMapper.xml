@@ -8,4 +8,8 @@
 <select id="selectOwnerInfo" parameterType="string" resultType="ownerDTO">
 select * from owner where owner_id=#{_parameter}
 </select>
+
+<select id="selectByCallId" parameterType="string" resultType="callDTO">
+select * from call where call_id= #{callId}
+</select>
 </mapper>

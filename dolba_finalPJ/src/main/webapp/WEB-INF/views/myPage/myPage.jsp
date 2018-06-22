@@ -398,7 +398,7 @@ $(document).ready(function() {
 												<div class="col-lg-12">
 													<div class="col-xs-12 col-sm-4">
 														<figure>
-															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/김진주.jpg">
+															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/${ownerDTO.ownerfName}">
 														</figure>
 														<div class="row">
 															<div class="col-xs-12 social-btns"></div>

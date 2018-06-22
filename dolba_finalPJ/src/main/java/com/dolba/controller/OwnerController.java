@@ -65,11 +65,6 @@ public class OwnerController {
 		return "owner/callForm";
 	}
 	
-	@RequestMapping("/callRead")
-	public String callRead() {
-		return "owner/ownerCallRead";
-	}
-	
 	@RequestMapping("/allSelectOwnerRequest")
 	@ResponseBody
 	public List<OwnerRequestDTO> allSelectOwnerRequest(String role, String userId) {
@@ -200,5 +195,7 @@ public class OwnerController {
 		
 		return "redirect:/owner/request/sitterList";
 	}
+	
+
 	
 }
