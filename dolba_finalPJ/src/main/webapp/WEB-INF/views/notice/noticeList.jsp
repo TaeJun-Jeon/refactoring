@@ -28,6 +28,21 @@
 		});
 
 		$("[data-toggle=tooltip]").tooltip();
+		
+		$("#pagingPrev").bind("click",function(){
+			$("#pagingForm").attr("action","${pageContext.request.contextPath}/notice/allSelect?pageNum=${pagingUtil.curPage}")
+			$("#pagingForm").submit();
+		})
+		
+		$("#paingNext").bind("click",function(){
+			$("#pagingForm").attr("action","${pageContext.request.contextPath}/notice/allSelect?pageNum=${pagingUtil.curPage+2}")
+			$("#pagingForm").submit();
+		})
+		
+		$(".pageNum").bind("click",function(){
+			$("#pagingForm").attr("action","${pageContext.request.contextPath}/notice/allSelect?&pageNum="+$(this).text());
+			$("#pagingForm").submit();
+		})
 	});
 </script>
 
@@ -109,17 +124,36 @@
 						</tbody>
 					</table>
 					<div class="clearfix"></div><!-- 페이징 -->
-					<ul class="pagination pull-right">
-						<li class="disabled"><a href="#"><span
-								class="glyphicon glyphicon-chevron-left"></span></a></li>
-						<li class="active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#"><span
-								class="glyphicon glyphicon-chevron-right"></span></a></li>
+						<div class="row paging" id="paging-div">
+			<div class="row">
+				<div class="col-md-6 text-center">
+					<nav>
+					<form action="" method="post" id="pagingForm">
+					<ul class="pagination sitter-pagination">
+						<li class="page-item"><a class="page-link" id="pagingPrev" href="#">Previous</a></li>
+						<c:forEach begin="${pagingUtil.startPage}" end="${pagingUtil.endPage}" varStatus="status">
+							<c:choose>
+								<c:when test="${pagingUtil.startPage+status.count-1 eq pagingUtil.curPage+1}">
+									<li class="page-item active"><a class="page-link pageNumNow" id="pageElement">${pagingUtil.startPage+status.count-1}</a></li>
+								</c:when>
+								<c:when test="${pagingUtil.startPage+status.count-1 gt pagingUtil.totalPage}">
+									<li class="page-item disabled"><a class="page-link pageNumDisabled" id="pageElement">${pagingUtil.startPage+status.count-1}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link pageNum" id="pageElement" href="#">${pagingUtil.startPage+status.count-1}</a></li>
+										<input type="hidden" name="pagehidden" id="pagehidden" value="${pagingUtil.startPage+status.count-1}">
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<li class="page-item"><a class="page-link" id="paingNext" href="#">Next</a></li>
 					</ul>
+					<input type="hidden" name="optionSelect" id="optionSelect2">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					</form>
+					</nav>
+				</div>
+			</div>
+		</div>
 				</div>
 			</div>
 		</div>

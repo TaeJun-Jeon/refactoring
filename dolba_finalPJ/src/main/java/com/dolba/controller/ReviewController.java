@@ -1,5 +1,7 @@
 package com.dolba.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dolba.dto.ReviewDTO;
 import com.dolba.review.service.ReviewService;
+import com.dolba.util.PagingUtil;
 
 @Controller
 @RequestMapping("/review")
@@ -19,8 +22,19 @@ public class ReviewController {
 	
 	//전체 검색
 	@RequestMapping("/allSelect")
-	public String allSelectReview(Model model) {
-		model.addAttribute("list",reviewService.selectAll());
+	public String allSelectReview(Model model ,String pageNum) {
+		List<ReviewDTO> reviewList = reviewService.selectAll();
+		PagingUtil pagingUtil;
+		if(pageNum==null || Integer.parseInt(pageNum)<0) {
+			pagingUtil = new PagingUtil(reviewList, 0);
+			reviewList = pagingUtil.getCurList(0);
+		}else {
+			pagingUtil = new PagingUtil(reviewList, Integer.parseInt(pageNum));
+			pageNum = Integer.toString(pagingUtil.getCurPage());
+			reviewList = pagingUtil.getCurList(Integer.parseInt(pageNum));
+		}
+		model.addAttribute("list", reviewList);
+		model.addAttribute("pagingUtil", pagingUtil);
 		return "board/reviewList";
 	}
 	

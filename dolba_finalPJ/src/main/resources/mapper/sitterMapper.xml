@@ -92,8 +92,8 @@
 	
 	<select id="selectOwnerRequestId" parameterType="ownerRequestDTO" resultType="string">
 		select owner_request_id
-		from owner_request
-		where owner_id=#{ownerId} and sitter_id=#{sitterId} and owner_request_start=#{ownerRequestStart} and owner_request_end=#{ownerRequestEnd}
+		 FROM (SELECT * FROM owner_request where owner_id=#{ownerId} ORDER BY ROWNUM DESC)
+ 		WHERE ROWNUM = 1
 	</select>
 	
 	 <insert id="insertSittingOpByCheckOp" parameterType="Map">

@@ -23,7 +23,7 @@ create table OWNER(
     insert into OWNER values('han','1234','정한별','경기도 성남시 분당구 심평동 판교역로 226번길','null','000-000-0000','han@naver.com','IMG_10.jpg','남');
  
     select * from OWNER;
-    
+    select*from sitter;
 create table SITTER(
         SITTER_ID VARCHAR(50) not null constraint SITTER_ID_pk primary key,
         SITTER_PASSWORD VARCHAR(20) NOT NULL,

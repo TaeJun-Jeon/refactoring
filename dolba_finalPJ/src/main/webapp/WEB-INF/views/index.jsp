@@ -140,6 +140,11 @@ padding: 2em 4em 1em;
 									<li><a href="#petsit-service" class="scroll">펫시터서비스</a></li>
 								</sec:authorize>
 								<li><a href="#qna" class="scroll">Q & A</a></li>
+								
+								<sec:authorize access="isAuthenticated()">
+								<sec:authentication var="user" property="principal"/>
+								<li><a style="font-size:15px;">${user.userName}님 안녕하세요.</a></li>
+								</sec:authorize>
 								<li>
 									<div class="showback">
 										<!-- Single button -->
@@ -153,6 +158,8 @@ padding: 2em 4em 1em;
 													<li><a href="${pageContext.request.contextPath}/admin/joinForm"><span class="fa fa-pencil-square-o"></span>&nbsp;&nbsp;회원가입</a></li>
 													<li class="divider"></li>
 												</sec:authorize>
+												
+												
 											
 												<sec:authorize access="isAuthenticated()">
 													<sec:authentication var="user" property="principal"/>
@@ -170,6 +177,7 @@ padding: 2em 4em 1em;
 											</ul>
 										</div>
 									</div>
+									
 								</li>
 							</ul>
 						</nav>

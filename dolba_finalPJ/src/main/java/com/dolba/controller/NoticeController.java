@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dolba.dto.NoticeDTO;
 import com.dolba.notice.service.NoticeService;
+import com.dolba.util.PagingUtil;
 
 @Controller
 @RequestMapping("/notice")
@@ -24,9 +25,21 @@ public class NoticeController {
 	
 	//전체 검색
 	@RequestMapping("/allSelect")
-	public String allSelectNotice(Model model) {
+	public String allSelectNotice(Model model, String pageNum) {
 		List<NoticeDTO> dto = noticeService.selectAll();
-		model.addAttribute("list",dto);        
+		
+		PagingUtil pagingUtil;
+		if(pageNum==null || Integer.parseInt(pageNum)<0) {
+			pagingUtil = new PagingUtil(dto, 0);
+			dto = pagingUtil.getCurList(0);
+		}else {
+			pagingUtil = new PagingUtil(dto, Integer.parseInt(pageNum));
+			pageNum = Integer.toString(pagingUtil.getCurPage());
+			dto = pagingUtil.getCurList(Integer.parseInt(pageNum));
+		}
+
+		model.addAttribute("list",dto); 
+		model.addAttribute("pagingUtil",pagingUtil);
 		return "notice/noticeList";
 	}
 	

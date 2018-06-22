@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dolba.admin.service.AdminService;
 import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.SitterDTO;
+import com.dolba.util.PagingUtil;
 
 @Controller
 @RequestMapping("/admin")
@@ -143,9 +144,20 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/adminSitterList")
-	public String adminSitterList(Model model) {
-		List<SitterDTO> list=  adminService.adminselectSitterList();
-		model.addAttribute("sitterList", list);
+	public String adminSitterList(Model model,String pageNum) {
+		List<SitterDTO> sitterList=  adminService.adminselectSitterList();
+		
+		PagingUtil pagingUtil;
+		if(pageNum==null || Integer.parseInt(pageNum)<0) {
+			pagingUtil = new PagingUtil(sitterList, 0);
+			sitterList = pagingUtil.getCurList(0);
+		}else {
+			pagingUtil = new PagingUtil(sitterList, Integer.parseInt(pageNum));
+			pageNum = Integer.toString(pagingUtil.getCurPage());
+			sitterList = pagingUtil.getCurList(Integer.parseInt(pageNum));
+		}
+		model.addAttribute("sitterList", sitterList);
+		model.addAttribute("pagingUtil", pagingUtil);
 		return "admin/adminSitterList";
 	}
 	
