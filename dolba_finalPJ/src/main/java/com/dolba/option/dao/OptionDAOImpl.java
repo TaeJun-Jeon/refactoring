@@ -14,8 +14,8 @@ public class OptionDAOImpl implements OptionDAO{
 	private SqlSession session;
 	
 	@Override
-	public OptionsDTO selectOptionNameByOptionId(String id) {
-		return session.selectOne("",id);
+	public OptionsDTO selectOptionByOptionId(String id) {
+		return session.selectOne("optionMapper.selectOpByoptionId",id);
 	}
 	
 }

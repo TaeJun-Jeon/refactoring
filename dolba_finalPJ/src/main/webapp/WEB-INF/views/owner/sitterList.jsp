@@ -1,5 +1,8 @@
+<%@page import="org.springframework.web.context.request.RequestScope"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"  %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,7 +28,7 @@
 								<div class="row ">
 									<c:forEach items="${optionList}" var="option">
 										<div class="btn-group col-xs-3" data-toggle="buttons">
-											<label class="btn btn-xs btn-block"> <input type="checkbox" name="optionId" id="optionId" autocomplete="off" value="${option.optionId}">
+											<label class="btn btn-xs btn-block"> <input type="checkbox" name="${option.optionId}" id="optionId" autocomplete="off" value="${option.optionId}">
 												<span id="optionName">${option.optionName}</span>
 											</label>
 										</div>
@@ -39,12 +42,12 @@
 							<dt class="text-center">펫시터 등급</dt>
 							<dd class="clearfix text-center">
 								<select class="form-control" id="grade-select">
-									<option value="0">-- 선택 --</option>
-									<option value="1">1점 이상</option>
-									<option value="2">2점 이상</option>
-									<option value="3">3점 이상</option>
-									<option value="4">4점 이상</option>
-									<option value="5">5점 이상</option>
+									<option id="grade0" value="0">-- 선택 --</option>
+									<option id="grade1" value="1">1점 이상</option>
+									<option id="grade2" value="2">2점 이상</option>
+									<option id="grade3" value="3">3점 이상</option>
+									<option id="grade4" value="4">4점 이상</option>
+									<option id="grade5" value="5">5점 이상</option>
 								</select>
 							</dd>
 						</dl>
@@ -69,36 +72,46 @@
 						<li class="row sitter-li preview-container">
 							<div class="col-xs-7 preview-left">
 								<div class="row" style="margin-top: 25px">
-									<h5>
-										<b><a href="${pageContext.request.contextPath}/owner/request/sitterDetailRead?sitterId=${sitterInfo.sitterId}" class="sitter-desc">${sitterInfo.sitterIntroduce}</a></b>
-									</h5>
-									<span class="">${sitterInfo.sitterName }</span>
+									<div class="col-xs-12">
+										<h5>
+											<b><a href="${pageContext.request.contextPath}/owner/request/sitterDetailRead?sitterId=${sitterInfo.sitterId}" class="sitter-desc">${sitterInfo.sitterIntroduce}</a></b>
+										</h5>
+										<span class="">${sitterInfo.sitterName }</span>
+									</div>
 								</div>
 								<hr>
 								<div class="row">
-									<c:forEach items="${sitterInfo.sitterOptionDTO}" var="sitterOption" varStatus="index">
-										<span class="label label-success option-label">${sitterOption.optionsDTO.optionName}</span>
-									</c:forEach>
+									<div class="col-xs-12">
+										<c:forEach items="${sitterInfo.sitterOptionDTO}" var="sitterOption" varStatus="index">
+											<span class="label label-success option-label">${sitterOption.optionsDTO.optionName}</span>
+										</c:forEach>
+									</div>
 								</div>
 							</div>
 							<div class="col-xs-2 preview-grade">
 								<div class="row">
-									<h4>${sitterInfo.sitterGrade}</h4>
-									<h6>
-										<a href="#">고객후기 n개</a>
-									</h6>
-									<c:forEach begin="1" end="${sitterInfo.sitterGrade}">
-										<i class="glyphicon glyphicon-star gi-star"></i>
-									</c:forEach>
-									<c:forEach begin="${sitterInfo.sitterGrade}" end="4">
-										<i class="glyphicon glyphicon-star-empty gi-star"></i>
-									</c:forEach>
+									<div class="col-xs-12">
+										<h4>${sitterInfo.sitterGrade}</h4>
+										<h6>
+											<a href="#">고객후기 n개</a>
+										</h6>
+										<c:forEach begin="1" end="${sitterInfo.sitterGrade}">
+											<i class="glyphicon glyphicon-star gi-star"></i>
+										</c:forEach>
+										<c:forEach begin="${sitterInfo.sitterGrade}" end="4">
+											<i class="glyphicon glyphicon-star-empty gi-star"></i>
+										</c:forEach>
+									</div>
 								</div>
 							</div>
 							<div class="col-xs-3 preview-right" style="margin-top: 50px">
-								<a href="#" class="thumbnail sitter-pic">
-									<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
-								</a>
+								<div class="row">
+									<div class="col-xs-12">
+										<a href="#" class="thumbnail sitter-pic">
+											<img src="http://placehold.it/45x30" alt="#" class="img-thumbnail">
+										</a>
+									</div>
+								</div>
 							</div>
 						</li>
 					</c:forEach>
@@ -112,38 +125,47 @@
 			<div class="row">
 				<div class="col-md-6 text-center">
 					<nav>
+					<form action="" method="post" id="pagingForm">
 					<ul class="pagination sitter-pagination">
-						<li class="page-item"><a class="page-link" id="pagingPrev"
-								href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.curPage}"
-							>Previous</a></li>
+						<li class="page-item"><a class="page-link" id="pagingPrev" href="#">Previous</a></li>
 						<c:forEach begin="${pagingUtil.startPage}" end="${pagingUtil.endPage}" varStatus="status">
 							<c:choose>
 								<c:when test="${pagingUtil.startPage+status.count-1 eq pagingUtil.curPage+1}">
-									<li class="page-item active"><a class="page-link" id="pageElement"
-											href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.startPage+status.count-1}"
-										>${pagingUtil.startPage+status.count-1}</a></li>
+									<li class="page-item active"><a class="page-link pageNumNow" id="pageElement">${pagingUtil.startPage+status.count-1}</a></li>
 								</c:when>
 								<c:when test="${pagingUtil.startPage+status.count-1 gt pagingUtil.totalPage}">
-									<li class="page-item disabled"><a class="page-link" id="pageElement" href="#">${pagingUtil.startPage+status.count-1}</a></li>
+									<li class="page-item disabled"><a class="page-link pageNumDisabled" id="pageElement">${pagingUtil.startPage+status.count-1}</a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="page-item"><a class="page-link" id="pageElement"
-											href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.startPage+status.count-1}"
-										>${pagingUtil.startPage+status.count-1}</a></li>
+									<li class="page-item"><a class="page-link pageNum" id="pageElement" href="#">${pagingUtil.startPage+status.count-1}</a></li>
+										<input type="hidden" name="pagehidden" id="pagehidden" value="${pagingUtil.startPage+status.count-1}">
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<li class="page-item"><a class="page-link" id="paingNext"
-								href="${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.curPage+2}"
-							>Next</a></li>
+						<li class="page-item"><a class="page-link" id="paingNext" href="#">Next</a></li>
 					</ul>
+					<input type="hidden" name="optionSelect" id="optionSelect2">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					</form>
 					</nav>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<script type="text/javascript">
 		$(function(){
+			var optionSelected =[];
+			<c:forEach items="${optionSelectList}" var="item" varStatus="status">
+				$("#optionId[name='${item.optionId}']").attr("checked", true);
+				$("#optionId[name='${item.optionId}']").parent().addClass("active",true);
+				optionSelected.push("${item.optionId}");
+			</c:forEach>
+			if("${gradeSelect}" != ""){
+				$("#grade-select option[value='${gradeSelect}']").prop("selected", true);
+			}
+			$("#optionSelect2").val(optionSelected);
+			
 			$(document).on("click","#option-btn",function(){
 				var gradeSelected = $("#grade-select option:selected").val();
 				var optionTags = [];
@@ -153,13 +175,31 @@
 				});
 				$("#optionSelect").val(optionTags);
 				$("#gradeSelect").val(gradeSelected);
-				$(".option-filters").attr("action","${pageContext.request.contextPath}/owner/request/sitterSearch");
+				//$(".option-filters").attr("action","${pageContext.request.contextPath}/owner/request/sitterSearch");
+				$(".option-filters").attr("action","${pageContext.request.contextPath}/owner/request/sitterList");
 				$(".option-filters").submit();
-				//alert(optionTags["OPTION_ID-1"]);
+			})
+			
+			$("#pagingPrev").bind("click",function(){
+				$("#pagingForm").attr("action","${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.curPage}&gradeSelect=${gradeSelect}")
+				$("#pagingForm").submit();
+			})
+			
+			$("#paingNext").bind("click",function(){
+				$("#pagingForm").attr("action","${pageContext.request.contextPath}/owner/request/sitterList?pageNum=${pagingUtil.curPage+2}&gradeSelect=${gradeSelect}")
+				$("#pagingForm").submit();
+			})
+			
+			$(".pageNum").bind("click",function(){
+				$("#pagingForm").attr("action","${pageContext.request.contextPath}/owner/request/sitterList?&gradeSelect=${gradeSelect}&pageNum="+$(this).text());
+				$("#pagingForm").submit();
 			})
 		})
 	</script>
+	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/lib/js/map/map.js"></script>
+	
+	<!-- 지도 검색 script -->
 	<script type="text/javascript">
 		//var addrList = new Array();
 		var addressArray = [];

@@ -150,6 +150,9 @@
 		<input type="hidden" id="ownerRequestPrice" name="ownerRequestPrice">
 		<input type="hidden" id="ownerRequestPetCount" name="ownerRequestPetCount">
 		<input type="hidden" id="checkArr" name="checkArr">
+        <sec:authentication var="user" property="principal"/>
+        <input type="hidden" name="ownerId" value="${user.userId}">
+		
 		
 		<div class="container">
 			<section id="gallery">

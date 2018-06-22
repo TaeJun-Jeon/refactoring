@@ -4,16 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="${pageContext.request.contextPath}/resources/lib/js/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/lib/js/bootstrap.min.js"></script>
-
-<link href="${pageContext.request.contextPath}/resources/lib/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/search.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/select.css">
+<link rel="stylesheet" src="${pageContext.request.contextPath}/resources/lib/css/board/select.css">
+<link rel="stylesheet" src="${pageContext.request.contextPath}/resources/lib/css/board/search.css">
 <!------ Include the above in your HEAD tag ---------->
-<link href="${pageContext.request.contextPath}/resources/lib/css/profile.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/resources/lib/css/petProfile.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" src="${pageContext.request.contextPath}/resources/lib/css/myPage/profile.css">
+<link rel="stylesheet" src="${pageContext.request.contextPath}/resources/lib/css/myPage/petProfile.css">
+<%-- <link href="${pageContext.request.contextPath}/resources/lib/css/profile.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/lib/css/petProfile.css" rel="stylesheet" type="text/css"> --%>
 <script>
 	$(document).ready(function() {
 		$("#mytable #checkall").click(function() {
@@ -114,10 +111,10 @@
 							<option value="">글쓴이</option>
 							<option value="">아이디</option>
 						</select>
-					<div id="custom-search-input" style="width: 340px;\">
-						<div class="input-group col-md-12" style="width: 300px;\">
-							<input type="text" style="width: 300px; height: 20px;" class="form-control input-lg" placeholder="입력해주세요" /> <span class="input-group-btn">
-								<button class="btn btn-info btn-lg" type="button">
+					<div id="custom-search-input" style="width: 200px;\">
+						<div class="input-group col-md-12" style="width: 100px; margin-bottom:30px; ">
+							<input type="text" style="width: 254px; height: 32px; boarder-top-width: 1px; margin-top:10px; font-size: 10px;" class="form-control input-lg" placeholder="입력해주세요" /> <span class="input-group-btn">
+								<button class="btn btn-info btn-lg" type="button"style="height:32px; margin-top:10px; margin-left:-10; width:49px; padding-top:0px; padding-bottom:0px;">
 									<i class="fa fa-paw"></i>
 								</button>
 							</span>

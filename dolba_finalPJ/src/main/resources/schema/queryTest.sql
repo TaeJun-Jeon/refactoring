@@ -4,8 +4,16 @@ select * from options;
 
 
 select * from SITTER_OPTION
+select * from diary
 
 
+select diary_title, diary_content, diary_writeday, diary_fname
+from diary d join call c
+on d.owner_id=c.owner_id and d.sitter_id=c.sitter_id
+where c.owner_id='happymom' and c.sitter_id='goodsitter' and c.call_reservate_start='18-06-16'
+
+
+update diary set diary_fname='e.jpg,f.jpg,a.jpg' where daily_record_id='DAILY_RECORD_ID-2'
 select * 
 from sitter join (select * from SITTER_OPTION join options where sitter_option_name=option_name)
 
@@ -61,9 +69,57 @@ where option_id in ('OPTION_ID-1','OPTION_ID-2','OPTION_ID-3');
 
 SELECT * FROM SITTER_OPTION 
 select * from owner_request
+select * from sitter
 select * from sitting_option
 select * from authorities
 select * from role
 
 commit
 
+select * from call
+select * from OWNER_REQUEST
+select * from SITTER
+select sitter_fname
+		from sitter s join call c
+		on s.sitter_id = c.sitter_id
+		where c.sitter_id = 'goodsitter' and c.owner_id='happymom'
+
+		select diary_title, diary_content, diary_writeday, diary_fname
+		from diary d join owner_request r
+		on (d.owner_id=r.owner_id and d.sitter_id=r.sitter_id)
+		where r.owner_id='happymom' and r.sitter_id='goodsitter' and r.owner_request_start='2018-06-02'
+		
+		insert into call values('call_id-'||sequence_CALL.NEXTVAL,'happymom','goodsitter',20000,'Èûµé¾î¿ä','18-06-20','18-06-21',sysdate,1,null)
+		select * from DIARY
+		select * from OWNER_REQUEST
+		
+		select diary_title, diary_content, diary_writeday, diary_fname
+		from diary d join owner_request r
+		on (d.owner_id=r.owner_id and d.sitter_id=r.sitter_id and d.sitting_id=r.owner_request_id)
+		where r.owner_id='happymom' and r.sitter_id='woo' and r.owner_request_start='18-06-02'
+		
+		
+		
+		select diary_title, diary_content, diary_writeday, diary_fname
+		from diary d join call c
+		on (d.owner_id=c.owner_id and d.sitter_id=c.sitter_id and d.call_id=c.call_id)
+		where c.owner_id='happymom' and c.sitter_id='goodsitter' and c.call_reservate_start='2018-06-16'
+		
+		
+		select sitter_fname
+		from sitter s join call c
+		on s.sitter_id = c.sitter_id
+		join diary d
+		on d.call_id=c.call_id
+		where c.sitter_id='goodsitter' and c.owner_id='happymom' and c.call_reservate_start='2018-06-16'
+		
+		select sitter_fname
+		from sitter
+		where sitter_id='goodsitter'
+		
+		select diary_title, diary_content, diary_writeday, diary_fname
+		from diary d join call c
+		on (d.owner_id=c.owner_id and d.sitter_id=c.sitter_id and d.sitting_id=c.call_id)
+		where c.owner_id='happymom' and c.sitter_id='goodsitter' and c.call_reservate_start='18-06-16'
+		
+		

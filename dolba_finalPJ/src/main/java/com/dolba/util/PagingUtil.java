@@ -9,8 +9,8 @@ import com.dolba.dto.SitterDTO;
 
 public class PagingUtil {
 	
-	private Map<Integer, List<SitterDTO>> map = new HashMap<>();
-	private List<SitterDTO> list;
+	private Map<Integer, List> map = new HashMap<>();
+	private List list;
 	private int curPage;
 	
 	private int startPage; //pagenav안의 시작페이지
@@ -22,21 +22,23 @@ public class PagingUtil {
 	
 	private static int pageWidth = 5; //pagenav에 보여줄 페이지 숫자 
 	
-	public PagingUtil(List<SitterDTO> sitterList,int curPage) {
-		this.list = sitterList;
+	private static int pageHeight = 5;
+	
+	public PagingUtil(List list,int curPage) {
+		this.list = list;
 		if(curPage > 0 ) {
 			this.curPage = curPage-1;
 		}
-		this.totalCount = sitterList.size();
+		this.totalCount = list.size();
 		
 		/*
 		 * 전체 게시물에 
 		 */
-		for(int i=0;i<(sitterList.size()/pageWidth + 1) ;i++) {
-			List<SitterDTO> plist = new ArrayList<>(); //각 페이지당 보여지는 게시물 리스트
-			for(int j=0;j<pageWidth;j++) {
-				if(i*pageWidth+j < totalCount) {
-					plist.add(sitterList.get(i*pageWidth+j));
+		for(int i=0;i<(list.size()/pageWidth + 1) ;i++) {
+			List plist = new ArrayList<>(); //각 페이지당 보여지는 게시물 리스트
+			for(int j=0;j<pageHeight;j++) {
+				if(i*pageHeight+j < totalCount) {
+					plist.add(list.get(i*pageHeight+j));
 				}
 			}
 			map.put(i, plist);
@@ -53,23 +55,23 @@ public class PagingUtil {
 		this.endPage=this.startPage+pageWidth-1;
 	}
 	
-	public List<SitterDTO> getCurList(int curPage){
+	public List getCurList(int curPage){
 		return map.get(curPage);
 	}
 
-	public Map<Integer, List<SitterDTO>> getMap() {
+	public Map<Integer, List> getMap() {
 		return map;
 	}
 
-	public void setMap(Map<Integer, List<SitterDTO>> map) {
+	public void setMap(Map<Integer, List> map) {
 		this.map = map;
 	}
 
-	public List<SitterDTO> getList() {
+	public List getList() {
 		return list;
 	}
 
-	public void setList(List<SitterDTO> list) {
+	public void setList(List list) {
 		this.list = list;
 	}
 

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dolba.diary.service.DiaryService;
 import com.dolba.dto.CallDTO;
+import com.dolba.dto.DiaryDTO;
 import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
@@ -45,6 +47,9 @@ public class OwnerController {
 	@Autowired
 	private OptionService optionService;
 	
+	@Autowired
+	private DiaryService diaryService;
+	
 	@RequestMapping("/myPage")
 	public String myPage(Model md, String role, String userId) {
 		String root ="myPage/myPage";
@@ -63,6 +68,11 @@ public class OwnerController {
 	@RequestMapping("/call/callForm")
 	public String callForm() {
 		return "owner/callForm";
+	}
+	
+	@RequestMapping("/callRead")
+	public String callRead() {
+		return "owner/ownerCallRead";
 	}
 	
 	@RequestMapping("/allSelectOwnerRequest")
@@ -111,9 +121,23 @@ public class OwnerController {
 	}
 	
 	@RequestMapping("/request/sitterList")
-	public ModelAndView requestSitterList(String pageNum) {
+	public ModelAndView requestSitterList(String[] optionSelect,String gradeSelect,String pageNum) {
 		List<OptionsDTO> optionList = requestService.selectAllOption();
-		List<SitterDTO> sitterList = sitterService.selectAllPermittedSitter();
+		List<OptionsDTO> optionSelectList=null;
+		List<SitterDTO> sitterList;
+		if(gradeSelect == null && optionSelect == null) {
+			sitterList = sitterService.selectAllPermittedSitter();
+		}else {
+			if(optionSelect != null) {
+				optionSelectList = optionService.selectOptionsByOptionIds(optionSelect);
+			}
+			if(gradeSelect == "" || gradeSelect == null) {
+				gradeSelect = "0";
+			}
+			sitterList = sitterService.selectSittersByOpGrade(optionSelect, Integer.parseInt(gradeSelect));
+		}
+
+		/**************paging 처리 ******************/
 		PagingUtil pagingUtil;
 		if(pageNum == null || Integer.parseInt(pageNum) <0) {
 			pagingUtil = new PagingUtil(sitterList, 0);
@@ -124,35 +148,19 @@ public class OwnerController {
 			sitterList = pagingUtil.getCurList(Integer.parseInt(pageNum));
 		}
 		
+		/******************************************/
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("optionList",optionList);
 		mv.addObject("sitterList", sitterList);
+		mv.addObject("gradeSelect", gradeSelect);
+		mv.addObject("optionSelectList", optionSelectList);
 		mv.addObject("pagingUtil", pagingUtil);
-		System.out.println("startPage="+pagingUtil.getStartPage()+"endPage="+pagingUtil.getEndPage());
-		/*for(SitterDTO sitterdto : sitterList) {
-			System.out.println("-----------------------------");
-			System.out.println(sitterdto.getSitterName());
-			for(SitterOptionDTO sitteroptionDTO : sitterdto.getSitterOptionDTO()) {
-				System.out.println(sitteroptionDTO.getOptionsDTO().getOptionName());
-			}
-			System.out.println("-----------------------------");
-			
-		}*/
+	
 		mv.setViewName("owner/sitterList");
 		return mv;
 	}
-	@RequestMapping("/request/sitterSearch")
-	public ModelAndView requestSitterSearch(HttpServletRequest request,String[] optionSelect,String gradeSelect,String pageNum) {
-		List<OptionsDTO> optionList = requestService.selectAllOption();
-		List<SitterDTO> sitterList = sitterService.selectSittersByOpGrade(optionSelect, Integer.parseInt(gradeSelect));
-		
-		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("optionList",optionList);
-		mv.addObject("sitterList", sitterList);
-		mv.setViewName("owner/sitterList");
-		return mv;
-	}
+	
 	
 	@RequestMapping("/request/sitterDetailRead")
 	public ModelAndView requestSitterDetailRead(String sitterId) {
@@ -166,10 +174,6 @@ public class OwnerController {
 		
 		for(SitterOptionDTO dto :sitterOptionList) {
 			list.add(dto.getOptionsDTO().getOptionName());
-		}
-		
-		for(int i=0; i<sitterImgList.size(); i++) {
-			System.out.println(sitterImgList);
 		}
 		
 		mv.addObject("sitterDTO", sitterDTO);
@@ -196,6 +200,59 @@ public class OwnerController {
 		return "redirect:/owner/request/sitterList";
 	}
 	
-
+	//////////////////////////////일지 보기 ////////////////////////////
+	@RequestMapping("/callDiaryList")
+	public ModelAndView diaryListByCall(CallDTO callDTO) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		///////여기부터
+		callDTO.setSitterId("goodsitter");
+		callDTO.setOwnerId("happymom");
+		callDTO.setCallReservateStart("18-06-16");
+		///////여기까지 나중에 지울값
+		
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByCall(callDTO);
+		String sitterFname=diaryService.selectSitterFnameByCall(callDTO);
+		for(DiaryDTO dto:diaryList) {
+			String fname = dto.getDiaryFname();
+			if(fname!=null) {
+				String [] fileName=fname.split(",");
+				for(String fn :fileName) {
+					dto.getImgNameList().add(fn);
+				}
+			}
+		}
+		mv.addObject("sitterFname", sitterFname);
+		mv.addObject("diaryList", diaryList);
+		mv.setViewName("diary/diaryList");
+		return mv;
+	}
 	
-}
+	@RequestMapping("/requestDiaryList")
+	public ModelAndView diaryListByCall(OwnerRequestDTO ownerRequestDTO) {
+		ModelAndView mv = new ModelAndView();
+		
+		//여기부터
+		ownerRequestDTO.setOwnerId("happymom");
+		ownerRequestDTO.setSitterId("woo");
+		ownerRequestDTO.setOwnerRequestStart("18-06-02");
+		/////////////여기까지 삭제
+		
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByRequest(ownerRequestDTO);
+		String sitterFname=diaryService.selectSitterFnameByRequest(ownerRequestDTO);
+		for(DiaryDTO dto:diaryList) {
+			String fname = dto.getDiaryFname();
+			if(fname!=null) {
+				String [] fileName=fname.split(",");
+				for(String fn :fileName) {
+					dto.getImgNameList().add(fn);
+				}
+			}
+		}
+		mv.addObject("sitterFname", sitterFname);
+		mv.addObject("diaryList", diaryList);
+		mv.setViewName("diary/diaryList");
+		return mv;
+	}
+}	

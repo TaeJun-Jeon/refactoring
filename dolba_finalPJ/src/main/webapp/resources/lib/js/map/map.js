@@ -28,7 +28,6 @@ $(function() {
 	var maxHeight = contentHeight-mapHeight-275;
 	$(window).scroll(function() {
 		var scrollPosition = $(document).scrollTop();
-		console.log(scrollPosition);
 		//var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.
 		var mapPosition = scrollPosition-150;
 		var maxMap = maxHeight-300;
