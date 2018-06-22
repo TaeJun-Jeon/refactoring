@@ -6,6 +6,7 @@ public class CallDTO {
 	
 	private String callId;
 	private String sitterId;
+	private String ownerId;
 	private int callTotalPrice;
 	private String callComment;
 	private String callReservateStart;
@@ -82,4 +83,11 @@ public class CallDTO {
 	public void setSittingOptionList(List<SittingOptionDTO> sittingOptionList) {
 		this.sittingOptionList = sittingOptionList;
 	}
+	public String getOwnerId() {
+		return ownerId;
+	}
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+	}
+	
 }
