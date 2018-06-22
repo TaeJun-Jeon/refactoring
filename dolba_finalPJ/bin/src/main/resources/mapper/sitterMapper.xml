@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sitterMapper">
+	<sql id="sitterColumn"> sitter_id , sitter_password, sitter_name, sitter_Phone, sitter_email, sitter_addr,sitter_detail_addr,sitter_introduce,
+		sitter_grade,sitter_certification,sitter_pet_amount,sitter_basis_price,sitter_permit
+	</sql>
+	<sql id="sitterOptionColumn"> 
+		sitter_option_id, option_id
+	</sql>
+	
+	<!--  1:1의 관계 매핑 하기 -->
+	<resultMap type="sitterOptionDTO" id="sitterOptionJoinOption">
+		<id column="sitter_option_id" property="sitterOptionId"/>
+		<result column="sitter_id" property="sitterId"/>
+		<association property="optionsDTO" javaType="optionsDTO">
+			<id column="option_id" property="optionId"/>
+			<result column="optionName" property="optionName"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectAllPermittedSitter" resultType="sitterDTO">
+		select
+		<include refid="sitterColumn" />
+		from sitter
+		where sitter_permit='Y'
+	</select>
+	
+	<select id="selectSitterOption" parameterType="String" resultMap="sitterOptionJoinOption"> 
+		select sitter_option_id, sitter_id, o.option_id, o.option_name 
+		from sitter_option s join options o 
+		on	o.option_id = s.option_id
+		where sitter_id = #{_parameter}
+	</select>
+	
+	<!-- ***********************검색 조건*************************************** -->
+		<select id="selectSittersByOpGrade" parameterType="Map" resultType="sitterDTO">
+		select <include refid="sitterColumn" />
+		from sitter
+		where sitter_permit='Y' and (sitter_grade >= #{grade})
+		<if test="opList.size != 0">
+			and 
+			sitter_id in (
+				<foreach collection="opList" item="item" separator="intersect">
+					select distinct sitter_id
+					from sitter_option
+					where option_id = #{item}
+				</foreach>
+			)
+		</if>
+		 
+	</select>
+	<!-- ***********************검색 조건 끝*************************************** -->
+	
+	<select id="selectSitterInfo" parameterType="string" resultType="sitterDTO">
+	select *from sitter where sitter_id=#{_parameter}
+	</select>
+	
+	<!-- ******************************************* -->
+	<select id="selectSitterById" parameterType="String" resultType="sitterDTO">
+		select <include refid="sitterColumn" />
+		from sitter
+		where sitter_id = #{_parameter}
+	</select>
+	
+	<select id="selectSitterReviewById" parameterType="String" resultType="sitterReviewDTO">
+		select sitter_review_id, sitter_id, owner_id, sitter_review_content, sitter_review_writeday, sitter_review_grade
+		from SITTER_REVIEW
+		where sitter_id= #{_parameter}
+	</select>
+	
+	<select id="selectSitterImg" parameterType="String" resultType="sitterImgDTO">
+		select sitter_img_id, sitter_id, sitter_img_name, sitter_img_url
+		from sitter_img
+		where sitter_id= #{_parameter}
+	</select>
+	
+	<insert id="insertOwnerRequest" parameterType="ownerRequestDTO">
+		insert into owner_request 
+		values ('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL, #{ownerId}, #{sitterId}, #{ownerRequestPrice}, #{ownerRequestStart}, #{ownerRequestEnd}, #{ownerRequestPetCount}, null)
+	</insert>
+	
+	<select id="selectOpIdByCheckOption" parameterType="Map" resultType="optionsDTO">
+		select *
+		from options
+		where option_name in
+			<foreach collection="checkArr" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+	</select>
+	
+	<select id="selectOwnerRequestId" parameterType="ownerRequestDTO" resultType="string">
+		select owner_request_id
+		from owner_request
+		where owner_id=#{ownerId} and sitter_id=#{sitterId} and owner_request_start=#{ownerRequestStart} and owner_request_end=#{ownerRequestEnd}
+	</select>
+	
+	 <insert id="insertSittingOpByCheckOp" parameterType="Map">
+		insert into sitting_option(sitting_option_id, option_id,sitting_id)
+		values('SITTING_OPTION_ID-'||sequence_SITTING_OPTION.NEXTVAL , #{id}, #{ownerRequestId})
+	</insert>
+	
+</mapper>

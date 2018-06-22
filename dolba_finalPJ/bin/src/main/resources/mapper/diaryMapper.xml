@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="diaryMapper">
+	
+	<!-- 일지 등록 -->
+	<insert id="insertDiary" parameterType="diaryDTO">
+		insert into diary 
+		values ('DIARY_ID-'||sequence_DIARY.NEXTVAL,#{sitterId},#{ownerId},#{sittingId},#{diaryTitle},#{diaryContent},sysdate,#{diaryPwd},#{diaryFname})
+	</insert>
+	
+	<!-- 부르기에서 일지 확인할때 -->
+	<select id="selectDiaryByCall" parameterType="callDTO" resultType="diaryDTO">
+		select diary_title, diary_content, diary_writeday, diary_fname
+		from diary d join call c
+		on (d.owner_id=c.owner_id and d.sitter_id=c.sitter_id and d.sitting_id=c.call_id)
+		where c.owner_id=#{ownerId} and c.sitter_id=#{sitterId} and c.call_reservate_start=#{callReservateStart}
+	</select>
+	<!-- sitter 프로필 사진 검색-->
+	<select id="selectSitterFnameByCall" parameterType="callDTO" resultType="string">
+		select sitter_fname
+		from sitter
+		where sitter_id=#{sitterId}
+	</select>
+	
+	<!-- 맡기기에서 일지 확인할때 -->
+	<select id="selectDiaryByRequest" parameterType="ownerRequestDTO" resultType="diaryDTO">
+		select diary_title, diary_content, diary_writeday, diary_fname
+		from diary d join owner_request r
+		on (d.owner_id=r.owner_id and d.sitter_id=r.sitter_id and d.sitting_id=r.owner_request_id)
+		where r.owner_id=#{ownerId} and r.sitter_id=#{sitterId} and r.owner_request_start=#{ownerRequestStart}
+	</select>
+	<!-- sitter 프로필 사진 검색-->
+	<select id="selectSitterFnameByRequest" parameterType="ownerRequestDTO" resultType="string">
+		select sitter_fname
+		from sitter
+		where sitter_id=#{sitterId}
+	</select>
+</mapper>

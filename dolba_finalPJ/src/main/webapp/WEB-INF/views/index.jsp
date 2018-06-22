@@ -769,7 +769,7 @@ padding: 2em 4em 1em;
 						</a>
 					</div>
 					<div class="col-md-6 col-xs-6">
-						<a href="#">
+						<a href="${pageContext.request.contextPath}/notice/allSelect">
 							<div class="qna-box">
 								<center>
 								<br>

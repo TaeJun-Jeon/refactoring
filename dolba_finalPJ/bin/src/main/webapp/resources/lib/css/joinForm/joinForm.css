@@ -1,0 +1,46 @@
+.joinform{
+    border-color: #18777F;
+}
+
+
+.joinform > .joinform-heading {
+    color: #fff;
+    background-color: #18777F;
+    border-color: #18777F;
+}
+
+.joinform-size{
+    width: 30%;
+}
+.joinform-size-address-first{
+    width: 37%;
+}
+
+.joinform-size-address-second{
+    width: 37%;
+}
+
+.joinform-size-address-zipcode{
+    width : 8%;
+}
+
+.joinform-email{
+    width : 20%;
+}
+
+.form-margin{
+    margin : 25px 25px 25px 50px;
+
+}
+
+.entire-margin{
+    margin : 50px 0 80px 0;
+}
+
+.select-size{
+    width: 15%;
+}
+
+.custom-nav-toggle{
+    border : none;
+}

@@ -188,7 +188,7 @@ create table SITTER_review(
     
     insert into SITTER_review values('SITTER_review_id-'||sequence_SITTER_review.NEXTVAL,'bestsitter','happymom','믿고맡길수 있어요',sysdate,4);
     insert into SITTER_review values('SITTER_review_id-'||sequence_SITTER_review.NEXTVAL,'bestsitter','flower','사진과 상태를 수시로 보내줘서 좋았어요',sysdate,4);
-    insert into SITTER_review values('SITTER_review_id-'||sequence_SITTER_review.NEXTVAL,'bestsitter','happy','아이가 좋아해요',sysdate,4);
+    insert into SITTER_review values('SITTER_review_id-'||sequence_SITTER_review.NEXTVAL,'bestsitter','happy','아이가d 좋아해요',sysdate,4);
     
     insert into SITTER_review values('SITTER_review_id-'||sequence_SITTER_review.NEXTVAL,'kind','happymom','수제간식을 줘서 좋았어요',sysdate,3);
     insert into SITTER_review values('SITTER_review_id-'||sequence_SITTER_review.NEXTVAL,'kind','baek','정말 친절해요',sysdate,3);
@@ -459,6 +459,7 @@ Create table SITTER_OPTION(
     
 
 Create table DIARY(
+
     DIARY_ID  VARCHAR(50) not null constraint DAILY_RECORD_ID_pk primary key,
     SITTER_ID VARCHAR(50) not null constraint DIARY_SITTER_ID_fk  references SITTER(SITTER_ID),
     OWNER_ID VARCHAR(50) not null constraint DIARY_OWNER_ID_fk references OWNER(OWNER_ID),
@@ -468,6 +469,7 @@ Create table DIARY(
     DIARY_CONTENT VARCHAR(4000) not null,
     DIARY_WRITEDAY DATE not null,
     DIARY_PWD VARCHAR(50) not null,
+
     DAILY_ID  VARCHAR(50) not null constraint DAILY_RECORD_ID_pk primary key,--일지 ID
     SITTER_ID VARCHAR(50) null constraint DIARY_SITTER_ID_fk  references SITTER(SITTER_ID),--펫시터id
     OWNER_ID VARCHAR(50) not null constraint DIARY_OWNER_ID_fk references OWNER(OWNER_ID),--견주id
@@ -476,17 +478,20 @@ Create table DIARY(
     DIARY_CONTENT VARCHAR(4000) not null ,--내용
     DIARY_WRITEDAY DATE not null ,--작성일
     DIARY_PWD VARCHAR(50) not null ,--게시글 비밀번호
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
     DIARY_FNAME VARCHAR(50) null
 );
     CREATE SEQUENCE sequence_DIARY
     START WITH 1
     INCREMENT BY 1;
     
+
     insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','happymom','산책을 다녀왔어요','탄천산책을 다녀왔어요',SYSDATE,'1234',NULL,NULL);
     insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'bestsitter','cloud','순한아이에요','오늘은 강아지놀이터를 다녀왔어요',SYSDATE,'1234',NULL,NULL);
     insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'kind','any6103','목욕을 했습니다','오늘은 요청하신 목욕을 했습니다',SYSDATE,'1234',NULL,NULL);
     insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'happysis','flower','밥을잘 안먹어요','아직 적응이 필요한것 같습니다',SYSDATE,'1234',NULL,NULL);
     insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'meme','happy','약을 잘 안먹어요','혹시 견주님이 약을 주는 노하우 있으신가요?',SYSDATE,'1234',NULL,NULL);
+
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','happymom','OWNER_REQUEST_id-1','산책을 다녀왔어요','탄천산책을 다녀왔어요',SYSDATE,'1234',NULL);
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','happymom','OWNER_REQUEST_id-1','목욕을 했습니다','오늘은 요청하신 목욕을 했습니다',SYSDATE,'1234',NULL);
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','happymom','OWNER_REQUEST_id-1','밥을잘 안먹어요','아직 적응이 필요한것 같습니다',SYSDATE,'1234',NULL);
