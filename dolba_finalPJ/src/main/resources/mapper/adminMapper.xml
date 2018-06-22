@@ -4,6 +4,19 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="adminMapper">
+<insert id="joinOwner" parameterType="ownerDTO">
+insert into owner values(#{ownerId},#{ownerPassword},#{ownerName},#{ownerAddr},#{ownerDetailAddr},#{ownerPhone},#{ownerEmail},#{ownerfName},#{ownerGender})
+</insert>
+<insert id="joinSitter" parameterType="sitterDTO">
+insert into sitter values(#{sitterId},#{sitterPassword},#{sitterName},#{sitterPhone},#{sitterEmail},#{sitterAddr},#{sitterDetailAddr},#{sitterIntroduce},0,#{sitterCertification},#{sitterPetAmount},#{sitterBasisPrice},#{sitterPermit},#{sitterFname},#{certificationFname},#{sitterGender})
+</insert>
 
+<select id="adminSelectSitterList" resultType="sitterDTO">
+select * from sitter where SITTER_PERMIT is null
+</select>
+
+<update id="updateSitterPermit" parameterType="map">
+update sitter set sitter_permit = #{state} where sitter_id=#{sitterId}
+</update>
 
 </mapper>
