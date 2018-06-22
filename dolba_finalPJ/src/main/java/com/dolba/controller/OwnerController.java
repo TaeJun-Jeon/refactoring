@@ -122,7 +122,7 @@ public class OwnerController {
 	}
 	
 	@RequestMapping("/request/sitterList")
-	public ModelAndView requestSitterList2(String[] optionSelect,String gradeSelect,String pageNum) {
+	public ModelAndView requestSitterList(String[] optionSelect,String gradeSelect,String pageNum) {
 		List<OptionsDTO> optionList = requestService.selectAllOption();
 		List<OptionsDTO> optionSelectList=null;
 		List<SitterDTO> sitterList;

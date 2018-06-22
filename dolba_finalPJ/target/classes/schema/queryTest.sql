@@ -1,11 +1,11 @@
 select * from sitter;
 
 select * from options;
-
+select * from REPLY
 
 select * from SITTER_OPTION
 select * from diary
-
+select * from QA
 
 select diary_title, diary_content, diary_writeday, diary_fname
 from diary d join call c
@@ -122,4 +122,9 @@ select sitter_fname
 		on (d.owner_id=c.owner_id and d.sitter_id=c.sitter_id and d.sitting_id=c.call_id)
 		where c.owner_id='happymom' and c.sitter_id='goodsitter' and c.call_reservate_start='18-06-16'
 		
+		select * from qa where QA_id='QA_id-1'
 		
+		
+		select *
+		from qa
+		where owner_id like %upper('happy')%

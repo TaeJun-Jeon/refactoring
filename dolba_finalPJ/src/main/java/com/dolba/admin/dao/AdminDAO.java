@@ -1,6 +1,7 @@
 package com.dolba.admin.dao;
 
 import com.dolba.dto.OwnerDTO;
+import com.dolba.dto.ReplyDTO;
 import com.dolba.dto.SitterDTO;
 
 public interface AdminDAO {
@@ -11,5 +12,8 @@ public interface AdminDAO {
 
 	int idCheck(String userId);
 
-
+	/**
+	 * q&a 댓글 등록하기
+	 **/
+	public int insertReply(ReplyDTO replyDTO);
 }

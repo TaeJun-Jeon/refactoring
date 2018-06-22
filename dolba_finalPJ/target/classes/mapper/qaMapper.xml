@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="qaMapper">
+	<sql id="qaColumn">	
+		QA_id, OWNER_ID, QA_title, QA_content, QA_writeday, QA_readnum, QA_pwd 
+	</sql>
+	<!-- qa리스트 검색 -->
+	<select id="selectAllQa" parameterType="string" resultType="qaDTO">
+		select <include refid="qaColumn"/>
+		from QA
+		<where>
+			<if test="_parameter!=null">
+				QA_id=#{_parameter}
+			</if>
+		</where>
+	</select>
+	
+	<!-- qa 등록 -->
+	<insert id="insertQa" parameterType="qaDTO">
+		insert into QA(<include refid="qaColumn"/>) 
+		values('QA_id-'||sequence_qa.NEXTVAL,#{ownerId},#{qaTitle},#{qaContent},sysdate,0,#{qaPwd})
+	</insert> 
+	
+	<!-- qa keyWord 검색 -->
+	<select id="searchQaByKeyword" parameterType="map" resultType="qaDTO">
+		select <include refid="qaColumn"/>
+		from qa
+		where ${keyField} like '%' || #{keyWord} || '%'
+	</select>
+	
+	<!-- reply 검색 -->
+	<select id="selectReplyByQa" parameterType="string" resultType="replyDTO">
+		select *
+		from reply
+		where qa_id=#{_parameter}
+	</select>
+
+</mapper>

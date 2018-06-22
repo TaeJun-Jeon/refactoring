@@ -8,6 +8,7 @@ import com.dolba.admin.dao.AdminDAO;
 import com.dolba.authority.dao.AuthoritiesDAO;
 import com.dolba.dto.AuthorityDTO;
 import com.dolba.dto.OwnerDTO;
+import com.dolba.dto.ReplyDTO;
 import com.dolba.dto.SitterDTO;
 import com.dolba.util.Constants;
 
@@ -51,6 +52,11 @@ public class AdminServiceImpl implements AdminService {
 	public String idCheck(String userId) {
 		int count= adminDAO.idCheck(userId);;
 		return (count==0) ? "ok":"fail";
+	}
+	
+	@Override
+	public int insertReply(ReplyDTO replyDTO) {
+		return adminDAO.insertReply(replyDTO);
 	}
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.dolba.admin.service.AdminService;
 import com.dolba.dto.OwnerDTO;
+import com.dolba.dto.ReplyDTO;
 import com.dolba.dto.SitterDTO;
 import com.dolba.dto.SitterMultiFilesDTO;
 
@@ -74,5 +75,5 @@ public class AdminController {
 		System.out.println("id=" + userId);
 		return adminService.idCheck(userId);
 	}
-
+	
 }

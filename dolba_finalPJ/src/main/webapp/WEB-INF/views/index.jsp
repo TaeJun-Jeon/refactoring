@@ -707,7 +707,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="col-md-6">
 					<div class="col-md-6 col-xs-6">
-						<a href="#">
+						<a href="${pageContext.request.contextPath}/qa/allSelect">
 							<div class="qna-box">
 								<br>
 								<br>
