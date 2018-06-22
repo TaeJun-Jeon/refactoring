@@ -242,12 +242,9 @@ public class OwnerController {
 		
 		List<DiaryDTO> diaryList = diaryService.selectDiaryByRequest(ownerRequestDTO);
 		String sitterFname=diaryService.selectSitterFnameByRequest(ownerRequestDTO);
-		System.out.println("sitterFname:"+sitterFname);
 		for(DiaryDTO dto:diaryList) {
-			System.out.println("dto.getDiaryWriteDay(): "+ dto.getDiaryWriteDay());
 			String fname = dto.getDiaryFname();
 			if(fname!=null) {
-				System.out.println("fname="+fname);
 				String [] fileName=fname.split(",");
 				for(String fn :fileName) {
 					dto.getImgNameList().add(fn);
