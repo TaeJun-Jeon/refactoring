@@ -20,7 +20,7 @@ public class OptionServiceImpl implements OptionService{
 		List<OptionsDTO> list = new ArrayList<>();
 		
 		for(int i=0;i<ids.length;i++) {
-			list.add(optionDAO.selectOptionNameByOptionId(ids[i]));
+			list.add(optionDAO.selectOptionByOptionId(ids[i]));
 		}
 		
 		return list;

@@ -183,6 +183,11 @@ create table call(
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','happysis',30000,'¿¹¹ÎÇÕ´Ï´Ù','18-07-02','18-07-03',sysdate,1,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','meme',30000,'¿¹¹ÎÇÕ´Ï´Ù','18-07-02','18-07-03',sysdate,1,NULL);
     
+    select  call_id,SITTER_ID,call_total_price,CALL_COMMENT,CALL_RESERVATE_START,CALL_RESERVATE_END,CALL_WRITEDAY,CALL_PETCOUNT,OWNER_APPROVAL, o.owner_id,o.owner_addr,o.owner_name
+		from call c join owner o
+		on c.owner_id = o.owner_id
+		where c.owner_approval is null
+    
     select * from call; 
     
 Create table SITTER_REQUEST(
