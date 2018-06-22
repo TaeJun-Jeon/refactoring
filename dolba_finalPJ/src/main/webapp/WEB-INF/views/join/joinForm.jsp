@@ -334,7 +334,7 @@ $(document).ready(function(){
         </div>
     </div>
 </div>
-
+</div>
 
 <script src="${pageContext.request.contextPath}/resources/lib/js/joinForm/joinForm.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>

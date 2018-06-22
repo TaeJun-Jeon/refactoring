@@ -1,6 +1,7 @@
 package com.dolba.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dolba.diary.service.DiaryService;
 import com.dolba.dto.CallDTO;
+import com.dolba.dto.DiaryDTO;
 import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
@@ -44,6 +47,9 @@ public class OwnerController {
 	
 	@Autowired
 	private OptionService optionService;
+	
+	@Autowired
+	private DiaryService diaryService;
 	
 	@RequestMapping("/myPage")
 	public String myPage(Model md, String role, String userId) {
@@ -173,10 +179,6 @@ public class OwnerController {
 			list.add(dto.getOptionsDTO().getOptionName());
 		}
 		
-		for(int i=0; i<sitterImgList.size(); i++) {
-			System.out.println(sitterImgList);
-		}
-		
 		mv.addObject("sitterDTO", sitterDTO);
 		mv.addObject("sitterOption", list);
 		mv.addObject("sitterReviewList", sitterReviewList);
@@ -201,4 +203,62 @@ public class OwnerController {
 		return "redirect:/owner/request/sitterList";
 	}
 	
-}
+	//////////////////////////////일지 보기 ////////////////////////////
+	@RequestMapping("/callDiaryList")
+	public ModelAndView diaryListByCall(CallDTO callDTO) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		///////여기부터
+		callDTO.setSitterId("goodsitter");
+		callDTO.setOwnerId("happymom");
+		callDTO.setCallReservateStart("18-06-16");
+		///////여기까지 나중에 지울값
+		
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByCall(callDTO);
+		String sitterFname=diaryService.selectSitterFnameByCall(callDTO);
+		for(DiaryDTO dto:diaryList) {
+			String fname = dto.getDiaryFname();
+			if(fname!=null) {
+				String [] fileName=fname.split(",");
+				for(String fn :fileName) {
+					dto.getImgNameList().add(fn);
+				}
+			}
+		}
+		mv.addObject("sitterFname", sitterFname);
+		mv.addObject("diaryList", diaryList);
+		mv.setViewName("diary/diaryList");
+		return mv;
+	}
+	
+	@RequestMapping("/requestDiaryList")
+	public ModelAndView diaryListByCall(OwnerRequestDTO ownerRequestDTO) {
+		ModelAndView mv = new ModelAndView();
+		
+		//여기부터
+		ownerRequestDTO.setOwnerId("happymom");
+		ownerRequestDTO.setSitterId("woo");
+		ownerRequestDTO.setOwnerRequestStart("18-06-02");
+		/////////////여기까지 삭제
+		
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByRequest(ownerRequestDTO);
+		String sitterFname=diaryService.selectSitterFnameByRequest(ownerRequestDTO);
+		System.out.println("sitterFname:"+sitterFname);
+		for(DiaryDTO dto:diaryList) {
+			System.out.println("dto.getDiaryWriteDay(): "+ dto.getDiaryWriteDay());
+			String fname = dto.getDiaryFname();
+			if(fname!=null) {
+				System.out.println("fname="+fname);
+				String [] fileName=fname.split(",");
+				for(String fn :fileName) {
+					dto.getImgNameList().add(fn);
+				}
+			}
+		}
+		mv.addObject("sitterFname", sitterFname);
+		mv.addObject("diaryList", diaryList);
+		mv.setViewName("diary/diaryList");
+		return mv;
+	}
+}	

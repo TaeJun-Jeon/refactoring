@@ -459,26 +459,27 @@ Create table SITTER_OPTION(
     
 
 Create table DIARY(
-    DAILY_RECORD_ID  VARCHAR(50) not null constraint DAILY_RECORD_ID_pk primary key,
-    SITTER_ID VARCHAR(50) null constraint DIARY_SITTER_ID_fk  references SITTER(SITTER_ID),
+    DIARY_ID  VARCHAR(50) not null constraint DAILY_RECORD_ID_pk primary key,
+    SITTER_ID VARCHAR(50) not null constraint DIARY_SITTER_ID_fk  references SITTER(SITTER_ID),
     OWNER_ID VARCHAR(50) not null constraint DIARY_OWNER_ID_fk references OWNER(OWNER_ID),
+    CALL_ID VARCHAR(50) null constraint DIARY_CALL_ID_fk references CALL(CALL_ID), 
+    OWNER_REQUEST_ID VARCHAR(50) null constraint DIARY_OWNER_REQUEST_ID_fk references OWNER_REQUEST(OWNER_REQUEST_ID),
     DIARY_TITLE VARCHAR(100) not null,
     DIARY_CONTENT VARCHAR(4000) not null,
     DIARY_WRITEDAY DATE not null,
     DIARY_PWD VARCHAR(50) not null,
-    DIARY_FNMAE VARCHAR(50) null,
-    DIARY_FSIZE NUMBER null
+    DIARY_FNAME VARCHAR(50) null
 );
 
     CREATE SEQUENCE sequence_DIARY
     START WITH 1
     INCREMENT BY 1;
     
-    insert into DIARY values('DAILY_RECORD_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','happymom','산책을 다녀왔어요','탄천산책을 다녀왔어요',SYSDATE,'1234',NULL,NULL);
-    insert into DIARY values('DAILY_RECORD_ID-'||sequence_DIARY.NEXTVAL,'bestsitter','cloud','순한아이에요','오늘은 강아지놀이터를 다녀왔어요',SYSDATE,'1234',NULL,NULL);
-    insert into DIARY values('DAILY_RECORD_ID-'||sequence_DIARY.NEXTVAL,'kind','any6103','목욕을 했습니다','오늘은 요청하신 목욕을 했습니다',SYSDATE,'1234',NULL,NULL);
-    insert into DIARY values('DAILY_RECORD_ID-'||sequence_DIARY.NEXTVAL,'happysis','flower','밥을잘 안먹어요','아직 적응이 필요한것 같습니다',SYSDATE,'1234',NULL,NULL);
-    insert into DIARY values('DAILY_RECORD_ID-'||sequence_DIARY.NEXTVAL,'meme','happy','약을 잘 안먹어요','혹시 견주님이 약을 주는 노하우 있으신가요?',SYSDATE,'1234',NULL,NULL);
+    insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','happymom','산책을 다녀왔어요','탄천산책을 다녀왔어요',SYSDATE,'1234',NULL,NULL);
+    insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'bestsitter','cloud','순한아이에요','오늘은 강아지놀이터를 다녀왔어요',SYSDATE,'1234',NULL,NULL);
+    insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'kind','any6103','목욕을 했습니다','오늘은 요청하신 목욕을 했습니다',SYSDATE,'1234',NULL,NULL);
+    insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'happysis','flower','밥을잘 안먹어요','아직 적응이 필요한것 같습니다',SYSDATE,'1234',NULL,NULL);
+    insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'meme','happy','약을 잘 안먹어요','혹시 견주님이 약을 주는 노하우 있으신가요?',SYSDATE,'1234',NULL,NULL);
 
     select * from DIARY;  
 
