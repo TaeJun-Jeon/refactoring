@@ -44,4 +44,19 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<ReplyDTO> selectReply(String qaId){
 		return session.selectList("qaMapper.selectReplyByQa", qaId);
 	}
+	
+	@Override
+	public int addQaReadNum(String qaId) {
+		return session.update("qaMapper.readnumUpdate", qaId);
+	}
+	
+	@Override
+	public int updateQa(BoardDTO boardDTO) {
+		return session.update("qaMapper.updateQa", boardDTO);
+	}
+	
+	@Override
+	public int deleteQa(String qaId) {
+		return session.delete("qaMapper.deleteQa", qaId);
+	}
 }

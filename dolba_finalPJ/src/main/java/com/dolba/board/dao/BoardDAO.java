@@ -30,4 +30,19 @@ public interface BoardDAO {
 	 * 댓글들 가져오기
 	 **/
 	public List<ReplyDTO> selectReply(String qaId);
+	
+	/**
+	 * 조회수 증가
+	 **/
+	public int addQaReadNum(String qaId);
+	
+	/**
+	 * 수정하기
+	 **/
+	public int updateQa(BoardDTO boardDTO);
+	
+	/**
+	 * 삭제하기
+	 **/
+	public int deleteQa(String qaId);
 }

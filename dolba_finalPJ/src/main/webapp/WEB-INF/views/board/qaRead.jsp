@@ -20,6 +20,19 @@
 <link rel="canonical" href="https://codepen.io/chrisburton/pen/dlFky?limit=all&page=3&q=comment" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<script>
+$(function(){
+	$("#replyBtn").click(function(){
+		var f = window.document.replyForm;
+		if (f.replyContent.value == "") {
+			alert("내용을 입력해 주세요.");
+			f.replyContent.focus();
+			return false;
+		}
+		$("#replyForm").submit();
+	})	
+})
+</script>
 </head>
 <body>
 	<div class="container" style="width: 600px">
@@ -29,22 +42,22 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							작성일 <input type="text" class="form-control" name="Date" autocomplete="off" id="Date" value="${qaDTO.qaWriteday}">
+							작성일 <input type="text" class="form-control" name="Date" autocomplete="off" id="Date" value="${qaDTO.qaWriteday}" readonly>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							조회수 <input type="text" class="form-control" name="View" autocomplete="off" id="View" value="${qaDTO.qaWriteday}">
+							조회수 <input type="text" class="form-control" name="View" autocomplete="off" id="View" value="${qaDTO.qaReadnum}" readonly>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							작성자 <input type="text" class="form-control" name="name" autocomplete="off" id="name" value="${qaDTO.ownerId}">
+							작성자 <input type="text" class="form-control" name="name" autocomplete="off" id="name" value="${qaDTO.ownerId}" readonly>
 						</div>
 					</div>
 					<div class="col-md-12">
 						<div class="form-group">
-							제목 <input type="text" class="form-control" name="subject" autocomplete="off" id="subject" value="${qaDTO.qaTitle}">
+							제목 <input type="text" class="form-control" name="subject" autocomplete="off" id="subject" value="${qaDTO.qaTitle}" readonly>
 						</div>
 					</div>
 				</div>
@@ -70,11 +83,9 @@
 				</c:forEach>
 			</section>
 			<form name="replyForm" action="${pageContext.request.contextPath}/reply/insertReply" method="post">
-				<sec:authorize access="isAuthenticated()">
-					<sec:authentication var="user" property="principal" />
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					<input type="hidden" name="qaId" value="${qaDTO.qaId}">
-					<c:if test="${user.userId =='ADMIN'}">
+					<sec:authorize access="hasAuthority('ADMIN')">
 						<!-- 관리자일경우 -->
 						<div class="container">
 							<div class="row">
@@ -90,23 +101,13 @@
 								</div>
 							</div>
 						</div>
-					</c:if>
-				</sec:authorize>
+					</sec:authorize>
 			</form>
+				<input id="button" style="width: 126px;margin-bottom: 50px;" value="목록으로" name="button"
+				class="btn btn-primary pull-right"
+				onclick="location.href='${pageContext.request.contextPath}/qa/allSelect'" />
 		</div>
 	</div>
-	<script>
-$(function(){
-	$("#replyBtn").click(function(){
-		var f = window.document.replyForm;
-		if (f.replyContent.value == "") {
-			alert("내용을 입력해 주세요.");
-			f.replyContent.focus();
-			return false;
-		}
-		$("#replyForm").submit();
-	})	
-})
-</script>
+	
 </body>
 </html>

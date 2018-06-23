@@ -9,6 +9,34 @@
 <!------ Include the above in your HEAD tag ---------->
 <link href="${pageContext.request.contextPath}/resources/lib/css/myPage/profile.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/lib/css/myPage/petProfile.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+$(function(){
+	$(document).on("click","#delete",function(){
+		var id = $(this).parent().parent().find('input[name=qaId]').val();
+		var pwd= $(this).parent().parent().find('input[name=qaPwd]').val();
+		var password = prompt("비밀번호를 입력하세요");
+		
+		if(password==pwd){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/qa/deleteQa",
+				data:"${_csrf.parameterName}=${_csrf.token}&qaId="+id,
+				dataType:"text",
+				success:function(result){
+					  alert("삭제되었습니다");
+					  location.reload();
+				  },
+				  error: function(err){
+					  console.log(err)
+				  }
+			})
+		}
+		else{
+			alert("비밀번호가 일치하지 않습니다")
+		}
+	})
+})
+</script>
 </head>
 <body>
 	<h1>Q & A</h1>
@@ -45,13 +73,16 @@
 									<td>${dto.qaWriteday}</td>
 									<td>${dto.qaReadnum}</td>
 									<td align="center">
-										<button class="btn btn-primary btn-xs" data-title="Edit">
+										<button class="btn btn-primary btn-xs" data-title="Edit" id="update" onclick="location.href='${pageContext.request.contextPath}/qa/updateQaForm?qaId=${dto.qaId}'">
 											<span class="glyphicon glyphicon-pencil"></span>
 										</button>
-										<button class="btn btn-danger btn-xs" data-title="Delete">
+										<button class="btn btn-danger btn-xs" id="delete" data-title="Delete" >
 											<span class="glyphicon glyphicon-trash"></span>
 										</button>
 									</td>
+									<td><input type="hidden" name="qaId" id="qaId" value="${dto.qaId}"></td>
+							    	<td><input type="hidden" name="qaPwd" id="qaPwd" value="${dto.qaPwd}"></td>
+							    
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -76,7 +107,7 @@
 								<option value="qa_content">내용</option>
 								<option value="OWNER_ID">아이디</option>
 							</select>
-						<div id="custom-search-input" style="width: 340px;\">
+						<div id="custom-search-input" style="width: 340px; margin-top: 10px; margin-bottom: 50px;\">
 							<div class="input-group col-md-12" style="width: 300px;\">
 								<input type="text" name="keyWord" style="width: 300px; height: 20px;" class="form-control input-lg" placeholder="입력해주세요" /> <span
 									class="input-group-btn"

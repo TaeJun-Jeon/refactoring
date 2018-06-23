@@ -14,27 +14,6 @@
 <script>
 
    $(document).ready(function() {
-      $("#mytable #checkall").click(function() {
-         if ($("#mytable #checkall").is(':checked')) {
-            $("#mytable input[type=checkbox]").each(function() {
-               $(this).prop("checked", true);
-            });
-
-         } else {
-            $("#mytable input[type=checkbox]").each(function() {
-               $(this).prop("checked", false);
-            });
-         }
-      });
-
-      $("[data-toggle=tooltip]").tooltip();
-   
-	   /* $("#delete").click(function() {
-		   alert(1)
-			var inputString = prompt('비밀번호를 입력해 주세요.', ''); 
-			alert(inputString);
-			
-	   }); */
 	   
 	   $(document).on("click","#delete",function(){
 		   

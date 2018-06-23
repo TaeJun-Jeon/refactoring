@@ -10,7 +10,30 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>일지 작성</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/joinForm/joinForm.css" type="text/css">
-
+<script>
+$(document).ready(function (){
+	
+    $("#fileInputDiary").on('change', function(){  // 값이 변경되면
+        if(window.FileReader){  // modern browser
+        	/*  var files = e.target.files; */
+        	console.log($('#fileInputDiary').get(0).files.length)
+        	var filename='';
+        	for(var i=0; i<$('#fileInputDiary').get(0).files.length;i++){
+        	  filename += $('#fileInputDiary').get(0).files[i].name+ ","
+        	}
+        	 /*console.log(files.length)
+        	for(var i=0; i<files.length; i++){
+        	 console.log($(this).files);
+             filename += $(this).files[i].name[i];*/
+        	console.log(filename)
+        } else {  // old IE
+           filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
+        }
+        // 추출한 파일명 삽입
+       $("#diaryFile").val(filename);
+    });
+})
+</script>
 </head>
 <body>
 <div class="container">
@@ -32,12 +55,12 @@
                                <hr>
                                 <div class="form-group">
                                     <label>아이디(ID)</label>
-                                    <input type="text" class="joinform-size form-control" readonly>
+                                    <input type="text" class="joinform-size form-control" value="${user.userId}" readonly>
                                 </div>
 
                                 <div class="form-group">
                                     <label>이름</label>
-                                    <input type="text" class="joinform-size form-control" readonly>
+                                    <input type="text" class="joinform-size form-control" value="${user.userName}"  readonly>
                                 </div>
 
                                 <div class="form-group">
@@ -55,7 +78,7 @@
                                     <label>사진이미지</label>
                                     <input type="file" id="fileInputDiary" multiple="multiple" name="file" data-class-button="btn btn-default" data-class-input="form-control" data-button-text="" data-icon-name="fa fa-upload" class="joinform-size form-control" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
                                     <div class="bootstrap-filestyle joinform-size input-group" style="width:200px;">
-                                       <!--  <input type="text" class="joinform-size form-control"  readonly> -->
+                                      	<input type="text" id="diaryFile" name="diaryFile" class="form-control"  readonly>
                                         <span class="group-span-filestyle input-group-btn" tabindex="0">
 				                            <label for="fileInputDiary" class="btn btn-default ">
 				                                <span class="fa fa-upload"></span>

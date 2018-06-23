@@ -45,7 +45,7 @@ public class NoticeController {
 	
 	//상세보기
 	@RequestMapping("/readNotice")
-	public String readNotice(HttpSession session,String noticeId, Model model) {
+	public String readNotice(String noticeId, Model model) {
 		NoticeDTO dto = noticeService.selectByModelNum(noticeId, true);//조회수 증가
 		model.addAttribute("dto", dto);
 		return "notice/noticeRead";
@@ -64,7 +64,6 @@ public class NoticeController {
 	//수정하기
 	@RequestMapping("/updateNotice")
 	public String updateNotice(Model model,NoticeDTO noticeDTO) {
-		System.out.println("noticeId="+noticeDTO.getNoticeId());
 		int i=noticeService.update(noticeDTO);
 		//System.out.println("i="+i);
 		//NoticeDTO dto = noticeService.selectByModelNum(noticeId, false);
@@ -89,7 +88,7 @@ public class NoticeController {
 	
 	//삭제하기
 	@RequestMapping("/delete")
-	public String delete(HttpSession session, String noticeId) {
+	public String delete(String noticeId) {
 		noticeService.delete(noticeId);
 		return "redirect:/notice/allSelect";
 	}

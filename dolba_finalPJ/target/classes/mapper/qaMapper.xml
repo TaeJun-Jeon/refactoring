@@ -8,7 +8,7 @@
 		QA_id, OWNER_ID, QA_title, QA_content, QA_writeday, QA_readnum, QA_pwd 
 	</sql>
 	<!-- qa리스트 검색 -->
-	<select id="selectAllQa" parameterType="string" resultType="qaDTO">
+	<select id="selectAllQa" parameterType="string" resultType="boardDTO">
 		select <include refid="qaColumn"/>
 		from QA
 		<where>
@@ -19,13 +19,13 @@
 	</select>
 	
 	<!-- qa 등록 -->
-	<insert id="insertQa" parameterType="qaDTO">
+	<insert id="insertQa" parameterType="boardDTO">
 		insert into QA(<include refid="qaColumn"/>) 
 		values('QA_id-'||sequence_qa.NEXTVAL,#{ownerId},#{qaTitle},#{qaContent},sysdate,0,#{qaPwd})
 	</insert> 
 	
 	<!-- qa keyWord 검색 -->
-	<select id="searchQaByKeyword" parameterType="map" resultType="qaDTO">
+	<select id="searchQaByKeyword" parameterType="map" resultType="boardDTO">
 		select <include refid="qaColumn"/>
 		from qa
 		where ${keyField} like '%' || #{keyWord} || '%'
@@ -37,5 +37,23 @@
 		from reply
 		where qa_id=#{_parameter}
 	</select>
-
+	
+	<!-- 조회수 증가 -->
+	<update id="readnumUpdate" parameterType="String">
+		UPDATE QA
+		SET QA_READNUM=QA_READNUM+1
+		where QA_ID=#{_parameter}
+	</update>
+	
+	<!-- 수정하기 -->
+	<update id="updateQa" parameterType="boardDTO">
+		update qa
+		set qa_title=#{qaTitle},qa_content=#{qaContent}
+		where qa_id=#{qaId}
+	</update>
+	
+	<!-- 삭제하기 -->
+	<delete id="deleteQa" parameterType="String">
+		delete from qa where qa_id=#{qaId}
+	</delete>
 </mapper>

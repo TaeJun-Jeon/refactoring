@@ -21,8 +21,11 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public BoardDTO selectQaByQaId(String QAId) {
-		return boardDAO.selectQaByQaId(QAId);
+	public BoardDTO selectQaByQaId(String qaId, boolean state) {
+		if(state) {
+			boardDAO.addQaReadNum(qaId);
+		}
+		return boardDAO.selectQaByQaId(qaId);
 	}
 	
 	@Override
@@ -38,5 +41,15 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public List<ReplyDTO> selectReply(String qaId){
 		return boardDAO.selectReply(qaId);
+	}
+	
+	@Override
+	public int updateQa(BoardDTO boardDTO) {
+		return boardDAO.updateQa(boardDTO);
+	}
+	
+	@Override
+	public int deleteQa(String qaId) {
+		return boardDAO.deleteQa(qaId);
 	}
 }

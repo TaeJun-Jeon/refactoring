@@ -33,7 +33,7 @@ public class QaController {
 	@RequestMapping("/readQa")
 	public ModelAndView readQa(String qaId) {
 		ModelAndView mv = new ModelAndView();
-		BoardDTO qaDTO = service.selectQaByQaId(qaId);
+		BoardDTO qaDTO = service.selectQaByQaId(qaId,true);
 		List<ReplyDTO> replyList = service.selectReply(qaId);
 		mv.addObject("replyList", replyList);
 		mv.addObject("qaDTO", qaDTO);
@@ -64,5 +64,26 @@ public class QaController {
 		mv.addObject("list", list);
 		mv.setViewName("board/qaList");
 		return mv;
+	}
+	
+	@RequestMapping("/updateQaForm")
+	public ModelAndView updateQaForm(String qaId) {
+		ModelAndView mv = new ModelAndView();
+		BoardDTO boardDTO = service.selectQaByQaId(qaId, false);
+		mv.addObject("boardDTO", boardDTO);
+		mv.setViewName("board/qaUpdate");
+		return mv;
+	}
+	
+	@RequestMapping("/updateQa")
+	public String updateQa(BoardDTO boardDTO) {
+		service.updateQa(boardDTO);
+		return "redirect:/qa/allSelect";
+	}
+	
+	@RequestMapping("/deleteQa")
+	public String deleteQa(String qaId) {
+		service.deleteQa(qaId);
+		return "redirect:/qa/allSelect";
 	}
 }

@@ -59,8 +59,6 @@ public class ReviewController {
 	//수정하기
 	@RequestMapping("/updateReview")
 	public String updateReview(ReviewDTO reviewDTO) {
-		System.out.println("reviewId="+reviewDTO.getReviewId());
-		System.out.println("reviewTitle="+reviewDTO.getReviewTitle());
 		reviewService.update(reviewDTO);
 		return "redirect:/review/allSelect";
 	}
