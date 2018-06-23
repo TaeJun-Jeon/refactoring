@@ -10,7 +10,7 @@
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolver">
 		<property value="/WEB-INF/views/" name="prefix" />
 		<property value=".jsp" name="suffix" />
-		<property value="1" name="order" />
+		<property value="2" name="order" />
 	</bean>
 	<!-- <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"> <property name="order" value="1"/> </bean> -->
 	<!-- MappingJackson2JsonView로 수정되어져 추가 -->
@@ -19,7 +19,7 @@
 	<!-- Tiles 사용을 위한 bean 등록 -->
 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property value="org.springframework.web.servlet.view.tiles3.TilesView" name="viewClass" />
-		<property value="0" name="order" />
+		<property value="1" name="order" />
 		<!-- 숫자가 낮은 것이 우선순위가 높게 적용된다. -->
 	</bean>
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" id="tilesViewResolver" />
@@ -30,5 +30,6 @@
 			</list>
 		</property>
 	</bean>
+	
 	<context:component-scan base-package="com.dolba" />
 </beans>

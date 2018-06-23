@@ -56,4 +56,8 @@ update owner_request set sitter_approval = '${state}' where owner_request_id= '$
 select * from owner where owner_id=${_parameter}
 </select>
 
+<select id="selectPetInfo" parameterType="string" resultType="petDTO">
+select * from pet where owner_id = #{ownerId}
+</select>
+
 </mapper>

@@ -1,7 +1,6 @@
 package com.dolba.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +59,9 @@ public class OwnerController {
 			root ="myPage/sitterPage";
 		}else {
 			OwnerDTO ownerDTO = ownerService.selectOwnerInfo(userId);
+			PetDTO petDTO = ownerService.selectPetInfo(userId);
 			md.addAttribute("ownerDTO", ownerDTO);
+			md.addAttribute("petDTO", petDTO);
 			System.out.println("ownerName"+ownerDTO.getOwnerName());
 		}
 		return root;

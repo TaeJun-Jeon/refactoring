@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dolba.board.service.QaService;
-import com.dolba.dto.QaDTO;
+import com.dolba.board.service.BoardService;
+import com.dolba.dto.BoardDTO;
 import com.dolba.dto.ReplyDTO;
 
 @Controller
@@ -18,12 +18,12 @@ import com.dolba.dto.ReplyDTO;
 public class QaController {
 
 	@Autowired
-	private QaService service;
+	private BoardService service;
 	
 	@RequestMapping("/allSelect")
 	public ModelAndView allSelectQa() {
 		ModelAndView mv = new ModelAndView();
-		List<QaDTO> list=service.selectAllQa();
+		List<BoardDTO> list=service.selectAllQa();
 		mv.addObject("list", list);
 		mv.setViewName("board/qaList");
 		
@@ -33,7 +33,7 @@ public class QaController {
 	@RequestMapping("/readQa")
 	public ModelAndView readQa(String qaId) {
 		ModelAndView mv = new ModelAndView();
-		QaDTO qaDTO = service.selectQaByQaId(qaId);
+		BoardDTO qaDTO = service.selectQaByQaId(qaId);
 		List<ReplyDTO> replyList = service.selectReply(qaId);
 		mv.addObject("replyList", replyList);
 		mv.addObject("qaDTO", qaDTO);
@@ -47,7 +47,7 @@ public class QaController {
 	}
 	
 	@RequestMapping("/writeQa")
-	public String writeQa(QaDTO qaDTO) {
+	public String writeQa(BoardDTO qaDTO) {
 		service.insertQa(qaDTO);
 		return "redirect:/qa/allSelect";
 	}
@@ -59,7 +59,7 @@ public class QaController {
 		String keyField=request.getParameter("keyField");
 		String keyWord=request.getParameter("keyWord");
 		
-		List<QaDTO> list=service.searchQaByKeyword(keyField, keyWord);
+		List<BoardDTO> list=service.searchQaByKeyword(keyField, keyWord);
 		
 		mv.addObject("list", list);
 		mv.setViewName("board/qaList");

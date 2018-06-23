@@ -14,11 +14,10 @@
 	
  -->
 
- <!-- 
-  <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+  
  
 <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-    <property name="order" value="3"/>
-  </bean> -->
+    <property name="order" value="0"/>
+  </bean>
   
  </beans>

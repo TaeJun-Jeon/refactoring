@@ -48,15 +48,15 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 
 		AuthorityDTO authorityDTO = authoritiesDAO.selectAuthorityByUserId(userId);
 
-		if (authorityDTO == null) {
-			throw new UsernameNotFoundException(userId + "는 없는 회원입니다. 다시 로그인 하여 주십시오.");
+		if (authorityDTO == null || !password.equals(authorityDTO.getPassword())) {
+			throw new UsernameNotFoundException("아이디 혹은 비밀번호를 확인하여 주십시오");
 		}
 
 		//2. db에서 사용자 정보를 가져온다
 		//(비밀번호는 복호화해서 가져온다)
-		if (!password.equals(authorityDTO.getPassword())) {
+	/*	if (!password.equals(authorityDTO.getPassword())) {
 			throw new UsernameNotFoundException(password + "가 일치하지 않습니다.");
-		}
+		}*/
 
 		//4. db에서 사용자 정보가 있다면  권한목록을 가져온다.
 		authorityDTO = authoritiesDAO.selectAuthorityByUserId((userId));

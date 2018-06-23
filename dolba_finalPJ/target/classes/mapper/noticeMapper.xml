@@ -5,4 +5,59 @@
  
 <mapper namespace="noticeMapper">
 
+	<!-- 공통된 코드 -->
+	<sql id="noticeColumn"> 
+	NOTICE_ID,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITEDAY,NOTICE_READNUM,NOTICE_FNAME,NOTICE_FSIZE
+	</sql>
+	
+	<resultMap type="NoticeDTO" id="selectMap">
+		<id column="NOTICE_ID" property="noticeId"/> 
+		<result column="NOTICE_TITLE" property="noticeTitle"/>
+		<result column="NOTICE_CONTENT" property="noticeContent"/>
+		<result column="NOTICE_WRITEDAY" property="noticeWriteday"/>
+		<result column="NOTICE_READNUM" property="noticeReadnum"/>
+		<result column="NOTICE_FNAME" property="noticeFname"/>
+		<result column="NOTICE_FSIZE" property="noticeFsize"/>
+	</resultMap>
+	
+	<!-- 전체레코드 검색 -->
+	<select id="selectAll" resultMap="selectMap">
+		SELECT <include refid="noticeColumn"/> 
+		FROM notice
+		ORDER BY NOTICE_WRITEDAY DESC 
+	</select>
+	
+	<!-- 모델번호에 해당하는 레코드 검색 : 상세보기, 수정하기 폼-->
+	<select id="selectByModelNum" parameterType="String" resultMap="selectMap">
+		SELECT <include refid="noticeColumn"/> 
+		FROM notice
+		WHERE NOTICE_ID=#{_parameter}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="readnumUpdate" parameterType="String">
+		update notice
+		set NOTICE_READNUM=NOTICE_READNUM+1
+		where NOTICE_ID=#{_parameter}
+	</update>
+	
+	<!-- 수정하기 -->
+	<update id="update" parameterType="NoticeDTO">
+		update notice
+		set NOTICE_TITLE=#{noticeTitle},NOTICE_CONTENT=#{noticeContent},
+		NOTICE_FNAME=#{noticeFname},NOTICE_FSIZE=#{noticeFsize}
+		where NOTICE_ID=#{noticeId}
+	</update>
+	
+	<!-- 삭제하기 -->
+	<delete id="delete" parameterType="String">
+		delete from notice where NOTICE_ID=#{noticeId}
+	</delete>
+	
+	<!-- 레코드 등록 : fname과 fsize는 null들어와도 허용되도록  sqlMapConfig.xml에서 허용해줘야함-->
+	<insert id="insert" parameterType="NoticeDTO">
+		insert into notice
+		values('NOTICE_ID-'||sequence_NOTICE_ID.NEXTVAL,#{noticeTitle},#{noticeContent},sysdate,0,#{noticeFname},#{noticeFsize})
+	</insert>
+	
 </mapper>

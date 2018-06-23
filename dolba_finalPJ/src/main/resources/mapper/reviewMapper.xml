@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="reviewMapper">
+	<!-- 공통된 코드 -->
+	<sql id="reviewColumn"> 
+	review_id,OWNER_ID,review_title,review_content,review_readnum,review_writeday,review_pwd
+	</sql>
+	
+	<resultMap type="ReviewDTO" id="selectMap">
+		<id column="review_id" property="reviewId"/> 
+		<result column="OWNER_ID" property="ownerId"/>
+		<result column="review_title" property="reviewTitle"/>
+		<result column="review_content" property="reviewContent"/>
+		<result column="review_READNUM" property="reviewReadnum"/>
+		<result column="review_WRITEDAY" property="reviewWriteday"/>
+		<result column="review_pwd" property="reviewPwd"/>
+	</resultMap>
+	
+	<!-- 전체레코드 검색 -->
+	<select id="selectAll" resultMap="selectMap">
+		SELECT <include refid="reviewColumn"/> 
+		FROM review
+		ORDER BY review_WRITEDAY DESC 
+	</select>
+	
+	<!-- 모델번호에 해당하는 레코드 검색 : 상세보기, 수정하기 폼-->
+	<select id="selectByModelNum" parameterType="String" resultMap="selectMap">
+		SELECT <include refid="reviewColumn"/> 
+		FROM review
+		WHERE review_id=#{_parameter}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="readnumUpdate" parameterType="String">
+		update review
+		set review_READNUM=review_READNUM+1
+		where review_ID=#{_parameter}
+	</update>
+	
+	<!-- 수정하기 -->
+	<update id="update" parameterType="ReviewDTO">
+		update review
+		set review_title=#{reviewTitle},review_content=#{reviewContent}
+		where review_id=#{reviewId}
+	</update>
+	
+	<!-- 삭제하기 -->
+	<!-- <delete id="delete" parameterType="map">
+		delete from review where review_ID=#{reviewId} and review_pwd=#{reviewPwd}
+	</delete> -->
+	<delete id="delete" parameterType="String">
+		delete from review where review_ID=#{reviewId} 
+	</delete>
+
+	<!-- 레코드 등록 : fname과 fsize는 null들어와도 허용되도록  sqlMapConfig.xml에서 허용해줘야함-->
+	<insert id="insert" parameterType="ReviewDTO">
+		insert into review
+		values('review_id-'||sequence_review.NEXTVAL,#{ownerId},#{reviewTitle},#{reviewContent},0,sysdate,#{reviewPwd})
+	</insert>
+	
+</mapper>

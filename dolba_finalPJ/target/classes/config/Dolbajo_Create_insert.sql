@@ -23,7 +23,7 @@ create table OWNER(
     insert into OWNER values('han','1234','정한별','경기도 성남시 분당구 심평동 판교역로 226번길','null','000-000-0000','han@naver.com','IMG_10.jpg','남');
  
     select * from OWNER;
-    
+    select*from sitter;
 create table SITTER(
         SITTER_ID VARCHAR(50) not null constraint SITTER_ID_pk primary key,
         SITTER_PASSWORD VARCHAR(20) NOT NULL,
@@ -356,7 +356,8 @@ Create table OWNER_REQUEST(
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'any6103','goodsitter',28000,'18-06-05','18-06-06',1,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'flower','goodsitter',50000,'18-06-04','18-06-05',1,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'happy','goodsitter',30000,'18-06-07','18-06-08',1,NULL);
-    
+        insert into OWNER_REQUEST values('5','happy','goodsitter',30000,'18-06-07','18-06-08',1,NULL);
+
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'jang','goodsitter',27000,'18-06-02','18-06-03',1,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'baek','goodsitter',35000,'18-06-10','18-06-11',1,NULL);
     insert into OWNER_REQUEST values('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL,'yeun','goodsitter',28000,'18-06-11','18-06-12',1,NULL);

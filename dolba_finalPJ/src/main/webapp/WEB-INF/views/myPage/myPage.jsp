@@ -347,7 +347,7 @@ $(document).ready(function() {
 					<div class="tab-pane active" id="petInfo">
 						<div class="resume">
 							<header class="page-header">
-								<h1 class="page-title">Profile of Happy</h1>
+								<h1 class="page-title">Profile of ${petDTO.petName}</h1>
 							</header>
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
@@ -357,7 +357,7 @@ $(document).ready(function() {
 												<div class="col-lg-12">
 													<div class="col-xs-12 col-sm-4">
 														<figure>
-															<img class="img-circle img-responsive" alt="" src="http://placehold.it/300x300">
+															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/1.PNG">
 														</figure>
 														<div class="row">
 															<div class="col-xs-12 social-btns"></div>
@@ -365,12 +365,11 @@ $(document).ready(function() {
 													</div>
 													<div class="col-xs-12 col-sm-8">
 														<ul class="list-group">
-															<li class="list-group-item">John Doe</li>
-															<li class="list-group-item">Software Engineer</li>
-															<li class="list-group-item">Google Inc.</li>
-															<li class="list-group-item">Google Inc.</li>
-															<li class="list-group-item">Google Inc.</li>
-															<li class="list-group-item">Google Inc.</li>
+															<li class="list-group-item">${petDTO.petName}</li>
+															<li class="list-group-item">${petDTO.petSpecies}</li>
+															<li class="list-group-item">${petDTO.petLiness}</li>
+															<li class="list-group-item">${petDTO.petWeight}</li>
+															<li class="list-group-item">${petDTO.petGender}</li>
 														</ul>
 													</div>
 													<div class="profile-userbuttons">
@@ -398,7 +397,7 @@ $(document).ready(function() {
 												<div class="col-lg-12">
 													<div class="col-xs-12 col-sm-4">
 														<figure>
-															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/김진주.jpg">
+															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/${ownerDTO.ownerfName}">
 														</figure>
 														<div class="row">
 															<div class="col-xs-12 social-btns"></div>

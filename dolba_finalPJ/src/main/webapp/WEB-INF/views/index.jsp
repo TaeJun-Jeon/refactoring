@@ -53,7 +53,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 </head>
+<sec:authorize access="hasAuthority('ADMIN')">
+<style>
+nav.navbar.navbar-default{
+background-color: #FF8000;
+padding: 2em 4em 1em;
+}
+.btn-theme{
+color: #fff;
+background-color: #F7D358;
+border-color:#F7D358;
+}
+span.home-banner{
+color: #FF8000;
+font-weight: 100;
+}
+.slider-info h4{
+font-weight:400;
+color:#F7D358;
+font-size: 5.5em;
+letter-spacing:3px;
+}
+.slider-info p{
+font-size:20px;
+letter-spacing:3px;
+padding:16px 0px;
+color: #F7D358
+}
+</style>
+</sec:authorize>
 
+<sec:authorize access="isAnonymous()">
+<style>
+nav.navbar.navbar-default{
+background-color: #18777F;
+padding: 2em 4em 1em;
+}
+</style>
+</sec:authorize>
+
+<sec:authorize access="hasAnyAuthority('OWNER','SITTER')">
+<style>
+nav.navbar.navbar-default{
+background-color: #18777F;
+padding: 2em 4em 1em;
+}
+</style>
+</sec:authorize>
 <body>
 
 	<div id="container">
@@ -66,8 +112,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="header-outs">
 		<div class="header-w3layouts">
 			<!-- Navigation -->
+		
 			<div class="header-bar">
-				<nav class="navbar navbar-default" style="background-color: #18777F">
+				<nav class="navbar navbar-default">
 					<div class="navbar-header navbar-left">
 						<h1>
 							<!--로고시작-->
@@ -93,6 +140,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<li><a href="#petsit-service" class="scroll">펫시터서비스</a></li>
 								</sec:authorize>
 								<li><a href="#qna" class="scroll">Q & A</a></li>
+								
+								<sec:authorize access="isAuthenticated()">
+								<sec:authentication var="user" property="principal"/>
+								<li><a style="font-size:15px;">${user.userName}님 안녕하세요.</a></li>
+								</sec:authorize>
 								<li>
 									<div class="showback">
 										<!-- Single button -->
@@ -106,11 +158,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													<li><a href="${pageContext.request.contextPath}/admin/joinForm"><span class="fa fa-pencil-square-o"></span>&nbsp;&nbsp;회원가입</a></li>
 													<li class="divider"></li>
 												</sec:authorize>
+												
+												
 											
 												<sec:authorize access="isAuthenticated()">
 													<sec:authentication var="user" property="principal"/>
-
+													<sec:authorize access="hasAnyAuthority('OWNER','SITTER')">
 													<li><a href="${pageContext.request.contextPath}/owner/myPage?role=${user.role}&userId=${user.userId}"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;마이페이지</a></li>
+													</sec:authorize>
+													<sec:authorize access="hasAuthority('ADMIN')">
+													<li><a href="${pageContext.request.contextPath}/admin/adminSitterList"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;펫시터 관리</a></li>
+													</sec:authorize>
 													<li><a href="javascript:logout();"><span class="fa fa-sign-out"></span>&nbsp;&nbsp;로그아웃</a></li>
 													</sec:authorize>
 													<form id="logoutFrm" action="${pageContext.request.contextPath}/admin/logout" method="post" style:"display:none">
@@ -119,6 +177,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</ul>
 										</div>
 									</div>
+									
 								</li>
 							</ul>
 						</nav>
@@ -260,7 +319,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div> <!-- 모달 전체 윈도우 -->
 	</div>
 	<!-- //modal -->
-
 
 	<div class="about" id="about" style="margin-top:120px;">
 		<div class="container">
@@ -690,7 +748,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 
 
-
 	<!--qna-->
 	<div class="about" id="qna">
 		<div class="container">
@@ -720,7 +777,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</a>
 					</div>
 					<div class="col-md-6 col-xs-6">
-						<a href="#">
+						<a href="${pageContext.request.contextPath}/notice/allSelect">
 							<div class="qna-box">
 								<center>
 								<br>
@@ -737,6 +794,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 	</div>
+	
+	
+	<sec:authorize access="hasAnyAuthority('OWNER','SITTER')">
 	<!--//qna-->
 	<div class="insta-div">
 		<div class="container">
@@ -773,7 +833,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 	</div>
-
+</sec:authorize>
 
 	<div class="buttom-w3">
 		<div class="container">

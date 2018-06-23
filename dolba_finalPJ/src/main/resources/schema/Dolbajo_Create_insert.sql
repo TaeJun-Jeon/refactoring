@@ -459,7 +459,7 @@ Create table SITTER_OPTION(
     
 
 Create table DIARY(
-<<<<<<< HEAD
+
     DIARY_ID  VARCHAR(50) not null constraint DAILY_RECORD_ID_pk primary key,
     SITTER_ID VARCHAR(50) not null constraint DIARY_SITTER_ID_fk  references SITTER(SITTER_ID),
     OWNER_ID VARCHAR(50) not null constraint DIARY_OWNER_ID_fk references OWNER(OWNER_ID),
@@ -469,7 +469,7 @@ Create table DIARY(
     DIARY_CONTENT VARCHAR(4000) not null,
     DIARY_WRITEDAY DATE not null,
     DIARY_PWD VARCHAR(50) not null,
-=======
+
     DAILY_ID  VARCHAR(50) not null constraint DAILY_RECORD_ID_pk primary key,--일지 ID
     SITTER_ID VARCHAR(50) null constraint DIARY_SITTER_ID_fk  references SITTER(SITTER_ID),--펫시터id
     OWNER_ID VARCHAR(50) not null constraint DIARY_OWNER_ID_fk references OWNER(OWNER_ID),--견주id
@@ -485,13 +485,13 @@ Create table DIARY(
     START WITH 1
     INCREMENT BY 1;
     
-<<<<<<< HEAD
+
     insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','happymom','산책을 다녀왔어요','탄천산책을 다녀왔어요',SYSDATE,'1234',NULL,NULL);
     insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'bestsitter','cloud','순한아이에요','오늘은 강아지놀이터를 다녀왔어요',SYSDATE,'1234',NULL,NULL);
     insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'kind','any6103','목욕을 했습니다','오늘은 요청하신 목욕을 했습니다',SYSDATE,'1234',NULL,NULL);
     insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'happysis','flower','밥을잘 안먹어요','아직 적응이 필요한것 같습니다',SYSDATE,'1234',NULL,NULL);
     insert into DIARY values('DIARY_ID-'||sequence_DIARY.NEXTVAL,'meme','happy','약을 잘 안먹어요','혹시 견주님이 약을 주는 노하우 있으신가요?',SYSDATE,'1234',NULL,NULL);
-=======
+
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','happymom','OWNER_REQUEST_id-1','산책을 다녀왔어요','탄천산책을 다녀왔어요',SYSDATE,'1234',NULL);
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','happymom','OWNER_REQUEST_id-1','목욕을 했습니다','오늘은 요청하신 목욕을 했습니다',SYSDATE,'1234',NULL);
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','happymom','OWNER_REQUEST_id-1','밥을잘 안먹어요','아직 적응이 필요한것 같습니다',SYSDATE,'1234',NULL);
@@ -500,7 +500,6 @@ Create table DIARY(
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'kind','any6103','OWNER_REQUEST_id-12','목욕을 했습니다','오늘은 요청하신 목욕을 했습니다',SYSDATE,'1234',NULL);
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'happysis','flower','OWNER_REQUEST_id-13','밥을잘 안먹어요','아직 적응이 필요한것 같습니다',SYSDATE,'1234',NULL);
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'meme','happy','OWNER_REQUEST_id-16','약을 잘 안먹어요','혹시 견주님이 약을 주는 노하우 있으신가요?',SYSDATE,'1234',NULL);
->>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
 
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','cloud','call_id-1','산책을 다녀왔어요','탄천산책을 다녀왔어요',SYSDATE,'1234',NULL);
     insert into DIARY values('DAILY_ID-'||sequence_DIARY.NEXTVAL,'goodsitter','cloud','call_id-1','목욕을 했습니다','오늘은 요청하신 목욕을 했습니다',SYSDATE,'1234',NULL);
