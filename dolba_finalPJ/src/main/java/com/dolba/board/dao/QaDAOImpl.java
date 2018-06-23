@@ -1,4 +1,4 @@
-package com.dolba.qa.dao;
+package com.dolba.board.dao;
 
 import java.util.HashMap;
 import java.util.List;

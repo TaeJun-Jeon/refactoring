@@ -1,4 +1,4 @@
-package com.dolba.qa.service;
+package com.dolba.board.service;
 
 import java.util.List;
 

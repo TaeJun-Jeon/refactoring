@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dolba.board.service.QaService;
 import com.dolba.dto.QaDTO;
 import com.dolba.dto.ReplyDTO;
-import com.dolba.qa.service.QaService;
 
 @Controller
 @RequestMapping("/qa")
