@@ -62,5 +62,10 @@ public class OwnerServiceImpl implements OwnerService {
 		return ownerDAO.selectOwnerInfo(userId);
 	}
 
+	@Override
+	public List<CallDTO> selectOwnerCall(String userId) {
+		return ownerDAO.selectOwnerCall(userId);
+	}
+
 
 }

@@ -115,4 +115,11 @@ public class OwnerDAOImpl implements OwnerDAO {
 	}
 
 
+
+	@Override
+	public List<CallDTO> selectOwnerCall(String userId) {
+		return session.selectList("ownerMapper.selectOwnerCall", userId);
+	}
+
+
 }

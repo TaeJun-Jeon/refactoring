@@ -173,4 +173,9 @@ public class AdminController {
 	public int updateSitterPermit(String sitterId,String state) {
 		return adminService.updateSitterPermit(sitterId,state);
 	}
+	
+	@RequestMapping("/insta")
+	public String insta() {
+		return "insta";
+	}
 }

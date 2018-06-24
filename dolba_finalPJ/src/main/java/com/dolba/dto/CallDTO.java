@@ -11,7 +11,7 @@ public class CallDTO {
 	private String callComment;
 	private String callReservateStart;
 	private String callReservateEnd;
-	private String writeDay;
+	private String callWriteDay;
 	private int callPetCount;
 	private String ownerApproval;
 	private OwnerDTO ownerDTO;
@@ -53,11 +53,11 @@ public class CallDTO {
 	public void setCallReservateEnd(String callReservateEnd) {
 		this.callReservateEnd = callReservateEnd;
 	}
-	public String getWriteDay() {
-		return writeDay;
+	public String getCallWriteDay() {
+		return callWriteDay;
 	}
-	public void setWriteDay(String writeDay) {
-		this.writeDay = writeDay;
+	public void setCallWriteDay(String callWriteDay) {
+		this.callWriteDay = callWriteDay;
 	}
 	public int getCallPetCount() {
 		return callPetCount;
