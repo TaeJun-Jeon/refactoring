@@ -109,7 +109,7 @@ public class SitterController {
 		return "redirect:/sitter/call/callList";
 	}
 	
-	/**************************CALL******************************/
+	/**************************CALL ³¡******************************/
 	@RequestMapping("/diaryForm")
 	public String diaryList() {
 		return "diary/diaryWrite";

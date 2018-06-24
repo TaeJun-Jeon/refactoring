@@ -384,7 +384,7 @@ $(document).ready(function() {
 														<ul class="list-group">
 															<li class="list-group-item"> ${petDTO.petName}</li>
 															<li class="list-group-item"> ${petDTO.petSpecies}</li>
-															<li class="list-group-item"> ${petDTO.petLiness}</li>
+															<li class="list-group-item"> ${petDTO.petIllness}</li>
 															<li class="list-group-item"> ${petDTO.petWeight}</li>
 															<li class="list-group-item"> ${petDTO.petGender}</li>
 														</ul>
@@ -466,7 +466,7 @@ $(document).ready(function() {
 						<td>${status.count}</td>
 						<td>${callList.callReservateStart}</td>
 						<td>${callList.callReservateEnd}</td>
-						<td>${callList.callWriteDay}</td>
+						<td>${callList.callWriteday}</td>
 						<td><fmt:formatNumber value="${callList.callTotalPrice}" pattern="#,###"></fmt:formatNumber></td>
 						</tr>
 						</c:forEach>

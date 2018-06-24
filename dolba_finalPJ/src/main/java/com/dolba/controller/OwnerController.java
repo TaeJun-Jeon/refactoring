@@ -80,7 +80,6 @@ public class OwnerController {
 			md.addAttribute("callList",callList);
 			md.addAttribute("pagingUtil",pagingUtil);
 			md.addAttribute("petDTO", petDTO);
-			System.out.println("ownerName"+ownerDTO.getOwnerName());
 		}
 		return root;
 	}
@@ -113,7 +112,7 @@ public class OwnerController {
 
 		ModelAndView mv = new ModelAndView();
 		//mv.setViewName("redirect:/owner/call/callForm?ownerId=" + ownerId);
-		mv.setViewName("redirect:/admin");
+		mv.setViewName("redirect:/");
 
 		return mv;
 	}

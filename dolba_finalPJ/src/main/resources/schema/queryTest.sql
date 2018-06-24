@@ -6,7 +6,7 @@ select * from REPLY
 select * from SITTER_OPTION
 select * from diary
 select * from QA
-
+select * from SITTER_REQUEST
 select diary_title, diary_content, diary_writeday, diary_fname
 from diary d join call c
 on d.owner_id=c.owner_id and d.sitter_id=c.sitter_id

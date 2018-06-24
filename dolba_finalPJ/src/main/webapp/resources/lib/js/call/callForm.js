@@ -76,6 +76,7 @@ $(function(){
 			$("#callPetcount").val(petCount);
 			$("#callTotalPrice").val(price);
 			$("#optionSelect").val(optionTags);
+			alert("신청 완료되었습니다.");
 			$("#callFormSubmit").submit();
 		}
 	})
