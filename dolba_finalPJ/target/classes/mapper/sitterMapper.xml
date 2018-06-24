@@ -78,7 +78,7 @@
 	
 	<insert id="insertOwnerRequest" parameterType="ownerRequestDTO">
 		insert into owner_request 
-		values ('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL, 'happymom', #{sitterId}, #{ownerRequestPrice}, #{ownerRequestStart}, #{ownerRequestEnd}, #{ownerRequestPetCount}, null)
+		values ('OWNER_REQUEST_id-'||sequence_OWNER_REQUEST.NEXTVAL, #{ownerId}, #{sitterId}, #{ownerRequestPrice}, #{ownerRequestStart}, #{ownerRequestEnd}, #{ownerRequestPetCount}, null)
 	</insert>
 	
 	<select id="selectOpIdByCheckOption" parameterType="Map" resultType="optionsDTO">
@@ -92,8 +92,8 @@
 	
 	<select id="selectOwnerRequestId" parameterType="ownerRequestDTO" resultType="string">
 		select owner_request_id
-		from owner_request
-		where owner_id='happymom' and sitter_id=#{sitterId} and owner_request_start=#{ownerRequestStart} and owner_request_end=#{ownerRequestEnd}
+		 FROM (SELECT * FROM owner_request where owner_id=#{ownerId} ORDER BY ROWNUM DESC)
+ 		WHERE ROWNUM = 1
 	</select>
 	
 	 <insert id="insertSittingOpByCheckOp" parameterType="Map">

@@ -23,7 +23,7 @@ select * from owner_request where sitter_approval = 'y' and sitter_id=#{userId}
 
 
 <select id="allSelectCallOwner"  parameterType="String" resultType="callDTO">
-select * from call where owner_approval is null  
+select * from call where owner_approval is null  and sitter_id is not null
 and owner_id=#{userId}
 </select>
 
@@ -66,5 +66,9 @@ select * from owner where owner_id=${_parameter}
 
 
 
+
+<select id="selectPetInfo" parameterType="string" resultType="petDTO">
+select * from pet where owner_id = #{ownerId}
+</select>
 
 </mapper>

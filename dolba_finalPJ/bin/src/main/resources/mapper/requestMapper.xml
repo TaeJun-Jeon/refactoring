@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="requestMapper">
+
+<select id="allSelectOwnerRequest" parameterType="string" resultType="ownerRequestDTO">
+select * from owner_request where owner_id=#{_parameter} and sitter_approval is null or sitter_approval = 'x' 
+</select>
+
+<select id="allSelectOwnerRequestApproval" parameterType="string" resultType="ownerRequestDTO">
+select * from owner_request where sitter_approval = 'y' and owner_id=#{userId}
+</select>
+
+<select id="allSelectSitterRequest" parameterType="string" resultType="ownerRequestDTO">
+select * from owner_request where sitter_id=#{_parameter} and sitter_approval is null
+</select>
+
+<select id="allSelectSitterRequestApproval" parameterType="string" resultType="ownerRequestDTO">
+select * from owner_request where sitter_approval = 'y' and sitter_id=#{userId}
+</select>
+
+
+<select id="allSelectCallOwner"  parameterType="String" resultType="callDTO">
+select * from call where owner_approval is null  
+and owner_id=#{userId}
+</select>
+
+<select id="allSelectCallSitter" parameterType="String" resultType="callDTO">
+select * from call where owner_approval is null and sitter_id=#{_parameter}
+</select>
+
+
+<select id="allSelectCallApprovalOwner" parameterType="string" resultType="callDTO">
+select *from call where owner_approval = 'y' and owner_id=#{_parameter}
+</select>
+
+<select id="allSelectCallApprovalSitter" resultType="callDTO">
+select *from call where owner_approval = 'y'and sitter_id=#{_parameter}
+</select>
+
+<update id="updateOwnerApproval" parameterType="map">
+update call set owner_approval = '${state}' where call_id= '${callId}'
+</update>
+
+<update id="updateSitterApproval" parameterType="map">
+update owner_request set sitter_approval = '${state}' where owner_request_id= '${callId}'
+</update>
+
+<select id="selectAllOption" resultType="optionsDTO">
+	select * from Options
+</select>
+
+<select id="selectUserById" parameterType="string">
+select * from owner where owner_id=${_parameter}
+</select>
+
+</mapper>

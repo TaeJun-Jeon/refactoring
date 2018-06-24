@@ -102,8 +102,7 @@ public class OwnerDAOImpl implements OwnerDAO {
 		Map<String, String> map = new HashMap<>();
 		map.put("callId", callId);
 		map.put("state", state);
-		System.out.println("dssssssssssssssssssssssss"+session.update("requestMapper.updateSitterApproval", map)); 
-		return 1;
+		return session.update("requestMapper.updateSitterApproval", map);
 	}
 
 
@@ -112,5 +111,13 @@ public class OwnerDAOImpl implements OwnerDAO {
 	public OwnerDTO selectOwnerInfo(String userId) {
 		return session.selectOne("ownerMapper.selectOwnerInfo", userId);
 	}
+
+
+
+	@Override
+	public List<CallDTO> selectOwnerCall(String userId) {
+		return session.selectList("ownerMapper.selectOwnerCall", userId);
+	}
+
 
 }

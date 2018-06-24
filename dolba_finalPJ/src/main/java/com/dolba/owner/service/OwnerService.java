@@ -25,4 +25,7 @@ public interface OwnerService {
 
 	OwnerDTO selectOwnerInfo(String userId);
 
+	List<CallDTO> selectOwnerCall(String userId);
+
+
 }

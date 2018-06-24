@@ -1,10 +1,15 @@
 package com.dolba.admin.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dolba.dto.OwnerDTO;
+import com.dolba.dto.ReplyDTO;
 import com.dolba.dto.SitterDTO;
 
 @Repository
@@ -28,6 +33,25 @@ public class AdminDAOImpl implements AdminDAO {
 	public int idCheck(String userId) {
 		return session.selectOne("authorityMapper.idCheck", userId);
 
+	}
+	
+	@Override
+	public int insertReply(ReplyDTO replyDTO) {
+		return session.insert("adminMapper.insertReply", replyDTO);
+	}
+
+	@Override
+	public List<SitterDTO> adminselectSitterList() {
+		return session.selectList("adminMapper.adminSelectSitterList");
+	}
+
+	@Override
+	public int updateSitterPermit(String sitterId, String state) {
+		Map<String, String> map = new HashMap<>();
+		map.put("sitterId", sitterId);
+		map.put("state", state);
+		
+		return session.update("adminMapper.updateSitterPermit",map);
 	}
 
 }

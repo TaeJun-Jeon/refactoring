@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dolba.call.service.CallsService;
+import com.dolba.diary.service.DiaryService;
 import com.dolba.dto.CallDTO;
+import com.dolba.dto.DiaryDTO;
 import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
@@ -50,17 +52,35 @@ public class OwnerController {
 	private OptionService optionService;
 	
 
+	@Autowired
+	private DiaryService diaryService;
+	
 	@RequestMapping("/myPage")
-	public String myPage(Model md, String role, String userId) {
-		String root = "myPage/myPage";
-		if (role.equals("SITTER")) {
+	public String myPage(Model md, String role, String userId,String pageNum) {
+		String root ="myPage/myPage";
+		if(role.equals("SITTER")) {
 			SitterDTO sitterDTO = sitterService.selectSitterInfo(userId);
 			md.addAttribute("sitterDTO", sitterDTO);
-			root = "myPage/sitterPage";
-		} else {
+			root ="myPage/sitterPage";
+		}else {
 			OwnerDTO ownerDTO = ownerService.selectOwnerInfo(userId);
+			List<CallDTO> callList = ownerService.selectOwnerCall(userId);
+			PetDTO petDTO = ownerService.selectPetInfo(userId);
+			
+			PagingUtil pagingUtil;
+			if(pageNum==null || Integer.parseInt(pageNum)<0) {
+				pagingUtil = new PagingUtil(callList, 0);
+				callList = pagingUtil.getCurList(0);
+			}else {
+				pagingUtil = new PagingUtil(callList, Integer.parseInt(pageNum));
+				pageNum = Integer.toString(pagingUtil.getCurPage());
+				callList = pagingUtil.getCurList(Integer.parseInt(pageNum));
+			}
 			md.addAttribute("ownerDTO", ownerDTO);
-			System.out.println("ownerName" + ownerDTO.getOwnerName());
+			md.addAttribute("callList",callList);
+			md.addAttribute("pagingUtil",pagingUtil);
+			md.addAttribute("petDTO", petDTO);
+			System.out.println("ownerName"+ownerDTO.getOwnerName());
 		}
 		return root;
 	}
@@ -228,4 +248,59 @@ public class OwnerController {
 		return "redirect:/owner/request/sitterList";
 	}
 
-}
+	//////////////////////////////일지 보기 ////////////////////////////
+	@RequestMapping("/callDiaryList")
+	public ModelAndView diaryListByCall(CallDTO callDTO) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		///////여기부터
+		callDTO.setSitterId("goodsitter");
+		callDTO.setOwnerId("happymom");
+		callDTO.setCallReservateStart("18-06-16");
+		///////여기까지 나중에 지울값
+		
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByCall(callDTO);
+		String sitterFname=diaryService.selectSitterFnameByCall(callDTO);
+		for(DiaryDTO dto:diaryList) {
+			String fname = dto.getDiaryFname();
+			if(fname!=null) {
+				String [] fileName=fname.split(",");
+				for(String fn :fileName) {
+					dto.getImgNameList().add(fn);
+				}
+			}
+		}
+		mv.addObject("sitterFname", sitterFname);
+		mv.addObject("diaryList", diaryList);
+		mv.setViewName("diary/diaryList");
+		return mv;
+	}
+	
+	@RequestMapping("/requestDiaryList")
+	public ModelAndView diaryListByCall(OwnerRequestDTO ownerRequestDTO) {
+		ModelAndView mv = new ModelAndView();
+		
+		//여기부터
+		ownerRequestDTO.setOwnerId("happymom");
+		ownerRequestDTO.setSitterId("woo");
+		ownerRequestDTO.setOwnerRequestStart("18-06-02");
+		/////////////여기까지 삭제
+		
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByRequest(ownerRequestDTO);
+		String sitterFname=diaryService.selectSitterFnameByRequest(ownerRequestDTO);
+		for(DiaryDTO dto:diaryList) {
+			String fname = dto.getDiaryFname();
+			if(fname!=null) {
+				String [] fileName=fname.split(",");
+				for(String fn :fileName) {
+					dto.getImgNameList().add(fn);
+				}
+			}
+		}
+		mv.addObject("sitterFname", sitterFname);
+		mv.addObject("diaryList", diaryList);
+		mv.setViewName("diary/diaryList");
+		return mv;
+	}
+}	

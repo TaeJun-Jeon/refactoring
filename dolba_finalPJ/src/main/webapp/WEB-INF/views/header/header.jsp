@@ -19,6 +19,15 @@
 
 
 </head>
+
+<sec:authorize access="hasAuthority('ADMIN')">
+<style>
+.navbar-dolba{
+background-color:#FF8000;
+border-radius:4px;
+}
+</style>
+</sec:authorize>
 <body>
 
 
@@ -38,7 +47,7 @@
 			<li><a href="#">${user.userName}님 안녕하세요.</a></li>
 			</sec:authorize>
 			
-		
+		<sec:authorize access="hasAnyAuthority('OWNER','SITTER')">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-list"></span>&nbsp;메뉴</a>
                 <div class="dropdown-custom dropdown-menu">
@@ -63,7 +72,7 @@
 	                    		</a>
 	                    	</div>
 	                    	<div class="col-md-2" style="margin-left:20px;">
-	                    		<a href="#"  class="dropdown-custom-a-tag" >
+	                    		<a href="${pageContext.request.contextPath}/notice/allSelect"  class="dropdown-custom-a-tag" >
 	                    			<img src="${pageContext.request.contextPath}/resources/lib/img/noticeBoard.png" width="85px" height="75px"><br>
 	                    			<span class="text-center" style="padding-left:13px">공지사항</span>
 	                    		</a>
@@ -78,6 +87,7 @@
                     </div>
                 </div>
             </li>
+            </sec:authorize>
         </ul>
     </div>
 </nav>

@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${pageContext.request.contextPath}/resources/lib/js/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/lib/js/bootstrap.min.js"></script>
-<link href="${pageContext.request.contextPath}/resources/lib/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/read.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/reply.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/adminReply.css">
-<link href="${pageContext.request.contextPath}/resources/lib/css/profile.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/resources/lib/css/petProfile.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/board/read.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/board/reply.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/css/board/adminReply.css">
+<link href="${pageContext.request.contextPath}/resources/lib/css/myPage/profile.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/lib/css/myPage/petProfile.css" rel="stylesheet" type="text/css">
 <!------ Include the above in your HEAD tag ---------->
 <script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
 <script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script>
@@ -22,31 +20,44 @@
 <link rel="canonical" href="https://codepen.io/chrisburton/pen/dlFky?limit=all&page=3&q=comment" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<script>
+$(function(){
+	$("#replyBtn").click(function(){
+		var f = window.document.replyForm;
+		if (f.replyContent.value == "") {
+			alert("내용을 입력해 주세요.");
+			f.replyContent.focus();
+			return false;
+		}
+		$("#replyForm").submit();
+	})	
+})
+</script>
 </head>
 <body>
-	<div class="container" style="width: 600px" >
+	<div class="container" style="width: 600px">
 		<div class="row">
-			<form role="form" class="contact-form">
+			<form role="form" class="contact-form" style="margin-top: 50px;">
 				<h3 style="margin-bottom: 25px; text-align: center;">Q & A 자세히 보기</h3>
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							작성일 <input type="text" class="form-control" name="Date" autocomplete="off" id="Date" placeholder="2018-06-11">
+							작성일 <input type="text" class="form-control" name="Date" autocomplete="off" id="Date" value="${qaDTO.qaWriteday}" readonly>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							조회수 <input type="text" class="form-control" name="View" autocomplete="off" id="View" placeholder="322">
+							조회수 <input type="text" class="form-control" name="View" autocomplete="off" id="View" value="${qaDTO.qaReadnum}" readonly>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							작성자 <input type="text" class="form-control" name="name" autocomplete="off" id="name" placeholder="작성자">
+							작성자 <input type="text" class="form-control" name="name" autocomplete="off" id="name" value="${qaDTO.ownerId}" readonly>
 						</div>
 					</div>
 					<div class="col-md-12">
 						<div class="form-group">
-							제목 <input type="text" class="form-control" name="subject" autocomplete="off" id="subject" placeholder="질문있습니다 선생님">
+							제목 <input type="text" class="form-control" name="subject" autocomplete="off" id="subject" value="${qaDTO.qaTitle}" readonly>
 						</div>
 					</div>
 				</div>
@@ -54,50 +65,49 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							내용
-							<textarea class="form-control textarea" rows="3" name="Message" id="Message" placeholder="견주가 신청은 어떻게하는거죠?"></textarea>
+							<textarea class="form-control textarea" rows="3" name="Message" id="Message">${qaDTO.qaContent}</textarea>
 						</div>
 					</div>
 				</div>
 			</form>
 			<hr>
-			<%-- <c:if test=""> --%>
-			<!-- reply가 null이 아닐경우 -->
 			<section id="" class="comments">
 				<!-- <div class="col-md-10 col-md-pull-8"> -->
+				<c:forEach items="${replyList}" var="replyDto">
 					<article>
 						<img id="profile-photo" src="${pageContext.request.contextPath}/resources/lib/img/paw.PNG" />
-						<h4>
-							<a href="#">관리자</a>
-						</h4>
+						<h4 style="margin-bottom: 0px;">관리자</h4><h5 style="margin-bottom: 15px;">${replyDto.replyWriteday}</h5>
 						<p>
-							<span>"Thank you for visiting all the way from New York. This is just a test to determine if the Twitter API is working as it should.
-								You should see your profile image and your username at the very top that links to your account. You should also see that I wrote in a thank
-								you introduction with your location." </span>
+							<span>${replyDto.replyContent}</span>
 					</article>
-				</div>
+				</c:forEach>
 			</section>
-			<%-- </c:if> --%>
-			<%-- <c:if test=""> <!-- 관리자일경우 --> --%>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="widget-area no-padding blank">
-							<div class="status-upload">
-								<form>
-									<textarea placeholder="댓글을 입력해주세요"></textarea>
-									<button type="submit" class="btn btn-success green">
-										<i class="fa fa-paw"></i>
-									</button>
-								</form>
+			<form name="replyForm" action="${pageContext.request.contextPath}/reply/insertReply" method="post">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					<input type="hidden" name="qaId" value="${qaDTO.qaId}">
+					<sec:authorize access="hasAuthority('ADMIN')">
+						<!-- 관리자일경우 -->
+						<div class="container">
+							<div class="row">
+								<div class="col-md-6" style="width: 620px;">
+									<div class="widget-area no-padding blank">
+										<div class="status-upload">
+											<textarea name="replyContent" placeholder="댓글을 입력해주세요" style="width: 535px; height: 106px"></textarea>
+											<button id="replyBtn" type="submit" class="btn btn-success" style="margin-bottom: 27px;">
+												<i class="fa fa-paw"></i>
+											</button>
+										</div>
+									</div>
+								</div>
 							</div>
-							<!-- Status Upload  -->
 						</div>
-						<!-- Widget Area -->
-					</div>
-				</div>
-			</div>
-			<%-- </c:if> --%>
+					</sec:authorize>
+			</form>
+				<input id="button" style="width: 126px;margin-bottom: 50px;" value="목록으로" name="button"
+				class="btn btn-primary pull-right"
+				onclick="location.href='${pageContext.request.contextPath}/qa/allSelect'" />
 		</div>
 	</div>
+	
 </body>
 </html>
