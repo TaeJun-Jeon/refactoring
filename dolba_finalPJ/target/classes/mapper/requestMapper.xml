@@ -56,4 +56,15 @@ update owner_request set sitter_approval = '${state}' where owner_request_id= '$
 select * from owner where owner_id=${_parameter}
 </select>
 
+<!-- ********************sitter Request*************************** -->
+<insert id="insertSitterRequest">
+	insert into sitter_request values('OWNER_REQUEST_id-'||sequence_SITTER_REQUEST.NEXTVAL,#{callId},#{ownerId},#{sitterId},'null')
+</insert>
+
+
+<!-- ********************sitter Request 끝*************************** -->
+
+
+
+
 </mapper>

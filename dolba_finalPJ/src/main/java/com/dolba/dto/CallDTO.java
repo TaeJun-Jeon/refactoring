@@ -10,12 +10,11 @@ public class CallDTO {
 	private String callComment;
 	private String callReservateStart;
 	private String callReservateEnd;
-	private String writeDay;
-	private int callPetCount;
+	private String callWriteday;
+	private int callPetcount;
 	private String ownerApproval;
 	private OwnerDTO ownerDTO;
 	private List<SittingOptionDTO> sittingOptionList;
-	
 	public String getCallId() {
 		return callId;
 	}
@@ -52,17 +51,17 @@ public class CallDTO {
 	public void setCallReservateEnd(String callReservateEnd) {
 		this.callReservateEnd = callReservateEnd;
 	}
-	public String getWriteDay() {
-		return writeDay;
+	public String getCallWriteday() {
+		return callWriteday;
 	}
-	public void setWriteDay(String writeDay) {
-		this.writeDay = writeDay;
+	public void setCallWriteday(String callWriteday) {
+		this.callWriteday = callWriteday;
 	}
-	public int getCallPetCount() {
-		return callPetCount;
+	public int getCallPetcount() {
+		return callPetcount;
 	}
-	public void setCallPetCount(int callPetCount) {
-		this.callPetCount = callPetCount;
+	public void setCallPetcount(int callPetcount) {
+		this.callPetcount = callPetcount;
 	}
 	public String getOwnerApproval() {
 		return ownerApproval;
@@ -82,4 +81,6 @@ public class CallDTO {
 	public void setSittingOptionList(List<SittingOptionDTO> sittingOptionList) {
 		this.sittingOptionList = sittingOptionList;
 	}
+
+	
 }

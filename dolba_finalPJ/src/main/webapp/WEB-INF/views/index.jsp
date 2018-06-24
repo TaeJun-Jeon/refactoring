@@ -639,9 +639,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							전문가들 입니다. 또한 지역사회와도 깊은 유대관계를 맺고 있는 분들입니다. 당신의 반려견을 저희에게 맡겨주세요.
 							누구보다 안전하고 세심하게 돌봐드립니다.</p>
 					</div><br><br>
+					
+					<sec:authentication var="user" property="principal"/>
 
 					<div class="col-xs-6">
-						<a href="${pageContext.request.contextPath}/owner/call/callForm"><input type="button" class="btn btn-primary btn-radius-1" value="부르기"></a>
+						<a href="${pageContext.request.contextPath}/owner/call/callForm?ownerId=${user.userId}"><input type="button" class="btn btn-primary btn-radius-1" value="부르기"></a>
 					</div>
 					<div class="col-xs-6">
 						<a href="${pageContext.request.contextPath}/owner/request/sitterList"><input type="button" class="btn btn-primary btn-radius-1" value="맡기기"></a>
@@ -670,9 +672,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<p>저희 펫데이트는 현재 서울, 경기, 인천 지역에서 펫시팅 서비스를 제공하고 있습니다. 당신의 도움이 필요한
 							애완동물을 찾으시고, 펫시팅 신청을 해주세요.</p>
 					</div><br><br>
-
+					<sec:authentication var="user" property="principal"/>
 					<div id="col-xs-2 col-xs-offset-4">
-						<input type="button" class="btn btn-warning btn-radius-1" value="돌보기 신청">
+						<a href="${pageContext.request.contextPath}/sitter/call/callList?sitterId=${user.userId}"><input type="button" class="btn btn-warning btn-radius-1" value="돌보기 신청"></a>
 					</div>
 
 				</div>

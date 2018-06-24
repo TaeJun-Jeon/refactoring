@@ -1,6 +1,7 @@
 package com.dolba.call.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.dolba.dto.CallDTO;
 import com.dolba.dto.SittingOptionDTO;
@@ -37,4 +38,31 @@ public interface CallDAO {
 	 */
 	List<CallDTO> selectCallListByOptionPrice(List<String> opsList, int price);
 
+
+	/**
+	 * 부르기 신청 내용 추가하는 메소드
+	 * @param callDTO
+	 */
+	void insertCall(CallDTO callDTO);
+
+
+	/**
+	 * 부르기 신청 옵션 신청옵션테이블에 추가하는 메소드
+	 * @param optionSelect
+	 */
+	void insertSittingOption(String[] optionSelect,String callId);
+
+	/**
+	 * 마지막으로 insert 된 call Id 찾아오기
+	 * @return
+	 */
+	String selectLastCallId(String ownerId);
+
+
+	/**
+	 * callId로 call 상세 정보를 가져오는 메소드
+	 * @param callId
+	 * @return
+	 */
+	CallDTO selectCallByCallId(String callId);
 }

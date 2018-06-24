@@ -319,14 +319,16 @@ create table call(
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','jani',30000,'¿¹¹ÎÇÕ´Ï´Ù','18-06-17','18-06-18',sysdate,1,NULL);
     
     select * from call; 
-    
+    select * from SITTING_OPTION;
+
 Create table SITTER_REQUEST(
         SITTER_REQUEST_id VARCHAR(50) not null constraint SITTER_REQUEST_id_pk primary key,
         call_id VARCHAR(50) not null constraint SITTER_REQUEST_call_id_fk references call(call_id),
         OWNER_ID VARCHAR(50) not null constraint SITTER_REQUEST_OWNER_ID_fk references OWNER(OWNER_ID),
-        SITTER_ID VARCHAR(50) null constraint SITTER_REQUEST_SITTER_ID_fk  references SITTER(SITTER_ID)
+        SITTER_ID VARCHAR(50) null constraint SITTER_REQUEST_SITTER_ID_fk  references SITTER(SITTER_ID),
+        OWNER_APPROVAL VARCHAR(5) NULL
     );
-    
+
     CREATE SEQUENCE sequence_SITTER_REQUEST
     START WITH 1
     INCREMENT BY 1;
@@ -520,7 +522,13 @@ create table SITTING_OPTION(
     INSERT INTO SITTING_OPTION VALUES ('SITTING_OPTION_ID-'||sequence_SITTING_OPTION.NEXTVAL,'OPTION_ID-7','call_id-5');
     
     select * from SITTING_OPTION; 
+    insert into sitting_option values('SITTING_OPTION_ID-'||sequence_SITTING_OPTION.NEXTVAL,'OPTION_ID-1','call_id-'||SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQUENCE_CALL');
+    insert into sitting_option values('SITTING_OPTION_ID-'||sequence_SITTING_OPTION.NEXTVAL,'OPTION_ID-2','call_id-'||sequence_CALL.CURRVAL);
+    insert into sitting_option values('SITTING_OPTION_ID-'||sequence_SITTING_OPTION.NEXTVAL,'OPTION_ID-3','call_id-'||sequence_CALL.currval);
     
+    select * from call
+    select call_id from (select rownum,call_id from call where owner_id='cloud' order by rownum desc) where rownum=1;
+    SELECT call_id from call where owner_id='cloud' and max(rownum);
 create table ADMIN( 
     ADMIN_ID VARCHAR(20) not null constraint ADMIN_ID_pk primary key,
     ADMIN_PASSWORD VARCHAR(20) not null

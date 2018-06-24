@@ -7,6 +7,9 @@
 	<sql id="callColumn">
 		 call_id,SITTER_ID,call_total_price,CALL_COMMENT,CALL_RESERVATE_START,CALL_RESERVATE_END,CALL_WRITEDAY,CALL_PETCOUNT,OWNER_APPROVAL
 	</sql>
+	<sql id="ownerColumnJoin">
+		o.owner_id,o.owner_name,o.owner_addr,o.owner_detail_addr,o.owner_phone,o.owner_email,o.owner_fname,o.owner_gender
+	</sql>
 	
 	<!--  1:1의 관계 매핑 하기 -->
 	<resultMap type="callDTO" id="calljoinowner">
@@ -18,14 +21,14 @@
 	
 	<!-- 대기중인 call list -->
 	<select id="selectAllCallWaiting" resultMap="calljoinowner">
-		select <include refid="callColumn"/>, o.owner_id,o.owner_addr,o.owner_name
+		select <include refid="callColumn"/>, <include refid="ownerColumnJoin"/>
 		from call c join owner o
 		on c.owner_id = o.owner_id
 		where c.owner_approval is null
 	</select>
 	
 	<select id="selectCallByOption" parameterType="Map" resultMap="calljoinowner">
-		select <include refid="callColumn"/>, o.owner_id,o.owner_addr,o.owner_name
+		select <include refid="callColumn"/>, <include refid="ownerColumnJoin"/>
 		from call c join owner o
 		on c.owner_id = o.owner_id
 		where c.owner_approval is null and (c.call_total_price >= #{price})
@@ -39,10 +42,24 @@
 				</foreach>
 			)
 		</if>
-		<if test="#{price} != null">
-		
-		</if>
 		 
 	</select>
+	<insert id="insertCall" parameterType="callDTO">
+		insert into call values('call_id-'||sequence_CALL.NEXTVAL,#{ownerDTO.ownerId},null,#{callTotalPrice},#{callComment},#{callReservateStart},#{callReservateEnd},sysdate,#{callPetcount},null)
+	</insert>
 	
+	<insert id="insertCallOption" parameterType="Map">
+		insert into sitting_option values('SITTING_OPTION_ID-'||sequence_SITTING_OPTION.NEXTVAL,#{option},#{callId})
+	</insert>
+	
+	<select id="selectLastCallId" resultType="String">
+		select call_id from (select rownum,call_id from call where owner_id=#{_parameter} order by rownum desc) where rownum=1
+	</select>
+	
+	<select id="selectCallByCallId" parameterType="String" resultMap="calljoinowner">
+		select <include refid="callColumn"/>, <include refid="ownerColumnJoin"/>
+		from call c join owner o
+		on c.owner_id = o.owner_id
+		where call_id=#{_parameter}
+	</select>
 </mapper>
