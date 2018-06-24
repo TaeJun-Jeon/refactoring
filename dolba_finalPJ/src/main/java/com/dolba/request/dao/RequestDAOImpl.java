@@ -24,4 +24,15 @@ public class RequestDAOImpl implements RequestDAO {
 	public void insertSitterRequest(Map<String, String> map) {
 		session.insert("requestMapper.insertSitterRequest",map);
 	}
+
+	@Override
+	public String selectSitterRequestCountByUserId(String userId) {
+		return session.selectOne("requestMapper.selectSitterRequestCountByUserId", userId);
+	}
+
+	@Override
+	public String selectOwnerRequestCountByUserId(String userId) {
+		return session.selectOne("requestMapper.selectOwnerRequestCountByUserId", userId);
+	}
+	
 }

@@ -315,4 +315,16 @@ public class OwnerController {
 	public List<CallDTO> allSelectSitterRequestApproval(String userId) {
 		return sitterService.allSelectSitterRequestApproval(userId);
 	}
+	
+	/*********************Notification************************/
+	@RequestMapping("/notify")
+	@ResponseBody
+	public String selectSitterRequestCountByUserId(String userId) {
+		String count = "";
+		count = requestService.selectSitterRequestCountByUserId(userId);
+		return count;
+	}
+	
+	/*********************Notification************************/
+	
 }	

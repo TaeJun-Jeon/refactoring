@@ -22,4 +22,14 @@ public class RequestServiceImpl implements RequestService {
 	public List<OptionsDTO> selectAllOption() {
 		return requestDao.selectAllOption();
 	}
+
+	@Override
+	public String selectSitterRequestCountByUserId(String userId) {
+		return requestDao.selectSitterRequestCountByUserId(userId);
+	}
+
+	@Override
+	public String selectOwnerRequestCountByUserId(String userId) {
+		return requestDao.selectOwnerRequestCountByUserId(userId);
+	}
 }

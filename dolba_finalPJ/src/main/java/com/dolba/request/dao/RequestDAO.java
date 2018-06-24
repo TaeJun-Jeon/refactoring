@@ -18,5 +18,19 @@ public interface RequestDAO {
 	 * @param map
 	 */
 	public void insertSitterRequest(Map<String, String> map);
+
+	/**
+	 * 처리되지 않은 sitter request 숫자를 찾아오는 메소드
+	 * @param userId
+	 * @return
+	 */
+	public String selectSitterRequestCountByUserId(String userId);
+
+	/**
+	 * 처리되지 않은 owner request 숫자를 찾아오는 메소드
+	 * @param userId
+	 * @return
+	 */
+	public String selectOwnerRequestCountByUserId(String userId);
 	
 }

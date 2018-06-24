@@ -1205,8 +1205,6 @@ padding: 2em 4em 1em;
 
 	</div>
 
-
-
 	<footer>
 		<p>&copy; 2018 Lovely-Pets. All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank"> W3layouts </a></p>
 		<p>Developed By : Group Dolba, <span style="color:red; font-weight:bold;"> CEO : </span> Hee-jung, Jang </p>
@@ -1327,8 +1325,74 @@ padding: 2em 4em 1em;
 	</script>
 	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 	<!-- //for-bottom-to-top smooth scrolling -->
-
-
+	
+	<script type="text/javascript">
+    window.onload = function(){
+        if(window.Notification){
+           Notification.requestPermission();
+        }
+     }
+     
+     function calculate(msg){
+        setTimeout(function(){
+           notify(msg);
+        }, 500);
+     }
+     
+     function notify(msg){
+		var url = "${pageContext.request.contextPath}/owner/myPage?userId=${user.userId}&role=${user.role}";    	 
+        if(Notification.permission !== 'granted'){
+           alert('notification is disabled');
+        }else{
+           var notification = new Notification("요청 처리 알림", {
+              icon : 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+              body : msg,
+           });
+           
+           notification.onclick = function(){
+              window.open(url);
+           };
+        }
+     }
+     
+     $(function(){
+		if("${user.userId}" != ""){
+			if("${user.role}" == "OWNER"){
+				$.ajax({
+					type:"post",
+					url:"${pageContext.request.contextPath}/owner/notify",
+					data:"${_csrf.parameterName}=${_csrf.token}&userId=${user.userId}",
+					dataType:"text",
+					success:function(result){
+						if(result > 0){
+							msg = "처리되지 않은 "+result+"건의 요청이 있습니다.";
+							notify(msg);
+						}
+					},
+					error:function(err){
+						console.log(err);
+					}
+				})
+			}
+			if("${user.role}" == "SITTER"){
+				$.ajax({
+					type:"post",
+					url:"${pageContext.request.contextPath}/sitter/notify",
+					data:"${_csrf.parameterName}=${_csrf.token}&userId=${user.userId}",
+					dataType:"text",
+					success:function(result){
+						if(result > 0){
+							msg = "처리되지 않은 "+result+"건의 요청이 있습니다.";
+							notify(msg);
+						}
+					},
+					error:function(err){
+						console.log(err);
+					}
+				})
+			}
+		}
+     })
+	</script>
 </body>
-
 </html>
