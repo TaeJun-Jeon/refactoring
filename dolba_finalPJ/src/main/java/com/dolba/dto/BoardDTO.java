@@ -1,19 +1,19 @@
 package com.dolba.dto;
 
 public class BoardDTO {
-	private String QAId;
+	private String qaId;
 	private String ownerId;
-	private String QATitle;
-	private String QAContent;
-	private String QAWriteday;
-	private int QAReadnum;
-	private String QAPwd;
+	private String qaTitle;
+	private String qaContent;
+	private String qaWriteday;
+	private int qaReadnum;
+	private String qaPwd;
 	
-	public String getQAId() {
-		return QAId;
+	public String getQaId() {
+		return qaId;
 	}
-	public void setQAId(String qAId) {
-		QAId = qAId;
+	public void setQaId(String qaId) {
+		this.qaId = qaId;
 	}
 	public String getOwnerId() {
 		return ownerId;
@@ -21,35 +21,35 @@ public class BoardDTO {
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
 	}
-	public String getQATitle() {
-		return QATitle;
+	public String getQaTitle() {
+		return qaTitle;
 	}
-	public void setQATitle(String qATitle) {
-		QATitle = qATitle;
+	public void setQaTitle(String qaTitle) {
+		this.qaTitle = qaTitle;
 	}
-	public String getQAContent() {
-		return QAContent;
+	public String getQaContent() {
+		return qaContent;
 	}
-	public void setQAContent(String qAContent) {
-		QAContent = qAContent;
+	public void setQaContent(String qaContent) {
+		this.qaContent = qaContent;
 	}
-	public String getQAWriteday() {
-		return QAWriteday;
+	public String getQaWriteday() {
+		return qaWriteday;
 	}
-	public void setQAWriteday(String qAWriteday) {
-		QAWriteday = qAWriteday;
+	public void setQaWriteday(String qaWriteday) {
+		this.qaWriteday = qaWriteday;
 	}
-	public int getQAReadnum() {
-		return QAReadnum;
+	public int getQaReadnum() {
+		return qaReadnum;
 	}
-	public void setQAReadnum(int qAReadnum) {
-		QAReadnum = qAReadnum;
+	public void setQaReadnum(int qaReadnum) {
+		this.qaReadnum = qaReadnum;
 	}
-	public String getQAPwd() {
-		return QAPwd;
+	public String getQaPwd() {
+		return qaPwd;
 	}
-	public void setQAPwd(String qAPwd) {
-		QAPwd = qAPwd;
+	public void setQaPwd(String qaPwd) {
+		this.qaPwd = qaPwd;
 	}
 	
 	

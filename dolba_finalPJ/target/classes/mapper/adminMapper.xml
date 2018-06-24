@@ -19,4 +19,9 @@ select * from sitter where SITTER_PERMIT is null
 update sitter set sitter_permit = #{state} where sitter_id=#{sitterId}
 </update>
 
+<!-- q&a 댓글 등록 -->
+	<insert id="insertReply" parameterType="replyDTO">
+		insert into reply values ('reply_id-'||sequence_reply.NEXTVAL,#{qaId},#{replyContent},sysdate)
+	</insert>
+
 </mapper>
