@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dolba.board.service.BoardService;
 import com.dolba.dto.BoardDTO;
 import com.dolba.dto.ReplyDTO;
+import com.dolba.util.PagingUtil;
 
 @Controller
 @RequestMapping("/qa")
@@ -21,10 +22,21 @@ public class QaController {
 	private BoardService service;
 	
 	@RequestMapping("/allSelect")
-	public ModelAndView allSelectQa() {
+	public ModelAndView allSelectQa(String pageNum) {
 		ModelAndView mv = new ModelAndView();
 		List<BoardDTO> list=service.selectAllQa();
+		
+		PagingUtil pagingUtil;
+		if(pageNum==null || Integer.parseInt(pageNum)<0) {
+			pagingUtil = new PagingUtil(list, 0);
+			list = pagingUtil.getCurList(0);
+		}else {
+			pagingUtil = new PagingUtil(list, Integer.parseInt(pageNum));
+			pageNum = Integer.toString(pagingUtil.getCurPage());
+			list = pagingUtil.getCurList(Integer.parseInt(pageNum));
+		}
 		mv.addObject("list", list);
+		mv.addObject("pagingUtil", pagingUtil);
 		mv.setViewName("board/qaList");
 		
 		return mv;
@@ -53,7 +65,7 @@ public class QaController {
 	}
 	
 	@RequestMapping("/searchQa")
-	public ModelAndView selectQaByKeyword(HttpServletRequest request) {
+	public ModelAndView selectQaByKeyword(HttpServletRequest request, String pageNum) {
 		
 		ModelAndView mv = new ModelAndView();
 		String keyField=request.getParameter("keyField");
@@ -61,7 +73,19 @@ public class QaController {
 		
 		List<BoardDTO> list=service.searchQaByKeyword(keyField, keyWord);
 		
+		
+		PagingUtil pagingUtil;
+		if(pageNum==null || Integer.parseInt(pageNum)<0) {
+			pagingUtil = new PagingUtil(list, 0);
+			list = pagingUtil.getCurList(0);
+		}else {
+			pagingUtil = new PagingUtil(list, Integer.parseInt(pageNum));
+			pageNum = Integer.toString(pagingUtil.getCurPage());
+			list = pagingUtil.getCurList(Integer.parseInt(pageNum));
+		}
+		
 		mv.addObject("list", list);
+		mv.addObject("pagingUtil", pagingUtil);
 		mv.setViewName("board/qaList");
 		return mv;
 	}

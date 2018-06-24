@@ -357,7 +357,7 @@ $(document).ready(function() {
 												<div class="col-lg-12">
 													<div class="col-xs-12 col-sm-4">
 														<figure>
-															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/이효리.jpg">
+															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save1/${sitterDTO.sitterFname}">
 														</figure>
 														<div class="row">
 															<div class="col-xs-12 social-btns"></div>
@@ -365,13 +365,13 @@ $(document).ready(function() {
 													</div>
 													<div class="col-xs-12 col-sm-8">
 														<ul class="list-group">
-															<li class="list-group-item">${sitterDTO.sitterName}</li>
-															<li class="list-group-item">${sitterDTO.sitterGrade} 별점</li>
+															<li class="list-group-item"> ${sitterDTO.sitterName}</li>
+															<li class="list-group-item"> ${sitterDTO.sitterGrade} 별점</li>
 															
-															<li class="list-group-item">기본요금 <fmt:formatNumber value="${sitterDTO.sitterBasisPrice}" pattern="#,###"></fmt:formatNumber> 원</li>
+															<li class="list-group-item"> 기본요금 <fmt:formatNumber value="${sitterDTO.sitterBasisPrice}" pattern="#,###"></fmt:formatNumber> 원</li>
 															
-															<li class="list-group-item"><i class="fa fa-phone"></i>${sitterDTO.sitterPhone}</li>
-															<li class="list-group-item"><i class="fa fa-envelope"></i>${sitterDTO.sitterEmail}</li>
+															<li class="list-group-item"><i class="fa fa-phone"></i>  ${sitterDTO.sitterPhone}</li>
+															<li class="list-group-item"><i class="fa fa-envelope"></i>  ${sitterDTO.sitterEmail}</li>
 														</ul>
 													</div>
 													<div class="profile-userbuttons">

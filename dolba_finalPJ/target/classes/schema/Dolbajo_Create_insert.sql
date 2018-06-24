@@ -271,7 +271,8 @@ create table SITTER_review(
     insert into SITTER_review values('SITTER_review_id-'||sequence_SITTER_review.NEXTVAL,'kyung','happy','사진과 상태를 수시로 보내줘서 좋았어요',sysdate,4);
     
     select * from SITTER_review;
-
+    select*from call
+select * from call where owner_approval is null and sitter_id is not null
 create table call(
         call_id VARCHAR(50) not null constraint call_id_pk primary key,
         OWNER_ID VARCHAR(50) not null constraint call_OWNER_ID_fk references OWNER(OWNER_ID),

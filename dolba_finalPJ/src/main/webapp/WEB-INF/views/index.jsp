@@ -54,6 +54,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </head>
 <sec:authorize access="hasAuthority('ADMIN')">
+
+ <style type="text/css">  
+       #instaPics {  
+            max-width: 320px;  
+            overflow: hidden;  
+       }  
+       .insta-box {  
+            position: relative;  
+            width: 120px;  
+            height: 120px;  
+            float: left;  
+            margin: 4px;  
+            border: 1px solid #ddd;  
+       }  
+       .image-layer {  
+            overflow: hidden;  
+            width: 100%;  
+            height: 100%;  
+       }  
+       .image-layer img {  
+            max-width: 100%;  
+       }  
+       .caption-layer {  
+            display: none;  
+            position: absolute;  
+            top: 0;  
+            background: rgba(255,255,255,0.8);  
+            height: 100%;  
+            width: 100%;  
+            padding: 10px;  
+            box-sizing: border-box;  
+            font-size: 10px;  
+            color: #333;  
+       }  
+       .insta-likes {  
+            float: right;  
+       }  
+       </style>  
 <style>
 nav.navbar.navbar-default{
 background-color: #FF8000;
@@ -100,6 +138,55 @@ padding: 2em 4em 1em;
 }
 </style>
 </sec:authorize>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/lib/js/jquery-3.2.1.js"></script>
+
+<script type="text/javascript">  
+   jQuery(function($) {  
+        var tocken = "3117756223.738af40.49aef7679f9743da9417355fcbaba4f0"; /* Access Tocken 입력 */  
+        var count = "12";  
+        $.ajax({  
+            type: "GET",  
+            dataType: "json",  
+            cache: false,  
+            url: "https://api.instagram.com/v1/users/self/media/recent/?access_token=" + tocken + "&count=" + count,  
+            success: function(response) {  
+             if ( response.data.length > 0 ) {  
+                  for(var i = 0; i < response.data.length; i++) {
+                	   var insta= "<div class='col-xs-2'>";
+                	   //insta += "<div class='col-md-2 insta-main'>";
+                       insta += '<div class="insta-box">';  
+                       insta += "<a target='_blank' href='" + response.data[i].link + "'>";  
+                       insta += "<div class'image-layer'>";  
+                       //insta += "<img src='" + response.data[i].images.thumbnail.url + "'>";  
+                       insta += '<img src="' + response.data[i].images.thumbnail.url + '">';  
+                       insta += "</div>";  
+                       //console.log(response.data[i].caption.text);  
+                       if ( response.data[i].caption !== null ) {  
+                            insta += "<div class='caption-layer'>";  
+                            if ( response.data[i].caption.text.length > 0 ) {  
+                                 insta += "<p class='insta-caption'>" + response.data[i].caption.text + "</p>"  
+                            }  
+                            insta += "<span class='insta-likes'>" + response.data[i].likes.count + " Likes</span>";  
+                            insta += "</div>";  
+                       }  
+                         
+                       insta += "</a>";
+                       insta += "</div>"; 
+                       
+                       insta += "</div>";  
+                        
+                       $("#instaPics").append(insta);  
+                  }  
+             }  
+             $(".insta-box").hover(function(){  
+                  $(this).find(".caption-layer").css({"backbround" : "rgba(255,255,255,0.7)", "display":"block"});  
+             }, function(){  
+                  $(this).find(".caption-layer").css({"display":"none"});  
+             });  
+            }  
+           });  
+   });  
+   </script>  
 <body>
 
 	<div id="container">
@@ -796,44 +883,15 @@ padding: 2em 4em 1em;
 	</div>
 	
 	
-	<sec:authorize access="hasAnyAuthority('OWNER','SITTER')">
 	<!--//qna-->
 	<div class="insta-div">
-		<div class="container">
+		<div class="container" >
 			<h3 style="color:black;">follow on Instagram <span class="fa fa-instagram"></span> </h3><br>
-
-			<div class="row">
-				<div class="col-xs-3">
-					<div class="col-md-2 insta-main"></div>
-				</div>
-				<div class="col-xs-3">
-					<div class="col-md-2 insta-main"></div>
-				</div>
-				<div class="col-xs-3">
-					<div class="col-md-2 insta-main"></div>
-				</div>
-				<div class="col-xs-3">
-					<div class="col-md-2 insta-main"></div>
-				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-xs-3">
-					<div class="col-md-2 insta-main"></div>
-				</div>
-				<div class="col-xs-3">
-					<div class="col-md-2 insta-main"></div>
-				</div>
-				<div class="col-xs-3">
-					<div class="col-md-2 insta-main"></div>
-				</div>
-				<div class="col-xs-3">
-					<div class="col-md-2 insta-main"></div>
-				</div>
-			</div>
+	<div id="instaPics"></div>
+		
+			
 		</div>
 	</div>
-</sec:authorize>
 
 	<div class="buttom-w3">
 		<div class="container">

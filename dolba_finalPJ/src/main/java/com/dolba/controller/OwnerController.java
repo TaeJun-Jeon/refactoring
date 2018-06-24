@@ -51,7 +51,7 @@ public class OwnerController {
 	private DiaryService diaryService;
 	
 	@RequestMapping("/myPage")
-	public String myPage(Model md, String role, String userId) {
+	public String myPage(Model md, String role, String userId,String pageNum) {
 		String root ="myPage/myPage";
 		if(role.equals("SITTER")) {
 			SitterDTO sitterDTO = sitterService.selectSitterInfo(userId);
@@ -59,8 +59,21 @@ public class OwnerController {
 			root ="myPage/sitterPage";
 		}else {
 			OwnerDTO ownerDTO = ownerService.selectOwnerInfo(userId);
+			List<CallDTO> callList = ownerService.selectOwnerCall(userId);
 			PetDTO petDTO = ownerService.selectPetInfo(userId);
+			
+			PagingUtil pagingUtil;
+			if(pageNum==null || Integer.parseInt(pageNum)<0) {
+				pagingUtil = new PagingUtil(callList, 0);
+				callList = pagingUtil.getCurList(0);
+			}else {
+				pagingUtil = new PagingUtil(callList, Integer.parseInt(pageNum));
+				pageNum = Integer.toString(pagingUtil.getCurPage());
+				callList = pagingUtil.getCurList(Integer.parseInt(pageNum));
+			}
 			md.addAttribute("ownerDTO", ownerDTO);
+			md.addAttribute("callList",callList);
+			md.addAttribute("pagingUtil",pagingUtil);
 			md.addAttribute("petDTO", petDTO);
 			System.out.println("ownerName"+ownerDTO.getOwnerName());
 		}
