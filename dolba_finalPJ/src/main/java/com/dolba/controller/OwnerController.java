@@ -306,12 +306,6 @@ public class OwnerController {
 	@RequestMapping("/allSelectSitterRequest")
 	@ResponseBody
 	public List<CallDTO> allSelectSitterRequest(String userId) {
-		System.out.println("userid="+userId);
-		List<CallDTO> call = sitterService.allSelectSitterRequest(userId);
-		for(CallDTO dto: call) {
-			System.out.println("dto="+dto.getCallReservateStart());
-			System.out.println("dtoapproval="+dto.getSitterRequestDTO().get(0).getOwnerApproval());
-		}
 		return sitterService.allSelectSitterRequest(userId);
 	}
 	
