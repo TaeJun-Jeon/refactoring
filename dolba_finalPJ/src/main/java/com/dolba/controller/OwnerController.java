@@ -56,7 +56,7 @@ public class OwnerController {
 	private DiaryService diaryService;
 	
 	@RequestMapping("/myPage")
-	public String myPage(Model md, String role, String userId,String pageNum) {
+	public String myPage(Model md, String role, String userId,String pageNum,String tabStatus) {
 		String root ="myPage/myPage";
 		if(role.equals("SITTER")) {
 			SitterDTO sitterDTO = sitterService.selectSitterInfo(userId);
@@ -80,6 +80,7 @@ public class OwnerController {
 			md.addAttribute("callList",callList);
 			md.addAttribute("pagingUtil",pagingUtil);
 			md.addAttribute("petDTO", petDTO);
+			md.addAttribute("tabStatus", tabStatus);
 		}
 		return root;
 	}
