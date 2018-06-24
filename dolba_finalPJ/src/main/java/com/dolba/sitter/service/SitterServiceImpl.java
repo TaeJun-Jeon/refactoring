@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dolba.dto.CallDTO;
 import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.SitterDTO;
@@ -112,5 +113,14 @@ public class SitterServiceImpl implements SitterService {
 	@Override
 	public int insertSittingOpByCheckOp(List<String> optionIdList, String ownerRequestId) {
 		return sitterDao.insertSittingOpByCheckOp(optionIdList, ownerRequestId);
+	}
+	@Override
+	public List<CallDTO> allSelectSitterRequest(String userId) {
+		return sitterDao.allSelectSitterRequest(userId);
+	}
+
+	@Override
+	public List<CallDTO> allSelectSitterRequestApproval(String userId) {
+		return sitterDao.allSelectSitterRequestApproval(userId);
 	}
 }

@@ -302,4 +302,22 @@ public class OwnerController {
 		mv.setViewName("diary/diaryList");
 		return mv;
 	}
+	
+	@RequestMapping("/allSelectSitterRequest")
+	@ResponseBody
+	public List<CallDTO> allSelectSitterRequest(String userId) {
+		System.out.println("userid="+userId);
+		List<CallDTO> call = sitterService.allSelectSitterRequest(userId);
+		for(CallDTO dto: call) {
+			System.out.println("dto="+dto.getCallReservateStart());
+			System.out.println("dtoapproval="+dto.getSitterRequestDTO().get(0).getOwnerApproval());
+		}
+		return sitterService.allSelectSitterRequest(userId);
+	}
+	
+	@RequestMapping("/allSelectSitterRequestApproval")
+	@ResponseBody
+	public List<CallDTO> allSelectSitterRequestApproval(String userId) {
+		return sitterService.allSelectSitterRequestApproval(userId);
+	}
 }	

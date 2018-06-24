@@ -20,6 +20,21 @@
 		</association>
 	</resultMap>
 	
+	<resultMap type="callDTO" id="callJoinSitterRequest">
+	<id column="call_id" property="callId"></id>
+	<result column="sitter_id" property="sitterId"></result>
+	<result column="owner_id" property="ownerId"/>
+	<result column="call_total_price" property="callTotalPrice"></result>
+	<result column="call_commnet" property="callComment"/>
+	<result column="call_reservate_start" property="callReservateStart"></result>
+	<result column="call_reservate_end" property="callReservateEnd"></result>
+	<result column="call_writeday" property="callWriteday"></result>
+	<collection property="sitterRequestDTO" ofType="sitterRequestDTO">
+	<id column="sitter_Request_id" property="sitterRequestId"></id>
+	<result column="owner_approval" property="ownerApproval"/>
+	</collection>
+	</resultMap>
+	
 	<select id="selectAllPermittedSitter" resultType="sitterDTO">
 		select
 		<include refid="sitterColumn" />
@@ -100,5 +115,14 @@
 		insert into sitting_option(sitting_option_id, option_id,sitting_id)
 		values('SITTING_OPTION_ID-'||sequence_SITTING_OPTION.NEXTVAL , #{id}, #{ownerRequestId})
 	</insert>
+	
+	<select id="allSelectSitterRequest" parameterType="string" resultMap="callJoinSitterRequest">
+	select call.call_id,call.owner_id,call.call_reservate_start,call.call_reservate_end, sitter_request.owner_approval 
+	from sitter_request,call where sitter_request.sitter_id = #{userId} and sitter_request.call_Id = call.call_id and sitter_request.owner_approval is null
+	</select>
+	
+	<select id="allSelectSitterRequestApproval" parameterType="string" resultMap="callJoinSitterRequest">
+	select call.call_id,call.owner_id,call.call_reservate_start,call.call_reservate_end, sitter_request.owner_approval from sitter_request,call where sitter_request.sitter_id = #{userId} and sitter_request.call_Id = call.call_id and sitter_request.owner_approval='Y'
+	</select>
 	
 </mapper>

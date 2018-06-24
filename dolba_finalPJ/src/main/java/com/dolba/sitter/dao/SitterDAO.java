@@ -2,6 +2,7 @@ package com.dolba.sitter.dao;
 
 import java.util.List;
 
+import com.dolba.dto.CallDTO;
 import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.SitterDTO;
@@ -91,4 +92,9 @@ public interface SitterDAO {
 	 * @return 
 	 **/
 	public int insertSittingOpByCheckOp(List<String> optionIdList, String ownerRequestId);
+
+
+	public List<CallDTO> allSelectSitterRequest(String userId);
+
+	public List<CallDTO> allSelectSitterRequestApproval(String userId);
 }

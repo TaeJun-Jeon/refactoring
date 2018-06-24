@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dolba.dto.CallDTO;
 import com.dolba.dto.OptionsDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.SitterDTO;
@@ -101,5 +102,15 @@ public class SitterDAOImpl implements SitterDAO {
 		
 		return 1;
 		
+	}
+	
+	@Override
+	public List<CallDTO> allSelectSitterRequest(String userId) {
+		return session.selectList("sitterMapper.allSelectSitterRequest", userId);
+	}
+
+	@Override
+	public List<CallDTO> allSelectSitterRequestApproval(String userId) {
+		return session.selectList("sitterMapper.allSelectSitterRequestApproval", userId);
 	}
 }

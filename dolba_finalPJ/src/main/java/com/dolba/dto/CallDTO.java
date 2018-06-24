@@ -16,6 +16,8 @@ public class CallDTO {
 	private String ownerApproval;
 	private OwnerDTO ownerDTO;
 	private List<SittingOptionDTO> sittingOptionList;
+	private List<SitterRequestDTO> sitterRequestDTO;
+
 	
 	public String getCallId() {
 		return callId;
@@ -90,6 +92,13 @@ public class CallDTO {
 	}
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
+	}
+	
+	public List<SitterRequestDTO> getSitterRequestDTO() {
+		return sitterRequestDTO;
+	}
+	public void setSitterRequestDTO(List<SitterRequestDTO> sitterRequestDTO) {
+		this.sitterRequestDTO = sitterRequestDTO;
 	}
 	
 }

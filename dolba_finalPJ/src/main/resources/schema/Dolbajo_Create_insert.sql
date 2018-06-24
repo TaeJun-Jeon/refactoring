@@ -9,7 +9,8 @@ create table OWNER(
         OWNER_fname VARCHAR(50) NULL,
         OWNER_gender VARCHAR(5) NOT NULL 
     ); 
-    
+    	select call_reservate_start,call_reservate_end 
+	from sitter_request,call where sitter_request.sitter_id = 'goodsitter' and sitter_request.call_Id = call.call_id and sitter_request.owner_approval is null
     insert into OWNER values('happymom','1234','김진주','경기도 성남시 분당구 판교역로 235',' 에이치스퀘어 엔동','000-000-0000','abcd@naver.com','IMG_01.jpg','여');
     insert into OWNER values('cloud','1234','구름이아빠','경기 성남시 분당구 문정로 145','null','000-000-0000','defg@naver.com','IMG_02.jpg','남');
     insert into OWNER values('any6103','1234','김진희','경기도 성남시 분당구 성남대로 601','null','000-000-0000','hijk@naver.com','IMG_03.jpg','여');
@@ -282,7 +283,7 @@ create table call(
         CALL_PETCOUNT NUMBER NOT NULL,
         OWNER_APPROVAL VARCHAR(5) NULL
     );
-    
+    select * from call
     CREATE SEQUENCE sequence_CALL
     START WITH 1
     INCREMENT BY 1;
@@ -336,6 +337,7 @@ Create table SITTER_REQUEST(
     INCREMENT BY 1;
     
     select * from SITTER_REQUEST; 
+    insert into sitter_request values('sitter_request_id'||sequence_sitter_request.nextval,'call_id-10','han','goodsitter','Y')
     
 Create table OWNER_REQUEST(
         OWNER_REQUEST_id VARCHAR(50) not null constraint OWNER_REQUEST_id_pk primary key,
