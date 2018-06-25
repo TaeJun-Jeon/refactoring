@@ -61,7 +61,7 @@
 		 
 	</select>
 	<insert id="insertCall" parameterType="callDTO">
-		insert into call values('call_id-'||sequence_CALL.NEXTVAL,#{ownerDTO.ownerId},null,#{callTotalPrice},#{callComment},#{callReservateStart},#{callReservateEnd},sysdate,#{callPetcount},null)
+		insert into call values('call_id-'||sequence_CALL.NEXTVAL,#{ownerDTO.ownerId},null,#{callTotalPrice},#{callComment},#{callReservateStart},#{callReservateEnd},sysdate,#{callPetcount},null,null)
 	</insert>
 	
 	<insert id="insertCallOption" parameterType="Map">

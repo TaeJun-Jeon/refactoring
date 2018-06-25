@@ -58,7 +58,7 @@ select * from owner where owner_id=${_parameter}
 
 <!-- ********************sitter Request*************************** -->
 <insert id="insertSitterRequest">
-	insert into sitter_request values('OWNER_REQUEST_id-'||sequence_SITTER_REQUEST.NEXTVAL,#{callId},#{ownerId},#{sitterId},null)
+	insert into sitter_request values('SITTER_REQUEST_id-'||sequence_SITTER_REQUEST.NEXTVAL,#{callId},#{ownerId},#{sitterId},null)
 </insert>
 
 

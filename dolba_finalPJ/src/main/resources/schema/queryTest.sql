@@ -135,3 +135,5 @@ select * from owner_request where owner_id='happymom' and owner_approval is NULL
 select count(*) from sitter_request where owner_id='happymom' and owner_approval is null;
 select count(*) from sitter_request where owner_approval = 'null';
 
+select * from sitter_request;
+select * from pet;
