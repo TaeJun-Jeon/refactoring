@@ -346,7 +346,7 @@ public class OwnerController {
 	@RequestMapping("/updatePetInfo")
 	public String updatePetInfo(PetDTO petDTO ,MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
 		String rootPath = request.getSession().getServletContext().getRealPath("/");
-		String attachPath = "resources/lib/pet/";
+		String attachPath = "resources/lib/save/pet";
 		file = petDTO.getFile();
 		
 		if(file.getSize()>0) {
@@ -357,7 +357,7 @@ public class OwnerController {
 		}
 		
 		ownerService.updatePetInfo(petDTO);
-		return "redirect: /owner/myPage";
+		return "redirect:/";
 	}
 	
 	

@@ -35,7 +35,7 @@
 					</a></li>
 				<sec:authorize access="isAuthenticated()">
 					<sec:authentication var="user" property="principal" />
-					<li><a href="#">${user.userName}님 안녕하세요.</a></li>
+					<li><a href="">${user.userName}님 안녕하세요.</a></li>
 				</sec:authorize>
 				<sec:authorize access="hasAnyAuthority('OWNER','SITTER')">
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
