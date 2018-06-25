@@ -25,22 +25,7 @@ function logout() {
 }
 
 $(document).ready(function() {
-	$("#mytable #checkall").click(function() {
-						if ($("#mytable #checkall").is(':checked')) {
-							$("#mytable input[type=checkbox]").each(function() {
-												$(this).prop("checked",true);
-							});
-
-						} else {
-							$("#mytable input[type=checkbox]").each(function() {
-												$(this).prop("unchecked",false);
-							});
-						}
-					});
-
-	$("[data-toggle=tooltip]").tooltip();
 	
-
 	/* <------------------------------펫시터 기능--------------------------------------> */
 /* 	<-----------------------------펫시터의 돌보기 탭--------------------------------------> */
 	var userId = '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}';
@@ -61,7 +46,6 @@ $(document).ready(function() {
 						$.each(result,function(index,item) {
 							str += "<tbody>";
 							str += "<tr>";
-							str += "<td><input type='checkbox' class='checkthis'/></td>";
 							str += "<td><a href='#'>"+ set+++ "</a></td>";
 							str += "<td>"+ item.ownerRequestStart+ "</td>";
 							str += "<td>"+ item.ownerRequestEnd+ "</td>";
@@ -101,7 +85,6 @@ $(document).ready(function() {
 						$.each(result,function(index,item) {
 							str += "<tbody>";
 							str += "<tr>";
-							str += "<td><input type='checkbox' class='checkthis'/></td>";
 							str += "<td><a href='#'>"+ set+++ "</a></td>";
 							str += "<td>"+ item.ownerRequestStart+ "</td>";
 							str += "<td>"+ item.ownerRequestEnd+ "</td>";
@@ -166,7 +149,6 @@ $(document).ready(function() {
 							$.each(result,function(index,item) {
 								str += "<tbody>";
 								str += "<tr>";
-								str += "<td><input type='checkbox' class='checkthis'/></td>";
 								str += "<td><a href='#'>"+ set+++ "</a></td>";
 								str += "<td>"+item.callReservateStart+ "</td>";
 								str += "<td>"+ item.callReservateEnd+ "</td>";
@@ -199,7 +181,6 @@ $(document).ready(function() {
 					$.each(result,function(index,item) {
 						str += "<tbody>";
 						str += "<tr>";
-						str += "<td><input type='checkbox' class='checkthis'/></td>";
 						str += "<td><a href='#'>"+ set+++ "</a></td>";
 						str += "<td>"+item.callReservateStart+ "</td>";
 						str += "<td>"+ item.callReservateEnd+ "</td>";
@@ -251,7 +232,7 @@ $(document).ready(function() {
 							
 			var result = confirm("수락하시겠습니까?");
 			if(result){
-				var id = $(this).parent().parent().parent().find("td:nth-child(6)").text();
+				var id = $(this).parent().parent().parent().find("td:nth-child(5)").text();
 		$.ajax({
 					type : "post", //전송방식
 					url : "${pageContext.request.contextPath}/owner/updateSitterApproval", //서버주소
@@ -274,7 +255,7 @@ $(document).ready(function() {
 							
 			var result = confirm("거절하시겠습니까?");
 			if(result){
-				var id = $(this).parent().parent().parent().find("td:nth-child(6)").text();
+				var id = $(this).parent().parent().parent().find("td:nth-child(5)").text();
 				$.ajax({
 					type : "post", //전송방식
 					url : "${pageContext.request.contextPath}/owner/updateSitterApproval", //서버주소
@@ -319,7 +300,7 @@ $(document).ready(function() {
 					<div class="profile-userbuttons">
 						<button type="button" class="btn btn-success btn-sm" onclick="javascript:logout();">로그아웃</button>
 						<button type="button" class="btn btn-danger btn-sm">회원탈퇴</button>
-						<form id="logoutFrm" action="${pageContext.request.contextPath}/admin/logout" method="post" style:"display:none">
+						<form id="logoutFrm" action="${pageContext.request.contextPath}/admin/logout" method="post" style="display:none">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
 						</form>
 					</div>
@@ -399,7 +380,6 @@ $(document).ready(function() {
 											<div class="table-responsive" id="aaa">
 												<table id="sitterCallBeforeTable" class="table table-bordred table-striped">
 													<thead>
-														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>
@@ -421,7 +401,6 @@ $(document).ready(function() {
 											<div class="table-responsive">
 												<table id="sitterCallAfterTable" class="table table-bordred table-striped">
 													<thead>
-														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>
@@ -451,7 +430,6 @@ $(document).ready(function() {
 											<div class="table-responsive" id="aaa">
 												<table id="sitterRequestBeforeTable" class="table table-bordred table-striped">
 													<thead>
-														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>
@@ -471,7 +449,6 @@ $(document).ready(function() {
 											<div class="table-responsive">
 												<table id="sitterRequestAfterTable" class="table table-bordred table-striped">
 													<thead>
-														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>

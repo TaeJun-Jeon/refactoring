@@ -838,10 +838,11 @@ padding: 2em 4em 1em;
 
 
 	<!--qna-->
-	<div class="about" id="qna">
+	<div class="about" id="qna" style="heigth:420px;padding-bottom:0px;">
 		<div class="container">
 			<div class="about-top-grids">
-				<div class="col-md-6 about-top-grid">
+				<div class="col-md-6 about-top-grid" style="width: 400px;"
+				>
 					<h2>Q & A</h2>
 					<br>
 					<br>
@@ -852,9 +853,9 @@ padding: 2em 4em 1em;
 					<br>
 				</div>
 				<div class="col-md-6">
-					<div class="col-md-6 col-xs-6">
+					<div class="col-md-6 col-xs-6" style="width:250px;">
 						<a href="${pageContext.request.contextPath}/qa/allSelect">
-							<div class="qna-box">
+							<div class="qna-box" style="width:200px;height:200px;">
 								<br>
 								<br>
 								<center>
@@ -865,14 +866,27 @@ padding: 2em 4em 1em;
 							</div>
 						</a>
 					</div>
-					<div class="col-md-6 col-xs-6">
+					<div class="col-md-6 col-xs-6" style="width:250px">
 						<a href="${pageContext.request.contextPath}/notice/allSelect">
-							<div class="qna-box">
+							<div class="qna-box" style="width:200px;height:200px">
 								<center>
 								<br>
 								<br>
 								<span class="fa fa-wechat fa-10x" style="color:white;"></span><br>
 								<p class="qna-font"> 공지사항</p>
+								</center>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-6 col-xs-6" style="width:250px;margin-left:500px;bottom:200px;">
+						<a href="${pageContext.request.contextPath}/review/allSelect">
+							<div class="qna-box" style="width:200px;height:200px">
+								<center>
+								<br>
+								<br>
+								
+								<span class="fa fa-commenting fa-10x" style="color:white;"></span><br>
+								<p class="qna-font"> REVIEW</p>
 
 								</center>
 							</div>

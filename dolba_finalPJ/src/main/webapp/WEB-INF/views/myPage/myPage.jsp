@@ -25,18 +25,7 @@ function logout() {
 }
 
 $(document).ready(function() {
-	$("#mytable #checkall").click(function() {
-						if ($("#mytable #checkall").is(':checked')) {
-							$("#mytable input[type=checkbox]").each(function() {
-												$(this).prop("checked",true);
-							});
 
-						} else {
-							$("#mytable input[type=checkbox]").each(function() {
-												$(this).prop("unchecked",false);
-							});
-						}
-					});
 
 	$("[data-toggle=tooltip]").tooltip();
 	
@@ -62,7 +51,6 @@ $(document).ready(function() {
 						$.each(result,function(index,item) {
 							str += "<tbody>";
 							str += "<tr>";
-							str += "<td><input type='checkbox' class='checkthis'/></td>";
 							str += "<td><a href='#'>"+ set+++ "</a></td>";
 							str += "<td>"+ item.callReservateStart+ "</td>";
 							str += "<td>"+ item.callReservateEnd+ "</td>";
@@ -105,7 +93,6 @@ $(document).ready(function() {
 						$.each(result,function(index,item) {
 							str += "<tbody>";
 							str += "<tr>";
-							str += "<td><input type='checkbox' class='checkthis'/></td>";
 							str += "<td><a href='#'>"+ set+++ "</a></td>";
 							str += "<td>"+ item.callReservateStart+ "</td>";
 							str += "<td>"+ item.callReservateEnd+ "</td>";
@@ -173,7 +160,6 @@ $(document).ready(function() {
 						$.each(result,function(index,item) {
 							str += "<tbody>";
 							str += "<tr>";
-							str += "<td><input type='checkbox' class='checkthis'/></td>";
 							str += "<td><a href='#'>"+ set+++ "</a></td>";
 							str += "<td>"+ item.ownerRequestStart+ "</td>";
 							str += "<td>"+ item.ownerRequestEnd+ "</td>";
@@ -207,7 +193,6 @@ $(document).ready(function() {
 				$.each(result,function(index,item) {
 					str += "<tbody>";
 					str += "<tr>";
-					str += "<td><input type='checkbox' class='checkthis'/></td>";
 					str += "<td><a href='#'>"+ set+++ "</a></td>";
 					str += "<td>"+ item.ownerRequestStart+ "</td>";
 					str += "<td>"+ item.ownerRequestEnd+ "</td>";
@@ -259,7 +244,7 @@ $(document).ready(function() {
 						
 		var result = confirm("수락하시겠습니까?");
 		if(result){
-			var id = $(this).parent().parent().parent().find("td:nth-child(6)").text();
+			var id = $(this).parent().parent().parent().find("td:nth-child(5)").text();
 	$.ajax({
 				type : "post", //전송방식
 				url : "${pageContext.request.contextPath}/owner/updateOwnerApproval", //서버주소
@@ -282,7 +267,7 @@ $(document).ready(function() {
 						
 		var result = confirm("거절하시겠습니까?");
 		if(result){
-			var id = $(this).parent().parent().parent().find("td:nth-child(6)").text();
+			var id = $(this).parent().parent().parent().find("td:nth-child(5)").text();
 			$.ajax({
 				type : "post", //전송방식
 				url : "${pageContext.request.contextPath}/owner/updateOwnerApproval", //서버주소
@@ -387,6 +372,22 @@ $(function(){
 				<div class="tab-content">
 					<div class="tab-pane" id="petInfo">
 						<div class="resume">
+						<c:choose>
+						<c:when test="${petDTO eq null}">
+						<header class="page-header">
+						<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+						
+						<div class="col-xs-12 col-sm-8" style="margin-top:100px">
+						<div style="margin-bottom:20px">등록된 펫시터가 없습니다</div>
+						<button type="button" class="btn btn-info btn-sm" id="updatePet" onclick="location.href='${pageContext.request.contextPath}/owner/petInsertForm?userId=${user.userId}'" style="margin-top:80px">펫 등록</button>
+						</div>
+						
+						</div>
+						</div>
+						</header>
+						</c:when>
+						<c:otherwise>
 							<header class="page-header">
 								<h1 class="page-title">Profile of ${petDTO.petName}</h1>
 							</header>
@@ -422,6 +423,9 @@ $(function(){
 									</div>
 								</div>
 							</div>
+						</c:otherwise>
+						</c:choose>
+						
 						</div>
 					</div>
 					<!-- ----------------------------나의정보------------------------------------ -->
@@ -454,7 +458,6 @@ $(function(){
 														</ul>
 													</div>
 													<div class="profile-userbuttons">
-														<button type="button" class="btn btn-info btn-sm" id="updateUser" onclick="location.href='${pageContext.request.contextPath}/owner/updateOwnerInfoForm'?ownerId=${owenrDTO.ownerId}">수정하기</button>
 													</div>
 												</div>
 											</div>
@@ -547,7 +550,6 @@ $(function(){
 											<div class="table-responsive" id="aaa">
 												<table id="callBeforeTable" class="table table-bordred table-striped">
 													<thead>
-														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>
@@ -569,7 +571,6 @@ $(function(){
 											<div class="table-responsive">
 												<table id="callAfterTable" class="table table-bordred table-striped">
 													<thead>
-														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>
@@ -599,7 +600,6 @@ $(function(){
 											<div class="table-responsive" id="aaa">
 												<table id="requestBeforeTable" class="table table-bordred table-striped">
 													<thead>
-														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>
@@ -620,7 +620,6 @@ $(function(){
 											<div class="table-responsive">
 												<table id="requestAfterTable" class="table table-bordred table-striped">
 													<thead>
-														<th><input type="checkbox" id="checkall" /></th>
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>
