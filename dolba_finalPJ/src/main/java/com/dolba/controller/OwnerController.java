@@ -253,18 +253,11 @@ public class OwnerController {
 
 	//////////////////////////////일지 보기 ////////////////////////////
 	@RequestMapping("/callDiaryList")
-	public ModelAndView diaryListByCall(CallDTO callDTO) {
-		
+	public ModelAndView diaryListByCall(String sittingId) {
 		ModelAndView mv = new ModelAndView();
 		
-		///////여기부터
-		callDTO.setSitterId("goodsitter");
-		callDTO.setOwnerId("happymom");
-		callDTO.setCallReservateStart("18-06-02");
-		///////여기까지 나중에 지울값
-		
-		List<DiaryDTO> diaryList = diaryService.selectDiaryByCall(callDTO);
-		String sitterFname=diaryService.selectSitterFnameByCall(callDTO);
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByCall(sittingId);
+		String sitterFname=diaryService.selectSitterFnameByCall(sittingId);
 		for(DiaryDTO dto:diaryList) {
 			String fname = dto.getDiaryFname();
 			if(fname!=null) {
@@ -281,17 +274,11 @@ public class OwnerController {
 	}
 	
 	@RequestMapping("/requestDiaryList")
-	public ModelAndView diaryListByCall(OwnerRequestDTO ownerRequestDTO) {
+	public ModelAndView diaryListByRequest(String sittingId) {
 		ModelAndView mv = new ModelAndView();
 		
-		//여기부터
-		ownerRequestDTO.setOwnerId("happymom");
-		ownerRequestDTO.setSitterId("goodsitter");
-		ownerRequestDTO.setOwnerRequestStart("18-06-02");
-		/////////////여기까지 삭제
-		
-		List<DiaryDTO> diaryList = diaryService.selectDiaryByRequest(ownerRequestDTO);
-		String sitterFname=diaryService.selectSitterFnameByRequest(ownerRequestDTO);
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByRequest(sittingId);
+		String sitterFname=diaryService.selectSitterFnameByRequest(sittingId);
 		for(DiaryDTO dto:diaryList) {
 			String fname = dto.getDiaryFname();
 			if(fname!=null) {

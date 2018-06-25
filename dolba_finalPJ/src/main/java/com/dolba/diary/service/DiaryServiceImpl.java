@@ -22,23 +22,23 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 	
 	@Override
-	public List<DiaryDTO> selectDiaryByCall(CallDTO callDTO){
-		return diaryDAO.selectDiaryByCall(callDTO);
+	public List<DiaryDTO> selectDiaryByCall(String sittingId){
+		return diaryDAO.selectDiaryByCall(sittingId);
 	}
 	
 	@Override
-	public String selectSitterFnameByCall(CallDTO callDTO) {
-		return diaryDAO.selectSitterFnameByCall(callDTO);
+	public String selectSitterFnameByCall(String sittingId) {
+		return diaryDAO.selectSitterFnameByCall(sittingId);
 	}
 	
 	@Override
-	public List<DiaryDTO> selectDiaryByRequest(OwnerRequestDTO ownerRequestDTO){
-		return diaryDAO.selectDiaryByRequest(ownerRequestDTO);
+	public List<DiaryDTO> selectDiaryByRequest(String sittingId){
+		return diaryDAO.selectDiaryByRequest(sittingId);
 	}
 
 	@Override
-	public String selectSitterFnameByRequest(OwnerRequestDTO ownerRequestDTO) {
-		return diaryDAO.selectSitterFnameByRequest(ownerRequestDTO);
+	public String selectSitterFnameByRequest(String sittingId) {
+		return diaryDAO.selectSitterFnameByRequest(sittingId);
 	}
 	
 }

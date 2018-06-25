@@ -8,17 +8,17 @@
 	<!-- 일지 등록 -->
 	<insert id="insertDiary" parameterType="diaryDTO">
 		insert into diary 
-		values ('DIARY_ID-'||sequence_DIARY.NEXTVAL,#{sitterId},#{ownerId},#{sittingId},#{diaryTitle},#{diaryContent},sysdate,#{diaryPwd},#{diaryFname})
+		values ('DIARY_ID-'||sequence_DIARY.NEXTVAL,#{sitterId},#{sittingId},#{diaryTitle},#{diaryContent},sysdate,#{diaryPwd},#{diaryFname})
 	</insert>
 	
 	<!-- 부르기에서 일지 확인할때 -->
-<select id="selectDiaryByCall" parameterType="string" resultType="diaryDTO">
+	<select id="selectDiaryByCall" parameterType="string" resultType="diaryDTO">
 		select diary_title, diary_content, diary_writeday, diary_fname
 		from diary d join call c
 		on d.sitting_id=c.call_id
 		where c.call_id=#{_parameter}
 	</select>
-<!-- sitter 프로필 사진 검색-->
+	<!-- sitter 프로필 사진 검색-->
 	<select id="selectSitterFnameByCall" parameterType="string" resultType="string">
 		select distinct s.sitter_fname
 		from call c join sitter s
