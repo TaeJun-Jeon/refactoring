@@ -11,4 +11,18 @@ public interface RequestService {
 	 * @return
 	 */
 	List<OptionsDTO> selectAllOption();
+
+	/**
+	 * 처리되지 않은 sitter Request 숫자를 찾아오는 메소드
+	 * @param userId
+	 * @return
+	 */
+	String selectSitterRequestCountByUserId(String userId);
+
+	/**
+	 * 처리되지 않은 owner Request 숫자를 찾아오는 메소드
+	 * @param userId
+	 * @return
+	 */
+	String selectOwnerRequestCountByUserId(String userId);
 }

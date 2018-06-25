@@ -56,7 +56,7 @@ public class OwnerController {
 	private DiaryService diaryService;
 	
 	@RequestMapping("/myPage")
-	public String myPage(Model md, String role, String userId,String pageNum) {
+	public String myPage(Model md, String role, String userId,String pageNum,String tabStatus) {
 		String root ="myPage/myPage";
 		if(role.equals("SITTER")) {
 			SitterDTO sitterDTO = sitterService.selectSitterInfo(userId);
@@ -80,6 +80,7 @@ public class OwnerController {
 			md.addAttribute("callList",callList);
 			md.addAttribute("pagingUtil",pagingUtil);
 			md.addAttribute("petDTO", petDTO);
+			md.addAttribute("tabStatus", tabStatus);
 		}
 		return root;
 	}
@@ -306,12 +307,6 @@ public class OwnerController {
 	@RequestMapping("/allSelectSitterRequest")
 	@ResponseBody
 	public List<CallDTO> allSelectSitterRequest(String userId) {
-		System.out.println("userid="+userId);
-		List<CallDTO> call = sitterService.allSelectSitterRequest(userId);
-		for(CallDTO dto: call) {
-			System.out.println("dto="+dto.getCallReservateStart());
-			System.out.println("dtoapproval="+dto.getSitterRequestDTO().get(0).getOwnerApproval());
-		}
 		return sitterService.allSelectSitterRequest(userId);
 	}
 	
@@ -332,5 +327,17 @@ public class OwnerController {
 		ownerService.updatePetInfo(petDTO);
 		return "redirect: /owner/myPage";
 	}
+	
+	
+	/*********************Notification************************/
+	@RequestMapping("/notify")
+	@ResponseBody
+	public String selectSitterRequestCountByUserId(String userId) {
+		String count = "";
+		count = requestService.selectSitterRequestCountByUserId(userId);
+		return count;
+	}
+	
+	/*********************Notification************************/
 	
 }	

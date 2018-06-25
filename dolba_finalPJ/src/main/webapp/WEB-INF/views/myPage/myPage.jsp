@@ -47,7 +47,7 @@ $(document).ready(function() {
  
 /*	<-----------------------------------보호자의 부르기 탭--------------------------------------> */
 	var ownerCallTab = document.getElementById('ownerCallTab');
-	ownerCallTab.onclick = function() {
+	var ownerCallTabFunc = function() {
 		
 		$.ajax({
 			
@@ -86,7 +86,10 @@ $(document).ready(function() {
 				});
 
 	}
+	ownerCallTab.onclick = ownerCallTabFunc;
 	
+	
+		
 	
 	var ownerCallTabAfter= document.getElementById('ownerCallTabAfter');
 	ownerCallTabAfter.onclick = function() {
@@ -298,21 +301,42 @@ $(document).ready(function() {
 					
 	})
 	
+	var tabStatus;
+		$("#myCallTabLink").bind("click",function(){
+			tabStatus = "myCallTabLi";
+		})
+		$("#ownerTabLi").bind("click",function(){
+			tabStatus = "ownerTabLi";
+		})
+		$("#ownerRequestTabLi").bind("click",function(){
+			tabStatus = "ownerRequestTabLi";
+		})
 		
 		$("#pagingPrev").bind("click",function(){
-				$("#pagingForm").attr("action","${pageContext.request.contextPath}/owner/myPage?pageNum=${pagingUtil.curPage}&role="+role)
+				$("#pagingForm").attr("action","${pageContext.request.contextPath}/owner/myPage?pageNum=${pagingUtil.curPage}&role="+role+"&tabStatus="+tabStatus)
 				$("#pagingForm").submit();
 			})
 			
 			$("#paingNext").bind("click",function(){
-				$("#pagingForm").attr("action","${pageContext.request.contextPath}/owner/myPage?pageNum=${pagingUtil.curPage+2}&role="+role)
+				$("#pagingForm").attr("action","${pageContext.request.contextPath}/owner/myPage?pageNum=${pagingUtil.curPage+2}&role="+role+"&tabStatus="+tabStatus)
 				$("#pagingForm").submit();
 			})
 			
 			$(".pageNum").bind("click",function(){
-				$("#pagingForm").attr("action","${pageContext.request.contextPath}/owner/myPage?&pageNum="+$(this).text()+"$role="+role);
+				$("#pagingForm").attr("action","${pageContext.request.contextPath}/owner/myPage?&pageNum="+$(this).text()+"&role="+role+"&tabStatus="+tabStatus);
 				$("#pagingForm").submit();
 			})
+})
+$(function(){
+	var status;
+	status = "#${tabStatus}";
+	if(status != "#"){
+		$(status).addClass("active");
+		$("#myCall").addClass("active");
+	}else{
+		$("#petInfoTabLi").addClass("active");
+		$("#petInfo").addClass("active");
+	}
 })
 </script>
 <body>
@@ -346,11 +370,11 @@ $(document).ready(function() {
 					<div class="profile-usermenu">
 						<ul class="nav">
 						
-							<li class="active"><a href="#petInfo" data-toggle="tab" > <i class="fa fa-paw"></i> 펫정보</a></li>
+							<li id="petInfoTabLi"><a href="#petInfo" data-toggle="tab" > <i class="fa fa-paw"></i> 펫정보</a></li>
 							<li><a href="#userInfo" data-toggle="tab" > <i class="fa fa-user"></i> 나의정보</a></li>
-							<li><a href="#myCall" data-toggle="tab"><i class="fa fa-user"></i> 내가 쓴 돌보기신청</a></li>
-							<li><a href="#tab3" data-toggle="tab" id="ownerCallTab"> <i class="fa fa-calendar"></i> 부르기</a></li>
-							<li><a href="#tab4" data-toggle="tab" id="ownerRequestTab"> <i class="fa fa-child"></i> 맡기기</a></li>
+							<li id="myCallTabLi"><a href="#myCall" data-toggle="tab" id="myCallTabLink"><i class="fa fa-user"></i> 내가 쓴 돌보기신청</a></li>
+							<li id="ownerTabLi"><a href="#tab3" data-toggle="tab" id="ownerCallTab"> <i class="fa fa-calendar"></i> 부르기</a></li>
+							<li id="ownerRequestTabLi"><a href="#tab4" data-toggle="tab" id="ownerRequestTab"> <i class="fa fa-child"></i> 맡기기</a></li>
 				
 
 						</ul>
@@ -361,7 +385,7 @@ $(document).ready(function() {
 			<!-- ---------------------------------펫 정보------------------------------------------ -->
 			<div class="col-md-9">
 				<div class="tab-content">
-					<div class="tab-pane active" id="petInfo">
+					<div class="tab-pane" id="petInfo">
 						<div class="resume">
 							<header class="page-header">
 								<h1 class="page-title">Profile of ${petDTO.petName}</h1>
@@ -475,7 +499,7 @@ $(document).ready(function() {
 				<div class="clearfix"></div>
 			<div class="row paging" id="paging-div">
 			<div class="row">
-				<div class="col-md-6 text-center">
+				<div class="col-md-6 text-center col-md-push-3">
 					<nav>
 					<form action="" method="post" id="pagingForm">
 					<ul class="pagination sitter-pagination">
@@ -533,15 +557,6 @@ $(document).ready(function() {
 													</thead>
 												</table>
 												<div class="clearfix"></div>
-												<ul class="pagination pull-right" id="page">
-												 	<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-													<li class="active"><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#">5</a></li>
-													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li> 
-												</ul>
 											</div>
 										</div>
 									</div>
@@ -562,15 +577,6 @@ $(document).ready(function() {
 													</thead>
 												</table>
 												<div class="clearfix"></div>
-												<ul class="pagination pull-right">
-													<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-													<li class="active"><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#">5</a></li>
-													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-												</ul>
 											</div>
 											<div id='callCalendar' class="calendar1" style="width: 70%;"></div>
 										</div>
@@ -602,15 +608,6 @@ $(document).ready(function() {
 													</thead>
 												</table>
 												<div class="clearfix"></div>
-												<ul class="pagination pull-right">
-													<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-													<li class="active"><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#">5</a></li>
-													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-												</ul>
 											</div>
 										</div>
 									</div>
@@ -631,15 +628,6 @@ $(document).ready(function() {
 													</thead>
 												</table>
 												<div class="clearfix"></div>
-												<ul class="pagination pull-right">
-													<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-													<li class="active"><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#">5</a></li>
-													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-												</ul>
 											</div>
 											<div id='requestCalendar' class="calendar1" style="width: 70%;"></div>
 										</div>

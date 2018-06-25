@@ -128,3 +128,10 @@ select sitter_fname
 		select *
 		from qa
 		where owner_id like %upper('happy')%
+		
+		
+		
+select * from owner_request where owner_id='happymom' and owner_approval is NULL;
+select count(*) from sitter_request where owner_id='happymom' and owner_approval is null;
+select count(*) from sitter_request where owner_approval = 'null';
+
