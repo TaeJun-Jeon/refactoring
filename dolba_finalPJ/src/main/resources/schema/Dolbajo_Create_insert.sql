@@ -1,3 +1,5 @@
+
+-------------------------------------------------
 create table OWNER(
         OWNER_ID VARCHAR(50) not null constraint OWNER_ID_pk primary key,
         OWNER_PASSWORD VARCHAR(20) NOT NULL, 
@@ -283,11 +285,42 @@ create table call(
         OWNER_APPROVAL VARCHAR(5) NULL,
         CALL_PAYMENT_STATE VARCHAR(20) NULL
     );
-    select * from call
+    select * from call;
     CREATE SEQUENCE sequence_CALL
     START WITH 1
     INCREMENT BY 1;
     
+<<<<<<< HEAD
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom',NULL,30000,'예민합니다','18-06-02','18-06-03',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'cloud',NULL,100000,'활발합니다','18-06-10','18-06-12',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'any6103',NULL,40000,'노견이에요','18-06-13','18-06-14',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'flower',NULL,60000,'약을꼭 챙겨주세요','18-06-15','18-06-16',sysdate,2,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happy',NULL,29000,'실외배변입니다','18-06-06','18-06-07',sysdate,1,NULL,NULL);
+    
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'cloud','goodsitter',100000,'활발합니다','18-06-10','18-06-12',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'any6103','goodsitter',40000,'노견이에요','18-06-13','18-06-14',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'flower','goodsitter',60000,'약을꼭 챙겨주세요','18-06-15','18-06-16',sysdate,2,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happy','goodsitter',29000,'실외배변입니다','18-06-06','18-06-07',sysdate,1,NULL,NULL);
+    
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'han','goodsitter',100000,'활발합니다','18-06-05','18-06-06',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'jun','goodsitter',40000,'노견이에요','18-06-07','18-06-08',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'yeun','goodsitter',60000,'약을꼭 챙겨주세요','18-06-01','18-06-02',sysdate,2,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'baek','goodsitter',29000,'실외배변입니다','18-06-03','18-06-04',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'jang','goodsitter',29000,'실외배변입니다','18-06-08','18-07-09',sysdate,1,NULL,NULL);
+=======
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
+
+<<<<<<< HEAD
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','goodsitter',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','bestsitter',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','kind',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','happysis',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','meme',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
+=======
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
+    
+<<<<<<< HEAD
+=======
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom',NULL,30000,'예민합니다','18-06-02','18-06-03',sysdate,1,NULL,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'cloud',NULL,100000,'활발합니다','18-06-10','18-06-12',sysdate,1,NULL,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'any6103',NULL,40000,'노견이에요','18-06-13','18-06-14',sysdate,1,NULL,NULL);
@@ -311,6 +344,7 @@ create table call(
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','happysis',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','meme',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
     
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','woo',30000,'예민합니다','18-06-17','18-06-18',sysdate,1,NULL,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','top',30000,'예민합니다','18-06-17','18-06-18',sysdate,1,NULL,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','kang',30000,'예민합니다','18-06-17','18-06-18',sysdate,1,NULL,NULL);
@@ -320,7 +354,7 @@ create table call(
     select  call_id,SITTER_ID,call_total_price,CALL_COMMENT,CALL_RESERVATE_START,CALL_RESERVATE_END,CALL_WRITEDAY,CALL_PETCOUNT,OWNER_APPROVAL, o.owner_id,o.owner_addr,o.owner_name
 		from call c join owner o
 		on c.owner_id = o.owner_id
-		where c.owner_approval is null
+		where c.owner_approval is null;
     
     select * from call; 
     
@@ -337,7 +371,7 @@ Create table SITTER_REQUEST(
     INCREMENT BY 1;
     
     select * from SITTER_REQUEST; 
-    insert into sitter_request values('sitter_request_id'||sequence_sitter_request.nextval,'call_id-10','han','goodsitter','Y')
+    insert into sitter_request values('sitter_request_id'||sequence_sitter_request.nextval,'call_id-10','han','goodsitter','Y');
     
 Create table OWNER_REQUEST(
         OWNER_REQUEST_id VARCHAR(50) not null constraint OWNER_REQUEST_id_pk primary key,
@@ -625,4 +659,11 @@ CREATE TABLE AUTHORITIES(
     insert into AUTHORITIES VALUES ('bestsitter','SITTER','1234','박보검');
     insert into AUTHORITIES VALUES ('kind','SITTER','1234','박민영');
     insert into AUTHORITIES VALUES ('happysis','SITTER','1234','박서준');
+<<<<<<< HEAD
     insert into AUTHORITIES VALUES ('meme','SITTER','1234','설리');
+=======
+    insert into AUTHORITIES VALUES ('meme','SITTER','1234','설리');
+
+
+COMMIT;
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git

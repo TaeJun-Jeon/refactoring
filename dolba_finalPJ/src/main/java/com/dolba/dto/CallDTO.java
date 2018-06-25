@@ -14,11 +14,19 @@ public class CallDTO {
 	private String callWriteday;
 	private int callPetcount;
 	private String ownerApproval;
+	private String callPaymentState;
+	
 	private OwnerDTO ownerDTO;
 	private List<SittingOptionDTO> sittingOptionList;
 	private List<SitterRequestDTO> sitterRequestDTO;
 
 	
+	public String getCallPaymentState() {
+		return callPaymentState;
+	}
+	public void setCallPaymentState(String callPaymentState) {
+		this.callPaymentState = callPaymentState;
+	}
 	public String getCallId() {
 		return callId;
 	}

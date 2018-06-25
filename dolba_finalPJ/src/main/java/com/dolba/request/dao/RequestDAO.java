@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.dolba.dto.OptionsDTO;
+import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.SitterDTO;
 
 public interface RequestDAO {
@@ -32,5 +33,9 @@ public interface RequestDAO {
 	 * @return
 	 */
 	public String selectOwnerRequestCountByUserId(String userId);
+	
+	public OwnerRequestDTO selectRequestByKey(String key);
+
+	public int updatePaymentState(String ownerRequestId, String state);
 	
 }

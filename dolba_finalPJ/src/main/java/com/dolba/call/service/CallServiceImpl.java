@@ -98,4 +98,15 @@ public class CallServiceImpl implements CallsService {
 		
 		requestDAO.insertSitterRequest(map);
 	}
+
+	@Override
+	public CallDTO ownerCallDetail(String key) {
+		return callDAO.selectCallByKey(key);
+	}
+	
+
+	@Override
+	public int updatePaymentState(String key, String state) {
+		return callDAO.updateByKeyPaymentState(key,state);
+	}
 }

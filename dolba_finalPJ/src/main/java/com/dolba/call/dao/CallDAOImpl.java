@@ -68,4 +68,18 @@ public class CallDAOImpl implements CallDAO {
 		return session.selectOne("callMapper.selectCallByCallId",callId);
 	}
 
+	@Override
+	public CallDTO selectCallByKey(String key) {
+		return session.selectOne("callMapper.selectCall", key);
+	}
+
+	@Override
+	public int updateByKeyPaymentState(String key, String state) {
+		Map<String,String> map = new HashMap<>();
+		map.put("key", key);
+		map.put("state", state);
+		
+		return session.update("callMapper.updatePaymentState", map);
+	}
+
 }
