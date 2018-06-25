@@ -34,7 +34,7 @@ $(function(){
 })
 </script>
 </head>
-<body>
+<body style="padding-left:0px;padding-right:0px">
 	<div class="container" style="width: 600px">
 		<div class="row">
 			<form role="form" class="contact-form" style="margin-top: 50px;">
@@ -65,7 +65,7 @@ $(function(){
 					<div class="col-md-12">
 						<div class="form-group">
 							내용
-							<textarea class="form-control textarea" rows="3" name="Message" id="Message">${qaDTO.qaContent}</textarea>
+							<textarea class="form-control textarea" rows="3" name="Message" id="Message"  disabled="disabled">${qaDTO.qaContent}</textarea>
 						</div>
 					</div>
 				</div>

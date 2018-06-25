@@ -153,20 +153,19 @@ create table QA(
 create table reply(
     reply_id VARCHAR(50) not null constraint reply_id_pk primary key,
     QA_id VARCHAR(50) not null constraint  reply_qa_id_fk references QA(QA_id),
-    OWNER_ID VARCHAR(50) not null constraint reply_OWNER_ID_fk references OWNER(OWNER_ID), 
+  
     reply_content VARCHAR(4000) not null,
     reply_writeday DATE not null
     );
-    
     CREATE SEQUENCE sequence_reply
     START WITH 1
     INCREMENT BY 1;
     
-    insert into reply values('reply_id-'||sequence_reply.NEXTVAL,'QA_id-1','happymom','펫시터의 신원확인은 서류로 하고있습니다',sysdate);
-    insert into reply values('reply_id-'||sequence_reply.NEXTVAL,'QA_id-2','cloud','돌봄상태 확인은 시간별로 메세지를 보내드립니다',sysdate);
-    insert into reply values('reply_id-'||sequence_reply.NEXTVAL,'QA_id-3','any6103','요금은 27000원부터 시작합니다',sysdate);
-    insert into reply values('reply_id-'||sequence_reply.NEXTVAL,'QA_id-4','flower','펫시터등록은 무료입니다',sysdate);
-    insert into reply values('reply_id-'||sequence_reply.NEXTVAL,'QA_id-5','happy','자사의 교육을 수료합니다',sysdate);
+    insert into reply values('reply_id-'||sequence_reply.NEXTVAL,'QA_id-1','펫시터의 신원확인은 서류로 하고있습니다',sysdate);
+    insert into reply values('reply_id-'||sequence_reply.NEXTVAL,'QA_id-2','돌봄상태 확인은 시간별로 메세지를 보내드립니다',sysdate);
+    insert into reply values('reply_id-'||sequence_reply.NEXTVAL,'QA_id-3','요금은 27000원부터 시작합니다',sysdate);
+    insert into reply values('reply_id-'||sequence_reply.NEXTVAL,'QA_id-4','펫시터등록은 무료입니다',sysdate);
+    insert into reply values('reply_id-'||sequence_reply.NEXTVAL,'QA_id-5','자사의 교육을 수료합니다',sysdate);
     
     select * from reply; 
 
@@ -291,8 +290,37 @@ create table call(
     START WITH 1
     INCREMENT BY 1;
     
-
+<<<<<<< HEAD
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom',NULL,30000,'예민합니다','18-06-02','18-06-03',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'cloud',NULL,100000,'활발합니다','18-06-10','18-06-12',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'any6103',NULL,40000,'노견이에요','18-06-13','18-06-14',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'flower',NULL,60000,'약을꼭 챙겨주세요','18-06-15','18-06-16',sysdate,2,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happy',NULL,29000,'실외배변입니다','18-06-06','18-06-07',sysdate,1,NULL,NULL);
     
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'cloud','goodsitter',100000,'활발합니다','18-06-10','18-06-12',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'any6103','goodsitter',40000,'노견이에요','18-06-13','18-06-14',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'flower','goodsitter',60000,'약을꼭 챙겨주세요','18-06-15','18-06-16',sysdate,2,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happy','goodsitter',29000,'실외배변입니다','18-06-06','18-06-07',sysdate,1,NULL,NULL);
+    
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'han','goodsitter',100000,'활발합니다','18-06-05','18-06-06',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'jun','goodsitter',40000,'노견이에요','18-06-07','18-06-08',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'yeun','goodsitter',60000,'약을꼭 챙겨주세요','18-06-01','18-06-02',sysdate,2,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'baek','goodsitter',29000,'실외배변입니다','18-06-03','18-06-04',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'jang','goodsitter',29000,'실외배변입니다','18-06-08','18-07-09',sysdate,1,NULL,NULL);
+=======
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
+
+<<<<<<< HEAD
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','goodsitter',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','bestsitter',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','kind',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','happysis',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
+    insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','meme',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
+=======
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
+    
+<<<<<<< HEAD
+=======
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom',NULL,30000,'예민합니다','18-06-02','18-06-03',sysdate,1,NULL,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'cloud',NULL,100000,'활발합니다','18-06-10','18-06-12',sysdate,1,NULL,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'any6103',NULL,40000,'노견이에요','18-06-13','18-06-14',sysdate,1,NULL,NULL);
@@ -316,6 +344,7 @@ create table call(
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','happysis',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','meme',30000,'예민합니다','18-06-16','18-06-17',sysdate,1,NULL,NULL);
     
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','woo',30000,'예민합니다','18-06-17','18-06-18',sysdate,1,NULL,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','top',30000,'예민합니다','18-06-17','18-06-18',sysdate,1,NULL,NULL);
     insert into CALL values('call_id-'||sequence_CALL.NEXTVAL,'happymom','kang',30000,'예민합니다','18-06-17','18-06-18',sysdate,1,NULL,NULL);
@@ -630,7 +659,11 @@ CREATE TABLE AUTHORITIES(
     insert into AUTHORITIES VALUES ('bestsitter','SITTER','1234','박보검');
     insert into AUTHORITIES VALUES ('kind','SITTER','1234','박민영');
     insert into AUTHORITIES VALUES ('happysis','SITTER','1234','박서준');
+<<<<<<< HEAD
+    insert into AUTHORITIES VALUES ('meme','SITTER','1234','설리');
+=======
     insert into AUTHORITIES VALUES ('meme','SITTER','1234','설리');
 
 
 COMMIT;
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git

@@ -28,6 +28,7 @@ import com.dolba.dto.PetDTO;
 import com.dolba.dto.SitterDTO;
 import com.dolba.dto.SitterImgDTO;
 import com.dolba.dto.SitterOptionDTO;
+import com.dolba.dto.SitterRequestDTO;
 import com.dolba.dto.SitterReviewDTO;
 import com.dolba.option.service.OptionService;
 import com.dolba.owner.service.OwnerService;
@@ -250,23 +251,16 @@ public class OwnerController {
 
 	//////////////////////////////일지 보기 ////////////////////////////
 	@RequestMapping("/callDiaryList")
-	public ModelAndView diaryListByCall(CallDTO callDTO) {
-
+	public ModelAndView diaryListByCall(String sittingId) {
 		ModelAndView mv = new ModelAndView();
-
-		///////여기부터
-		callDTO.setSitterId("goodsitter");
-		callDTO.setOwnerId("happymom");
-		callDTO.setCallReservateStart("18-06-16");
-		///////여기까지 나중에 지울값
-
-		List<DiaryDTO> diaryList = diaryService.selectDiaryByCall(callDTO);
-		String sitterFname = diaryService.selectSitterFnameByCall(callDTO);
-		for (DiaryDTO dto : diaryList) {
+		
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByCall(sittingId);
+		String sitterFname=diaryService.selectSitterFnameByCall(sittingId);
+		for(DiaryDTO dto:diaryList) {
 			String fname = dto.getDiaryFname();
-			if (fname != null) {
-				String[] fileName = fname.split(",");
-				for (String fn : fileName) {
+			if(fname!=null) {
+				String [] fileName=fname.split(",");
+				for(String fn :fileName) {
 					dto.getImgNameList().add(fn);
 				}
 			}
@@ -278,22 +272,17 @@ public class OwnerController {
 	}
 
 	@RequestMapping("/requestDiaryList")
-	public ModelAndView diaryListByCall(OwnerRequestDTO ownerRequestDTO) {
+	public ModelAndView diaryListByRequest(String sittingId) {
 		ModelAndView mv = new ModelAndView();
+		
 
-		//여기부터
-		ownerRequestDTO.setOwnerId("happymom");
-		ownerRequestDTO.setSitterId("woo");
-		ownerRequestDTO.setOwnerRequestStart("18-06-02");
-		/////////////여기까지 삭제
-
-		List<DiaryDTO> diaryList = diaryService.selectDiaryByRequest(ownerRequestDTO);
-		String sitterFname = diaryService.selectSitterFnameByRequest(ownerRequestDTO);
-		for (DiaryDTO dto : diaryList) {
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByRequest(sittingId);
+		String sitterFname=diaryService.selectSitterFnameByRequest(sittingId);
+		for(DiaryDTO dto:diaryList) {
 			String fname = dto.getDiaryFname();
-			if (fname != null) {
-				String[] fileName = fname.split(",");
-				for (String fn : fileName) {
+			if(fname!=null) {
+				String [] fileName=fname.split(",");
+				for(String fn :fileName) {
 					dto.getImgNameList().add(fn);
 				}
 			}
@@ -342,7 +331,7 @@ public class OwnerController {
 	public String updatePetInfo(PetDTO petDTO, MultipartFile file, HttpServletRequest request)
 			throws IllegalStateException, IOException {
 		String rootPath = request.getSession().getServletContext().getRealPath("/");
-		String attachPath = "resources/lib/save/pet";
+		String attachPath = "resources/lib/save/pet/";
 		file = petDTO.getFile();
 
 		if (file.getSize() > 0) {
@@ -352,7 +341,7 @@ public class OwnerController {
 		}
 
 		ownerService.updatePetInfo(petDTO);
-		return "redirect:/";
+		return "redirect: /owner/myPage";
 	}
 
 	@RequestMapping("/petInsert")
@@ -360,20 +349,24 @@ public class OwnerController {
 			throws IllegalStateException, IOException {
 
 		String rootPath = request.getSession().getServletContext().getRealPath("/");
-		String attachPath = "resources/lib/pet/";
+		String attachPath = "resources/lib/save/pet/";
+		System.out.println("petepte="+petDTO.getOwnerId());
+		System.out.println("ownerID="+ownerId);
+		System.out.println("file"+petDTO.getPetFname());
 		file = petDTO.getFile();
-
-		if (file.getSize() > 0) {
-			String fileName = file.getOriginalFilename();
+		
+		if(file.getSize()>0) {
+			String fileName=  file.getOriginalFilename();
 			petDTO.setPetFname(fileName);
-			file.transferTo(new File(rootPath + attachPath + file.getOriginalFilename()));
+			System.out.println(fileName);
+			file.transferTo(new File(rootPath+attachPath+file.getOriginalFilename()));
 		}
-
+		
 		ownerService.petInsert(petDTO);
-
+		
 		return "redirect:/";
 	}
-
+	
 	//////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping("/call/ownerCallDetail")
 	public ModelAndView ownerDetailView(HttpServletRequest request) {

@@ -16,21 +16,21 @@ public interface DiaryDAO {
 	 * 부르기 
 	 * 해당 일지 검색하기
 	 **/
-	public List<DiaryDTO> selectDiaryByCall(CallDTO callDTO);
+	public List<DiaryDTO> selectDiaryByCall(String sittingId);
 	
 	/**
 	 * 일지작성하는 펫시터 검색하기
 	 * */
-	public String selectSitterFnameByCall(CallDTO callDTO);
+	public String selectSitterFnameByCall(String sittingId);
 	
 	/**
 	 * 맡기기
 	 * 해당 일지 검색하기
 	 **/
-	public List<DiaryDTO> selectDiaryByRequest(OwnerRequestDTO ownerRequestDTO);
+	public List<DiaryDTO> selectDiaryByRequest(String sittingId);
 	
 	/**
 	 * 일지작성하는 펫시터 검색하기
 	 * */
-	public String selectSitterFnameByRequest(OwnerRequestDTO ownerRequestDTO);
+	public String selectSitterFnameByRequest(String sittingId);
 }

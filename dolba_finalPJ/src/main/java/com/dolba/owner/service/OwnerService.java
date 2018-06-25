@@ -6,6 +6,7 @@ import com.dolba.dto.CallDTO;
 import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.PetDTO;
+import com.dolba.dto.SitterRequestDTO;
 
 public interface OwnerService {
 

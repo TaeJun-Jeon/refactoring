@@ -43,7 +43,7 @@ public class AdminController {
 	public String joinOwner(OwnerDTO ownerDTO, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
 
 		String rootPath = request.getSession().getServletContext().getRealPath("/");
-		String attachPath = "resources/lib/save/";
+		String attachPath = "resources/lib/save/owner/";
 
 		ownerDTO.setOwnerEmail(ownerDTO.getOwnerEmail1() + "@" + ownerDTO.getOwnerEmail2());
 
@@ -62,8 +62,8 @@ public class AdminController {
 	public String joinSitter(SitterDTO sitterDTO, MultipartFile[] file1, HttpServletRequest request)
 			throws IllegalStateException, IOException {
 		String rootPath = request.getSession().getServletContext().getRealPath("/");
-		String attachPath = "resources/lib/save1/";
-		String certifyPath = "resources/lib/certify/";
+		String attachPath = "resources/lib/save/sitter/";
+		String certifyPath = "resources/lib/save/certify/";
 		sitterDTO.setSitterEmail(sitterDTO.getSitterEmail1() + "@" + sitterDTO.getSitterEmail2());
 
 		MultipartFile[] file = sitterDTO.getFile1();
