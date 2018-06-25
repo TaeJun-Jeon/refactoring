@@ -19,6 +19,22 @@
 		</association>
 	</resultMap>
 	
+	
+	<!--  1:1 관계 매핑 -->
+	<resultMap type="callDTO" id="callSelect">
+		<id column="call_id" property="callId"/>
+		<result column="owner_id" property="sitterId"/>
+		<result column="sitter_id" property="ownerId"/>
+		<result column="call_total_price" property="callTotalPrice"/>
+		<result column="call_comment" property="callComment"/>
+		<result column="call_reservate_start" property="callReservateStart"/>
+		<result column="call_reservate_end" property="callReservateEnd"/>
+		<result column="call_writeday" property="callWriteday"/>
+		<result column="call_petcount" property="callPetcount"/>
+		<result column="onwer_approval" property="ownerApproval"/>
+		<result column="call_payment_state" property="callPaymentState"/>
+	</resultMap>
+	
 	<!-- 대기중인 call list -->
 	<select id="selectAllCallWaiting" resultMap="calljoinowner">
 		select <include refid="callColumn"/>, <include refid="ownerColumnJoin"/>
@@ -62,4 +78,15 @@
 		on c.owner_id = o.owner_id
 		where call_id=#{_parameter}
 	</select>
+	
+	<select id="selectCall" parameterType="String" resultMap="callSelect">
+		select call_id, owner_id, sitter_id, call_total_price, call_comment,
+		call_reservate_start, call_reservate_end, call_writeday, call_petcount, owner_approval, call_payment_state
+		from call
+		where call_id = #{_parameter}
+	</select>
+	
+	<update id="updatePaymentState" parameterType="map">
+		update call set call_payment_state = '${state}' where call_id='${key}'
+	</update>
 </mapper>

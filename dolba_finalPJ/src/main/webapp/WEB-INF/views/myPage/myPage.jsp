@@ -51,7 +51,12 @@ $(document).ready(function() {
 						$.each(result,function(index,item) {
 							str += "<tbody>";
 							str += "<tr>";
+<<<<<<< HEAD
 							str += "<td><a href='#'>"+ set+++ "</a></td>";
+=======
+							str += "<td><input type='checkbox' class='checkthis'/></td>";
+							str += "<td><a href='#' onclick=\'window.open(\"${pageContext.request.contextPath}/owner/call/ownerCallDetail?callId="+item.callId+" \", \"DetailView\", \"width=1250px, height=700px, status=no, toolbar=no, menubar=no, resizable=no, channelmode=no, left=250px, top=80px\")\' >"+ set+++ "</a></td>";
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
 							str += "<td>"+ item.callReservateStart+ "</td>";
 							str += "<td>"+ item.callReservateEnd+ "</td>";
 							str += "<td>"+ item.sitterId+ "</td>";
@@ -93,7 +98,12 @@ $(document).ready(function() {
 						$.each(result,function(index,item) {
 							str += "<tbody>";
 							str += "<tr>";
+<<<<<<< HEAD
 							str += "<td><a href='#'>"+ set+++ "</a></td>";
+=======
+							str += "<td><input type='checkbox' class='checkthis'/></td>";
+							str += "<td><a href='#' onclick=\'window.open(\"${pageContext.request.contextPath}/owner/call/ownerCallDetailAfter?callId="+item.callId+" \", \"DetailView\", \"width=1250px, height=700px, status=no, toolbar=no, menubar=no, resizable=no, channelmode=no, left=250px, top=80px\")\' >"+ set+++ "</a></td>";
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
 							str += "<td>"+ item.callReservateStart+ "</td>";
 							str += "<td>"+ item.callReservateEnd+ "</td>";
 							str += "<td>"+ item.sitterId+ "</td>";
@@ -160,7 +170,12 @@ $(document).ready(function() {
 						$.each(result,function(index,item) {
 							str += "<tbody>";
 							str += "<tr>";
+<<<<<<< HEAD
 							str += "<td><a href='#'>"+ set+++ "</a></td>";
+=======
+							str += "<td><input type='checkbox' class='checkthis'/></td>";
+							str += "<td><a href='#' onclick=\'window.open(\"${pageContext.request.contextPath}/owner/ownerRequestDetail?ownerRequestId="+item.ownerRequestId+" \", \"DetailView\", \"width=1250px, height=700px, status=no, toolbar=no, menubar=no, resizable=no, channelmode=no, left=250px, top=80px\")\' >"+ set+++ "</a></td>";
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
 							str += "<td>"+ item.ownerRequestStart+ "</td>";
 							str += "<td>"+ item.ownerRequestEnd+ "</td>";
 							str += "<td>"+ item.sitterId+ "</td>";
@@ -193,7 +208,12 @@ $(document).ready(function() {
 				$.each(result,function(index,item) {
 					str += "<tbody>";
 					str += "<tr>";
+<<<<<<< HEAD
 					str += "<td><a href='#'>"+ set+++ "</a></td>";
+=======
+					str += "<td><input type='checkbox' class='checkthis'/></td>";
+					str += "<td><a href='#' onclick=\'window.open(\"${pageContext.request.contextPath}/owner/ownerRequestDetailAfter?ownerRequestId="+item.ownerRequestId+" \", \"DetailView\", \"width=1250px, height=700px, status=no, toolbar=no, menubar=no, resizable=no, channelmode=no, left=250px, top=80px\")\' >"+ set+++ "</a></td>";
+>>>>>>> branch 'master' of https://github.com/KOSTA184SPRING/DOLBA.git
 					str += "<td>"+ item.ownerRequestStart+ "</td>";
 					str += "<td>"+ item.ownerRequestEnd+ "</td>";
 					str += "<td>"+ item.sitterId+ "</td>";
@@ -399,7 +419,7 @@ $(function(){
 												<div class="col-lg-12">
 													<div class="col-xs-12 col-sm-4">
 														<figure>
-															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/1.PNG">
+															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/pet/${petDTO.petFname}">
 														</figure>
 														<div class="row">
 															<div class="col-xs-12 social-btns"></div>

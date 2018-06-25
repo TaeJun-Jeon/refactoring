@@ -112,23 +112,22 @@ public class SitterController {
 	
 	/**************************CALL 끝******************************/
 	@RequestMapping("/diaryForm")
-	public String diaryList() {
-		return "diary/diaryWrite";
+	public ModelAndView diaryList(String sittingId) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("sittingId", sittingId);
+		mv.setViewName("diary/diaryWrite");
+		return mv;
 	}
 	
 	//일지 등록
 	@RequestMapping("/insertDiary")
 	public String insertDiary(MultipartHttpServletRequest mtfRequest, DiaryDTO diaryDTO) {
 		
-		System.out.println("controller : 제목:"+diaryDTO.getDiaryTitle());
-		System.out.println("controller : 내용:"+diaryDTO.getDiaryContent());
-		//System.out.println("controller : getSitterId:"+diaryDTO.getSitterId());
-		//System.out.println("controller : getOwnerId:"+diaryDTO.getOwnerId());
-		
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		
 		String rootPath = mtfRequest.getSession().getServletContext().getRealPath("/");
-		String attachPath = "resources/lib/save/";
+		String attachPath = "resources/lib/save/diary/";
 		String fileName="";
 		
 		for(MultipartFile file : fileList) {
@@ -143,11 +142,6 @@ public class SitterController {
 			}
 		}
 		diaryDTO.setDiaryFname(fileName);
-		
-		//나중에 삭제해야함(가져와야될 값들)
-		diaryDTO.setOwnerId("happymom");
-		diaryDTO.setSitterId("woo");
-		diaryDTO.setSittingId("OWNER_REQUEST_id-20");
 		
 		diaryService.insertDiary(diaryDTO);
 		return null;

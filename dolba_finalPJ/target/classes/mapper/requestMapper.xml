@@ -78,4 +78,12 @@ select * from owner where owner_id=${_parameter}
 select * from pet where owner_id = #{ownerId}
 </select>
 
+<select id="selectOwnerRequest" parameterType="string" resultType="ownerRequestDTO">
+select * from owner_request where owner_request_id = #{_parameter}
+</select>
+
+<update id="updateRequestPaymentState" parameterType="map">
+update owner_request set request_payment_state = '${state}' where owner_request_id= '${key}'
+</update>
+
 </mapper>

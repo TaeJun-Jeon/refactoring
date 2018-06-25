@@ -14,4 +14,8 @@ public interface CallsService {
 	CallDTO selectCallByCallId(String callId);
 
 	void insertSitterRequest(String callId, String sitterId, String ownerId);
+	
+	CallDTO ownerCallDetail(String key);
+
+	int updatePaymentState(String key, String state);
 }

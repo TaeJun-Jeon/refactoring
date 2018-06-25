@@ -51,7 +51,7 @@ $(document).ready(function (){
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="petName" id="petName"  placeholder="${petDTO.petName}"/>
+									<input type="text" class="form-control" name="petName" id="petName"  value="${petDTO.petName}"/>
 								</div>
 							</div>
 						</div>
@@ -61,7 +61,7 @@ $(document).ready(function (){
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="petSpecies" id="petSpecies"  placeholder="${petDTO.petSpecies}"/>
+									<input type="text" class="form-control" name="petSpecies" id="petSpecies"  value="${petDTO.petSpecies}"/>
 								</div>
 							</div>
 						</div>
@@ -71,7 +71,7 @@ $(document).ready(function (){
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="petIllness" id="petIllness"  placeholder="${petDTO.petIllness}"/>
+									<input type="text" class="form-control" name="petIllness" id="petIllness"  value="${petDTO.petIllness}"/>
 								</div>
 							</div>
 						</div>
@@ -81,7 +81,7 @@ $(document).ready(function (){
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="petWeight" id="petWeight"  placeholder="${petDTO.petWeight}"/>
+									<input type="text" class="form-control" name="petWeight" id="petWeight"  value="${petDTO.petWeight}"/>
 								</div>
 							</div>
 						</div>
@@ -91,7 +91,7 @@ $(document).ready(function (){
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="petGender" id="petGender"  placeholder="${petDTO.petGender}"/>
+									<input type="text" class="form-control" name="petGender" id="petGender"  value="${petDTO.petGender}" readonly/>
 								</div>
 							</div>
 						</div>

@@ -13,8 +13,17 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<c:forEach items="${diaryList}" var="diaryDto" varStatus="statuscount">
-			<div class="row">
+		
+		<c:choose>
+			<c:when test="${empty diaryList}">
+				<div class="row" style="margin-bottom:100px; margin-top: 150px; height:200px">
+				<div class="text-center" style="margin-top:50px;heigth:50px">[일지 보기]</div>
+				<h3 class="text-center" style="margin-top:70px">등록된 일지가 없습니다.</h3>
+				</div>
+			</c:when>
+			<c:otherwise>
+			<c:forEach items="${diaryList}" var="diaryDto" varStatus="statuscount">
+			<div class="row" style="margin-bottom:50px">
 				<div class="col-md-2 col-md-push-1">
 					<h3 class="text-center" style="margin-top: 100px">${diaryDto.diaryWriteDay}</h3>
 					<div class="text-center">
@@ -44,6 +53,8 @@
 				</div>
 			</div>
 		</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </body>
 </html>

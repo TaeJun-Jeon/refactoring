@@ -65,4 +65,16 @@ public interface CallDAO {
 	 * @return
 	 */
 	CallDTO selectCallByCallId(String callId);
+	
+	
+	/**
+	 * 특정 callId(기본키)에 해당하는 DTO를 받아오는 메소드
+	 * @param key
+	 * @return callDTO
+	 */
+	
+	CallDTO selectCallByKey(String key);
+
+
+	int updateByKeyPaymentState(String key, String state);
 }

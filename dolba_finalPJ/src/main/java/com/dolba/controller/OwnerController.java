@@ -253,18 +253,11 @@ public class OwnerController {
 
 	//////////////////////////////일지 보기 ////////////////////////////
 	@RequestMapping("/callDiaryList")
-	public ModelAndView diaryListByCall(CallDTO callDTO) {
-		
+	public ModelAndView diaryListByCall(String sittingId) {
 		ModelAndView mv = new ModelAndView();
 		
-		///////여기부터
-		callDTO.setSitterId("goodsitter");
-		callDTO.setOwnerId("happymom");
-		callDTO.setCallReservateStart("18-06-16");
-		///////여기까지 나중에 지울값
-		
-		List<DiaryDTO> diaryList = diaryService.selectDiaryByCall(callDTO);
-		String sitterFname=diaryService.selectSitterFnameByCall(callDTO);
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByCall(sittingId);
+		String sitterFname=diaryService.selectSitterFnameByCall(sittingId);
 		for(DiaryDTO dto:diaryList) {
 			String fname = dto.getDiaryFname();
 			if(fname!=null) {
@@ -281,17 +274,11 @@ public class OwnerController {
 	}
 	
 	@RequestMapping("/requestDiaryList")
-	public ModelAndView diaryListByCall(OwnerRequestDTO ownerRequestDTO) {
+	public ModelAndView diaryListByRequest(String sittingId) {
 		ModelAndView mv = new ModelAndView();
 		
-		//여기부터
-		ownerRequestDTO.setOwnerId("happymom");
-		ownerRequestDTO.setSitterId("woo");
-		ownerRequestDTO.setOwnerRequestStart("18-06-02");
-		/////////////여기까지 삭제
-		
-		List<DiaryDTO> diaryList = diaryService.selectDiaryByRequest(ownerRequestDTO);
-		String sitterFname=diaryService.selectSitterFnameByRequest(ownerRequestDTO);
+		List<DiaryDTO> diaryList = diaryService.selectDiaryByRequest(sittingId);
+		String sitterFname=diaryService.selectSitterFnameByRequest(sittingId);
 		for(DiaryDTO dto:diaryList) {
 			String fname = dto.getDiaryFname();
 			if(fname!=null) {
@@ -381,6 +368,102 @@ public class OwnerController {
 		ownerService.petInsert(petDTO);
 		
 		return "redirect:/";
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////
+	@RequestMapping("/call/ownerCallDetail")
+	public ModelAndView ownerDetailView(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		String primaryKey = request.getParameter("callId");
+		System.out.println(primaryKey);
+		
+		CallDTO callDTO = callService.ownerCallDetail(primaryKey);
+		
+		mv.addObject("callDTO", callDTO);
+		mv.setViewName("owner/call/ownerCallDetail");
+		return mv;
+	}
+	
+	
+	@RequestMapping("/call/ownerCallDetailAfter")
+	public ModelAndView ownerCallDetailAfter(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		String primaryKey = request.getParameter("callId");
+		System.out.println(primaryKey);
+		
+		CallDTO callDTO = callService.ownerCallDetail(primaryKey);
+		System.out.println(callDTO.getCallPaymentState());
+		mv.addObject("callDTO", callDTO);
+		mv.setViewName("owner/call/ownerCallDetailAfter");
+		return mv;
+	}
+	
+	@RequestMapping("/ownerRequestDetail")
+	public ModelAndView ownerRequestDetail(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		String primaryKey = request.getParameter("ownerRequestId");
+		System.out.println(primaryKey);
+		
+		OwnerRequestDTO ownerRequestDTO = requestService.ownerRequestDetail(primaryKey);
+		System.out.println(ownerRequestDTO.getOwnerId());
+		System.out.println(ownerRequestDTO.getOwnerRequestStart());
+		
+		mv.addObject("ownerRequestDTO", ownerRequestDTO);
+		mv.setViewName("request/ownerRequest/ownerRequestDetail");
+		return mv;
+	}
+	
+	
+	@RequestMapping("/ownerRequestDetailAfter")
+	public ModelAndView ownerRequestDetailAfter(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		String primaryKey = request.getParameter("ownerRequestId");
+		System.out.println(primaryKey);
+		
+		OwnerRequestDTO ownerRequestDTO = requestService.ownerRequestDetail(primaryKey);
+		
+		mv.addObject("ownerRequestDTO", ownerRequestDTO);
+		mv.setViewName("request/ownerRequest/ownerRequestDetailAfter");
+		return mv;
+		
+	}
+	
+	//테스트 페이지 (추후 삭제)
+	@RequestMapping("/paymentTest")
+	public String payment() {
+		return "payment/paymentTest";
+	}
+	
+	@RequestMapping("/updatePaymentState")
+	@ResponseBody
+	public ModelAndView PaymentState(String callId, String state) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("지불상태 업데이트 컨트롤러");
+		callService.updatePaymentState(callId,state);
+		CallDTO dto = callService.ownerCallDetail(callId);
+		System.out.println(dto.getCallPaymentState());
+		mv.addObject("callDTO", dto);
+		mv.setViewName("owner/call/ownerCallDetailAfter");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/updateRequestPaymentState")
+	@ResponseBody
+	public ModelAndView RequestPaymentState(String ownerRequestId, String state) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("요청 지불상태 업데이트 컨트롤러");
+		requestService.updatePaymentState(ownerRequestId, state);
+		OwnerRequestDTO ownerRequestDTO = requestService.ownerRequestDetail(ownerRequestId);
+		System.out.println(ownerRequestDTO.getOwnerRequestStart());
+		mv.addObject("ownerRequestDTO", ownerRequestDTO);
+		mv.setViewName("/request/ownerRequest/ownerRequestDetailAfter");
+		
+		return mv;
 	}
 	
 }	

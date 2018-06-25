@@ -135,3 +135,46 @@ select * from owner_request where owner_id='happymom' and owner_approval is NULL
 select count(*) from sitter_request where owner_id='happymom' and owner_approval is null;
 select count(*) from sitter_request where owner_approval = 'null';
 
+select diary_title, diary_content, diary_writeday, diary_fname
+		from diary d join call c
+		on d.sitting_id=c.call_id
+		where c.call_id='call_id-1'
+		
+select * from owner_request
+select * from diary
+select diary_title, diary_content, diary_writeday, diary_fname
+		from diary d join owner_request o
+		on d.sitting_id=o.owner_request_id
+		where o.owner_request_id='OWNER_REQUEST_id-2'
+select * from call
+
+select s.sitter_fname
+from call c join sitter s
+on c.sitter_id = s.sitter_id
+join diary d
+on d.sitting_id=c.call_id and c.call_id='call_id-1'
+
+select distinct s.sitter_fname
+from owner_request o join sitter s
+on o.sitter_id = s.sitter_id
+join diary d
+on d.sitting_id=o.owner_request_id
+where o.owner_request_id='OWNER_REQUEST_id-1'
+
+select distinct s.sitter_fname
+		from call c join sitter s
+		on c.sitter_id = s.sitter_id
+		join diary d
+		on d.sitting_id=c.call_id
+		where c.call_id='call_id-1'
+		
+select s.sitter_fname
+from call c join diary d
+on c.call_id=d.sitting_id
+join sitter s
+on c.sitter_id=s.sitter_id and c.call_id='call_id-1'
+
+		from sitting s join call c
+		on s.sitting_id=c.call_id
+		join sitter t
+		where c.call_id='call_id-1'

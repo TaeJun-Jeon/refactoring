@@ -23,22 +23,22 @@ public class DiaryDAOImpl implements DiaryDAO {
 	}
 	
 	@Override
-	public List<DiaryDTO> selectDiaryByCall(CallDTO callDTO){
-		return session.selectList("diaryMapper.selectDiaryByCall", callDTO);
+	public List<DiaryDTO> selectDiaryByCall(String sittingId){
+		return session.selectList("diaryMapper.selectDiaryByCall", sittingId);
 	}
 	
 	@Override
-	public String selectSitterFnameByCall(CallDTO callDTO) {
-		return session.selectOne("diaryMapper.selectSitterFnameByCall", callDTO);
+	public String selectSitterFnameByCall(String sittingId) {
+		return session.selectOne("diaryMapper.selectSitterFnameByCall", sittingId);
 	}
 	
 	@Override
-	public List<DiaryDTO> selectDiaryByRequest(OwnerRequestDTO ownerRequestDTO){
-		return session.selectList("diaryMapper.selectDiaryByRequest", ownerRequestDTO);
+	public List<DiaryDTO> selectDiaryByRequest(String sittingId){
+		return session.selectList("diaryMapper.selectDiaryByRequest", sittingId);
 	}
 	
 	@Override
-	public String selectSitterFnameByRequest(OwnerRequestDTO ownerRequestDTO) {
-		return session.selectOne("diaryMapper.selectSitterFnameByRequest", ownerRequestDTO);
+	public String selectSitterFnameByRequest(String sittingId) {
+		return session.selectOne("diaryMapper.selectSitterFnameByRequest", sittingId);
 	}
 }

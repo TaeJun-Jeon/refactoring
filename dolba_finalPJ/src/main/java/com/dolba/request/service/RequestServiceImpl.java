@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dolba.dto.OptionsDTO;
+import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.request.dao.RequestDAO;
 import com.dolba.sitter.dao.SitterDAO;
 
@@ -31,5 +32,15 @@ public class RequestServiceImpl implements RequestService {
 	@Override
 	public String selectOwnerRequestCountByUserId(String userId) {
 		return requestDao.selectOwnerRequestCountByUserId(userId);
+	}
+
+	@Override
+	public OwnerRequestDTO ownerRequestDetail(String primaryKey) {
+		return requestDao.selectRequestByKey(primaryKey);
+	}
+
+	@Override
+	public int updatePaymentState(String ownerRequestId, String state) {
+		return requestDao.updatePaymentState(ownerRequestId, state);
 	}
 }

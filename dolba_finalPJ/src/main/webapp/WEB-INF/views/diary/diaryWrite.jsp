@@ -21,10 +21,6 @@ $(document).ready(function (){
         	for(var i=0; i<$('#fileInputDiary').get(0).files.length;i++){
         	  filename += $('#fileInputDiary').get(0).files[i].name+ ","
         	}
-        	 /*console.log(files.length)
-        	for(var i=0; i<files.length; i++){
-        	 console.log($(this).files);
-             filename += $(this).files[i].name[i];*/
         	console.log(filename)
         } else {  // old IE
            filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
@@ -50,6 +46,7 @@ $(document).ready(function (){
                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                <sec:authentication var="user" property="principal"/>
                                <input type="hidden" name="sitterId" value="${user.userId}">
+                               <input type="hidden" name="sittingId" value="${sittingId}">
                                
                                <h4>Diary Form</h4>
                                <hr>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,11 +41,13 @@
 	<div class="row">
 			<div class="col-md-12" style="margin-top: 50px;">
 				<h4>Notice</h4>
+				<sec:authorize access="hasAuthority('ADMIN')">
 				<div align="right">
 					<input type="button" class="btn btn-default btn-xs"
 						value="create new"
 						onclick="location.href='${pageContext.request.contextPath}/notice/writeForm'">
 				</div>
+				</sec:authorize>
 				<div class="table-responsive">
 					<table class="table table-bordred table-striped">
 						<thead>
@@ -53,7 +56,9 @@
 						
 							<td align="center">DATE</td>
 							<td align="center">VIEW</td>
+							<sec:authorize access="hasAuthority('ADMIN')">
 							<td align="center"><i class="fa fa-paw"></i></td>
+							</sec:authorize>
 						</thead>
 						<tbody>
 							<c:choose>
@@ -90,6 +95,7 @@
 										            <p align="center"><span style="font-size:9pt;">
 										            ${NoticeDTO.noticeReadnum}</span></p>
 										        </td>
+										        <sec:authorize access="hasAuthority('ADMIN')">
 										        <td align="center">
 													<button class="btn btn-primary btn-xs" data-title="Edit"
 														onclick="location.href='${pageContext.request.contextPath}/notice/updateForm?noticeId=${NoticeDTO.noticeId}'"
@@ -102,6 +108,7 @@
 														<span class="glyphicon glyphicon-trash"></span>
 													</button>
 												</td>
+												</sec:authorize>
 										    </tr>
 								    </c:forEach>
 									</c:otherwise>
