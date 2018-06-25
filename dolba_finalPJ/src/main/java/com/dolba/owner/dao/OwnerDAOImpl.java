@@ -123,6 +123,7 @@ public class OwnerDAOImpl implements OwnerDAO {
 
 	@Override
 	public int updatePetInfo(PetDTO petDTO) {
+		System.out.println(petDTO.getPetSpecies());
 		return session.update("petMapper.updatePetInfo", petDTO);
 	}
 

@@ -398,7 +398,7 @@ $(function(){
 												<div class="col-lg-12">
 													<div class="col-xs-12 col-sm-4">
 														<figure>
-															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/1.PNG">
+															<img class="img-circle img-responsive" alt="" src="${pageContext.request.contextPath}/resources/lib/save/pet/${petDTO.petFname}">
 														</figure>
 														<div class="row">
 															<div class="col-xs-12 social-btns"></div>

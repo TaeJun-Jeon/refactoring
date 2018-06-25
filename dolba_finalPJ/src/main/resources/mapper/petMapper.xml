@@ -5,11 +5,28 @@
  
 <mapper namespace="petMapper">
 <update id="updatePetInfo" parameterType="petDTO">
-update pet set pet_name=#{petName}, pet_species= #{petSpecies}, pet_illness =#{petIllness}, pet_weight=#{petWeight},pet_gender=#{petGender} where pet_id=#{petId}
+update pet set 
+	pet_gender=#{petGender}
+<if test="petSpecies != ''">
+	, pet_species= #{petSpecies}
+</if>
+<if test="petIllness != ''">
+	, pet_illness =#{petIllness}
+</if>
+<if test="petWeight != ''">
+	, pet_weight=#{petWeight}
+</if>
+<if test="petFname != ''">
+	, pet_fname=#{petFname} 
+</if>
+<if test="petName != ''">
+	,pet_name=#{petName}
+</if>
+where pet_id=#{petId}
 </update> 
 
 <insert id="insertPet" parameterType="petDTO">
-insert into (pet_id,pet_name,pet_species,pet_size,pet_weight,pet_gender,pet_illness,pet_age,pet_fname,owner_id) values
-('pet_id-'||sequence_pet.nextval,#{petName},#{petSpecies},#{petSize},#{petWeight},#{petGender},#{petIllness},#{petAge},#{pet_fname},#{ownerId})
+insert into pet (pet_id,pet_name,pet_species,pet_size,pet_weight,pet_gender,pet_illness,pet_age,pet_fname,owner_id) values
+('pet_id-'||sequence_pet.nextval,#{petName},#{petSpecies},#{petSize},#{petWeight},#{petGender},#{petIllness},#{petAge},#{petFname},#{ownerId})
 </insert>
 </mapper>

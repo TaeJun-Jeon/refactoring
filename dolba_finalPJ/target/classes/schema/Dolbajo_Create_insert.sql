@@ -22,7 +22,7 @@ create table OWNER(
     insert into OWNER values('yeun','1234','김시연','경기도 성남시 분당구 판교역로 236','null','000-000-0000','yeun@naver.com','IMG_08.jpg','여');
     insert into OWNER values('jun','1234','전태준','경기 성남시 분당구 정자일로 239 ','null','000-000-0000','jun@naver.com','IMG_09.jpg','남');
     insert into OWNER values('han','1234','정한별','경기도 성남시 분당구 심평동 판교역로 226번길','null','000-000-0000','han@naver.com','IMG_10.jpg','남');
- 
+ select * from pet;
     select * from OWNER;
     select*from sitter;
 create table SITTER(
