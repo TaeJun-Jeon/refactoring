@@ -120,4 +120,18 @@ public class OwnerDAOImpl implements OwnerDAO {
 	}
 
 
+
+	@Override
+	public int updatePetInfo(PetDTO petDTO) {
+		return session.update("petMapper.updatePetInfo", petDTO);
+	}
+
+
+
+	@Override
+	public int petInsert(PetDTO petDTO) {
+		return session.insert("petMapper.insertPet", petDTO);
+	}
+
+
 }

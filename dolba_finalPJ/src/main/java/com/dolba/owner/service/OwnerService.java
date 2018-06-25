@@ -27,5 +27,9 @@ public interface OwnerService {
 
 	List<CallDTO> selectOwnerCall(String userId);
 
+	int updatePetInfo(PetDTO petDTO);
+
+	int petInsert(PetDTO petDTO);
+
 
 }

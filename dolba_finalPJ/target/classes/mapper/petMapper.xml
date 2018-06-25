@@ -4,5 +4,12 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="petMapper">
+<update id="updatePetInfo" parameterType="petDTO">
+update pet set pet_name=#{petName}, pet_species= #{petSpecies}, pet_illness =#{petIllness}, pet_weight=#{petWeight},pet_gender=#{petGender}, pet_fname=#{petFname} where pet_id=#{petId}
+</update> 
 
+<insert id="insertPet" parameterType="petDTO">
+insert into pet (pet_id,pet_name,pet_species,pet_size,pet_weight,pet_gender,pet_illness,pet_age,pet_fname,owner_id) values
+('pet_id-'||sequence_pet.nextval,#{petName},#{petSpecies},#{petSize},#{petWeight},#{petGender},#{petIllness},#{petAge},#{petFname},#{ownerId})
+</insert>
 </mapper>
