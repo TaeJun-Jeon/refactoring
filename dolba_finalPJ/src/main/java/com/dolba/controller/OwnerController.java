@@ -368,7 +368,7 @@ public class OwnerController {
 		
 		ownerService.petInsert(petDTO);
 		
-		return "/";
+		return "redirect:/";
 	}
 	
 }	
