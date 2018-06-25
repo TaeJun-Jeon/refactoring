@@ -101,6 +101,11 @@ $(document).ready(function (){
 </div>
 
 <script>
+if("${windowStatus}" == "close"){
+	self.opener = self;
+	window.close();
+}
+
 	function checkValid(){
 		var f = window.document.writeForm;
 		

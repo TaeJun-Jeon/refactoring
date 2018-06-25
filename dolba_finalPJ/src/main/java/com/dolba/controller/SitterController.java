@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -122,7 +123,7 @@ public class SitterController {
 	
 	//일지 등록
 	@RequestMapping("/insertDiary")
-	public String insertDiary(MultipartHttpServletRequest mtfRequest, DiaryDTO diaryDTO) {
+	public String insertDiary(MultipartHttpServletRequest mtfRequest, DiaryDTO diaryDTO,Model md) {
 		
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		
@@ -142,9 +143,9 @@ public class SitterController {
 			}
 		}
 		diaryDTO.setDiaryFname(fileName);
-		
+		md.addAttribute("windowStatus","close");
 		diaryService.insertDiary(diaryDTO);
-		return null;
+		return "diary/diaryWrite";
 	}
 	
 	/*********************Notification************************/

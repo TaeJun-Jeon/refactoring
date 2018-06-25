@@ -1,8 +1,12 @@
 select * from sitter;
-
+select * from owner;
+select * from authorities;
+insert into authorities values('jun','OWNER','1234','มุมุ');
+select * from pet;
 select * from options;
 select * from REPLY
-
+select * from owner_request;
+update owner_request set request_payment_state='y' where owner_request_id = 'OWNER_REQUEST_id-9' 
 select * from SITTER_OPTION
 select * from diary
 select * from QA
