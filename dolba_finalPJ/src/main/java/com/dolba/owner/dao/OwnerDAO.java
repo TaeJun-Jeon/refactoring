@@ -37,4 +37,6 @@ public interface OwnerDAO {
 
 	int updatePetInfo(PetDTO petDTO);
 
+	int petInsert(PetDTO petDTO);
+
 }

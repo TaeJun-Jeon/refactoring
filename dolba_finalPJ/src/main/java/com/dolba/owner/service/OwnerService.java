@@ -29,5 +29,7 @@ public interface OwnerService {
 
 	int updatePetInfo(PetDTO petDTO);
 
+	int petInsert(PetDTO petDTO);
+
 
 }

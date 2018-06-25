@@ -72,5 +72,10 @@ public class OwnerServiceImpl implements OwnerService {
 		return ownerDAO.updatePetInfo(petDTO);
 	}
 
+	@Override
+	public int petInsert(PetDTO petDTO) {
+		return ownerDAO.petInsert(petDTO);
+	}
+
 
 }

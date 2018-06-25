@@ -1,5 +1,7 @@
 package com.dolba.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dolba.call.service.CallsService;
@@ -339,5 +342,33 @@ public class OwnerController {
 	}
 	
 	/*********************Notification************************/
+	
+	@RequestMapping("/petInsertForm")
+	public String petInsert() {
+		return "pet/petInsert";
+	}
+	
+	
+	@RequestMapping("/petInsert")
+	public String petInsert(PetDTO petDTO, MultipartFile file, HttpServletRequest request,String ownerId) throws IllegalStateException, IOException {
+		
+		String rootPath = request.getSession().getServletContext().getRealPath("/");
+		String attachPath = "resources/lib/pet/";
+		System.out.println("petepte="+petDTO.getOwnerId());
+		System.out.println("ownerID="+ownerId);
+		System.out.println("file"+petDTO.getPetFname());
+		file = petDTO.getFile();
+		
+		if(file.getSize()>0) {
+			String fileName=  file.getOriginalFilename();
+			petDTO.setPetFname(fileName);
+			System.out.println(fileName);
+			file.transferTo(new File(rootPath+attachPath+file.getOriginalFilename()));
+		}
+		
+		ownerService.petInsert(petDTO);
+		
+		return "/";
+	}
 	
 }	
