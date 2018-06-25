@@ -232,7 +232,8 @@ $(document).ready(function() {
 							
 			var result = confirm("수락하시겠습니까?");
 			if(result){
-				var id = $(this).parent().parent().parent().find("td:nth-child(5)").text();
+			var id = $(this).parent().parent().parent().find("td:nth-child(5)").text();
+			alert(id)
 		$.ajax({
 					type : "post", //전송방식
 					url : "${pageContext.request.contextPath}/owner/updateSitterApproval", //서버주소

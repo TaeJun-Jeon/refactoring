@@ -12,6 +12,7 @@ import com.dolba.dto.CallDTO;
 import com.dolba.dto.OwnerDTO;
 import com.dolba.dto.OwnerRequestDTO;
 import com.dolba.dto.PetDTO;
+import com.dolba.dto.SitterRequestDTO;
 
 @Repository
 public class OwnerDAOImpl implements OwnerDAO {
@@ -67,7 +68,7 @@ public class OwnerDAOImpl implements OwnerDAO {
 	@Override
 	public List<CallDTO> allSelectCallOwner(String role, String userId) {
 		if(role.equals("OWNER")) {
-			return session.selectList("requestMapper.allSelectCallOwner", userId);
+			return session.selectList("requestMapper.allSelectOwnerCall", userId);
 
 		}
 		return session.selectList("requestMapper.allSelectCallSitter", userId);

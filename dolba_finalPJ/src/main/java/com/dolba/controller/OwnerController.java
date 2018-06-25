@@ -28,6 +28,7 @@ import com.dolba.dto.PetDTO;
 import com.dolba.dto.SitterDTO;
 import com.dolba.dto.SitterImgDTO;
 import com.dolba.dto.SitterOptionDTO;
+import com.dolba.dto.SitterRequestDTO;
 import com.dolba.dto.SitterReviewDTO;
 import com.dolba.option.service.OptionService;
 import com.dolba.owner.service.OwnerService;
