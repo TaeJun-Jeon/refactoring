@@ -63,7 +63,7 @@ $(document).ready(function() {
 							str += "<tbody>";
 							str += "<tr>";
 							str += "<td><input type='checkbox' class='checkthis'/></td>";
-							str += "<td><a href='#'>"+ set+++ "</a></td>";
+							str += "<td><a href='#' onclick=\'window.open(\"${pageContext.request.contextPath}/owner/call/ownerCallDetail?callId="+item.callId+" \", \"DetailView\", \"width=1250px, height=700px, status=no, toolbar=no, menubar=no, resizable=no, channelmode=no, left=250px, top=80px\")\' >"+ set+++ "</a></td>";
 							str += "<td>"+ item.callReservateStart+ "</td>";
 							str += "<td>"+ item.callReservateEnd+ "</td>";
 							str += "<td>"+ item.sitterId+ "</td>";
@@ -106,7 +106,7 @@ $(document).ready(function() {
 							str += "<tbody>";
 							str += "<tr>";
 							str += "<td><input type='checkbox' class='checkthis'/></td>";
-							str += "<td><a href='#'>"+ set+++ "</a></td>";
+							str += "<td><a href='#' onclick=\'window.open(\"${pageContext.request.contextPath}/owner/call/ownerCallDetailAfter?callId="+item.callId+" \", \"DetailView\", \"width=1250px, height=700px, status=no, toolbar=no, menubar=no, resizable=no, channelmode=no, left=250px, top=80px\")\' >"+ set+++ "</a></td>";
 							str += "<td>"+ item.callReservateStart+ "</td>";
 							str += "<td>"+ item.callReservateEnd+ "</td>";
 							str += "<td>"+ item.sitterId+ "</td>";
@@ -174,7 +174,7 @@ $(document).ready(function() {
 							str += "<tbody>";
 							str += "<tr>";
 							str += "<td><input type='checkbox' class='checkthis'/></td>";
-							str += "<td><a href='#'>"+ set+++ "</a></td>";
+							str += "<td><a href='#' onclick=\'window.open(\"${pageContext.request.contextPath}/owner/ownerRequestDetail?ownerRequestId="+item.ownerRequestId+" \", \"DetailView\", \"width=1250px, height=700px, status=no, toolbar=no, menubar=no, resizable=no, channelmode=no, left=250px, top=80px\")\' >"+ set+++ "</a></td>";
 							str += "<td>"+ item.ownerRequestStart+ "</td>";
 							str += "<td>"+ item.ownerRequestEnd+ "</td>";
 							str += "<td>"+ item.sitterId+ "</td>";
@@ -208,7 +208,7 @@ $(document).ready(function() {
 					str += "<tbody>";
 					str += "<tr>";
 					str += "<td><input type='checkbox' class='checkthis'/></td>";
-					str += "<td><a href='#'>"+ set+++ "</a></td>";
+					str += "<td><a href='#' onclick=\'window.open(\"${pageContext.request.contextPath}/owner/ownerRequestDetailAfter?ownerRequestId="+item.ownerRequestId+" \", \"DetailView\", \"width=1250px, height=700px, status=no, toolbar=no, menubar=no, resizable=no, channelmode=no, left=250px, top=80px\")\' >"+ set+++ "</a></td>";
 					str += "<td>"+ item.ownerRequestStart+ "</td>";
 					str += "<td>"+ item.ownerRequestEnd+ "</td>";
 					str += "<td>"+ item.sitterId+ "</td>";

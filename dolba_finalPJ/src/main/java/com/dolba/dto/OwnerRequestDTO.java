@@ -10,6 +10,9 @@ public class OwnerRequestDTO {
 	private String ownerRequestEnd;
 	private String ownerRequestPetCount;
 	private String sitterApproval;
+	private String requestPaymentState;
+	
+	
 	
 	public OwnerRequestDTO() {}
 	public OwnerRequestDTO(String ownerRequestId, String ownerId, String sitterId, int ownerRequestPrice, String ownerRequestStart,
@@ -23,6 +26,14 @@ public class OwnerRequestDTO {
 		this.ownerRequestEnd = ownerRequestEnd;
 		this.ownerRequestPetCount = ownerRequestPetCount;
 		this.sitterApproval = sitterApproval;
+	}
+	
+	
+	public String getRequestPaymentState() {
+		return requestPaymentState;
+	}
+	public void setRequestPaymentState(String requestPaymentState) {
+		this.requestPaymentState = requestPaymentState;
 	}
 	public String getOwnerRequestId() {
 		return ownerRequestId;
