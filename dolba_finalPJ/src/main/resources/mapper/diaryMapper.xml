@@ -12,30 +12,36 @@
 	</insert>
 	
 	<!-- 부르기에서 일지 확인할때 -->
-	<select id="selectDiaryByCall" parameterType="callDTO" resultType="diaryDTO">
+<select id="selectDiaryByCall" parameterType="string" resultType="diaryDTO">
 		select diary_title, diary_content, diary_writeday, diary_fname
 		from diary d join call c
-		on (d.owner_id=c.owner_id and d.sitter_id=c.sitter_id and d.sitting_id=c.call_id)
-		where c.owner_id=#{ownerId} and c.sitter_id=#{sitterId} and c.call_reservate_start=#{callReservateStart}
+		on d.sitting_id=c.call_id
+		where c.call_id=#{_parameter}
 	</select>
-	<!-- sitter 프로필 사진 검색-->
-	<select id="selectSitterFnameByCall" parameterType="callDTO" resultType="string">
-		select sitter_fname
-		from sitter
-		where sitter_id=#{sitterId}
+<!-- sitter 프로필 사진 검색-->
+	<select id="selectSitterFnameByCall" parameterType="string" resultType="string">
+		select distinct s.sitter_fname
+		from call c join sitter s
+		on c.sitter_id = s.sitter_id
+		join diary d
+		on d.sitting_id=c.call_id
+		where c.call_id=#{_parameter}
 	</select>
 	
 	<!-- 맡기기에서 일지 확인할때 -->
-	<select id="selectDiaryByRequest" parameterType="ownerRequestDTO" resultType="diaryDTO">
+	<select id="selectDiaryByRequest" parameterType="string" resultType="diaryDTO">
 		select diary_title, diary_content, diary_writeday, diary_fname
 		from diary d join owner_request r
-		on (d.owner_id=r.owner_id and d.sitter_id=r.sitter_id and d.sitting_id=r.owner_request_id)
-		where r.owner_id=#{ownerId} and r.sitter_id=#{sitterId} and r.owner_request_start=#{ownerRequestStart}
+		on d.sitting_id=r.owner_request_id
+		where r.owner_request_id=#{_parameter}
 	</select>
 	<!-- sitter 프로필 사진 검색-->
-	<select id="selectSitterFnameByRequest" parameterType="ownerRequestDTO" resultType="string">
-		select sitter_fname
-		from sitter
-		where sitter_id=#{sitterId}
+	<select id="selectSitterFnameByRequest" parameterType="string" resultType="string">
+		select distinct s.sitter_fname
+		from owner_request o join sitter s
+		on o.sitter_id = s.sitter_id
+		join diary d
+		on d.sitting_id=o.owner_request_id
+		where o.owner_request_id=#{_parameter}
 	</select>
 </mapper>
