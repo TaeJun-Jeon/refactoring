@@ -224,7 +224,7 @@ public class OwnerController {
 		///////여기부터
 		callDTO.setSitterId("goodsitter");
 		callDTO.setOwnerId("happymom");
-		callDTO.setCallReservateStart("18-06-16");
+		callDTO.setCallReservateStart("18-06-02");
 		///////여기까지 나중에 지울값
 		
 		List<DiaryDTO> diaryList = diaryService.selectDiaryByCall(callDTO);
@@ -250,7 +250,7 @@ public class OwnerController {
 		
 		//여기부터
 		ownerRequestDTO.setOwnerId("happymom");
-		ownerRequestDTO.setSitterId("woo");
+		ownerRequestDTO.setSitterId("goodsitter");
 		ownerRequestDTO.setOwnerRequestStart("18-06-02");
 		/////////////여기까지 삭제
 		
