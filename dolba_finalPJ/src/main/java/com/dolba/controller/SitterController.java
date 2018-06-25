@@ -127,7 +127,7 @@ public class SitterController {
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		
 		String rootPath = mtfRequest.getSession().getServletContext().getRealPath("/");
-		String attachPath = "resources/lib/save/";
+		String attachPath = "resources/lib/save/diary/";
 		String fileName="";
 		
 		for(MultipartFile file : fileList) {
