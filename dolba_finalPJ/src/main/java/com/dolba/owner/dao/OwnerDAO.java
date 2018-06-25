@@ -35,4 +35,6 @@ public interface OwnerDAO {
 
 	List<CallDTO> selectOwnerCall(String userId);
 
+	int updatePetInfo(PetDTO petDTO);
+
 }

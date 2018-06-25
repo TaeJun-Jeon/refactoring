@@ -390,7 +390,7 @@ $(document).ready(function() {
 														</ul>
 													</div>
 													<div class="profile-userbuttons">
-														<button type="button" class="btn btn-info btn-sm" id="updatePet">수정하기</button>
+														<button type="button" class="btn btn-info btn-sm" id="updatePet" onclick="location.href='${pageContext.request.contextPath}/owner/updatePetInfoForm?userId=${user.userId}'">수정하기</button>
 													</div>
 												</div>
 											</div>
@@ -430,7 +430,7 @@ $(document).ready(function() {
 														</ul>
 													</div>
 													<div class="profile-userbuttons">
-														<button type="button" class="btn btn-info btn-sm" id="updateUser">수정하기</button>
+														<button type="button" class="btn btn-info btn-sm" id="updateUser" onclick="location.href='${pageContext.request.contextPath}/owner/updateOwnerInfoForm'?ownerId=${owenrDTO.ownerId}">수정하기</button>
 													</div>
 												</div>
 											</div>

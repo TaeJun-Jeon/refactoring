@@ -1,5 +1,7 @@
 package com.dolba.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PetDTO {
 	private String petId;
 	private String ownerId;
@@ -12,6 +14,9 @@ public class PetDTO {
 	private String petAge;
 	private String petFname;
 	private String petFsize;
+	
+	private MultipartFile file;
+
 	
 	public String getPetName() {
 		return petName;
@@ -78,6 +83,12 @@ public class PetDTO {
 	}
 	public void setPetFsize(String petFsize) {
 		this.petFsize = petFsize;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	
 	

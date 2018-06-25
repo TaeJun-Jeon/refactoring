@@ -320,4 +320,17 @@ public class OwnerController {
 	public List<CallDTO> allSelectSitterRequestApproval(String userId) {
 		return sitterService.allSelectSitterRequestApproval(userId);
 	}
+	
+	@RequestMapping("/updatePetInfoForm")
+	public String updatePetInfoForm(Model model,String userId) {
+		model.addAttribute("petDTO", ownerService.selectPetInfo(userId));
+		return "myPage/updatePetInfoForm";
+	}
+	
+	@RequestMapping("/updatePetInfo")
+	public String updatePetInfo(PetDTO petDTO) {
+		ownerService.updatePetInfo(petDTO);
+		return "redirect: /owner/myPage";
+	}
+	
 }	
