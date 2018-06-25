@@ -1,5 +1,7 @@
 package com.dolba.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dolba.call.service.CallsService;
 import com.dolba.diary.service.DiaryService;
 import com.dolba.dto.CallDTO;
 import com.dolba.dto.DiaryDTO;
@@ -34,24 +38,28 @@ import com.dolba.util.PagingUtil;
 @Controller
 @RequestMapping("/owner")
 public class OwnerController {
-	
+
 	@Autowired
 	private OwnerService ownerService;
-	
-	@Autowired
-	private RequestService requestService;
-	
+
 	@Autowired
 	private SitterService sitterService;
-	
+
+	@Autowired
+	private RequestService requestService;
+
+	@Autowired
+	private CallsService callService;
+
 	@Autowired
 	private OptionService optionService;
 	
+
 	@Autowired
 	private DiaryService diaryService;
 	
 	@RequestMapping("/myPage")
-	public String myPage(Model md, String role, String userId,String pageNum) {
+	public String myPage(Model md, String role, String userId,String pageNum,String tabStatus) {
 		String root ="myPage/myPage";
 		if(role.equals("SITTER")) {
 			SitterDTO sitterDTO = sitterService.selectSitterInfo(userId);
@@ -75,146 +83,174 @@ public class OwnerController {
 			md.addAttribute("callList",callList);
 			md.addAttribute("pagingUtil",pagingUtil);
 			md.addAttribute("petDTO", petDTO);
-			System.out.println("ownerName"+ownerDTO.getOwnerName());
+			md.addAttribute("tabStatus", tabStatus);
 		}
 		return root;
 	}
-	
+
+	/***************************CALL ************************************/
 	@RequestMapping("/call/callForm")
-	public String callForm() {
-		return "owner/callForm";
+	public ModelAndView callForm(String ownerId) {
+		OwnerDTO ownerDTO = ownerService.selectOwnerInfo(ownerId);
+		PetDTO petDTO = ownerService.selectPetInfo(ownerId);
+		List<OptionsDTO> optionList = requestService.selectAllOption();
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("optionList", optionList);
+		mv.addObject("ownerDTO", ownerDTO);
+		mv.addObject("petDTO", petDTO);
+		mv.setViewName("owner/callForm");
+
+		return mv;
 	}
-	
-	@RequestMapping("/callRead")
-	public String callRead() {
-		return "owner/ownerCallRead";
+
+	@RequestMapping("/call/insertCall")
+	public ModelAndView insertCall(CallDTO callDTO, String[] optionSelect, String ownerId) {
+		List<OptionsDTO> optionSelectList = null;
+		if (optionSelect.length != 0) {
+			optionSelectList = optionService.selectOptionsByOptionIds(optionSelect);
+		}
+		OwnerDTO ownerDTO = new OwnerDTO();
+		ownerDTO.setOwnerId(ownerId);
+		callDTO.setOwnerDTO(ownerDTO);
+		callService.insertCall(callDTO,optionSelect);
+
+		ModelAndView mv = new ModelAndView();
+		//mv.setViewName("redirect:/owner/call/callForm?ownerId=" + ownerId);
+		mv.setViewName("redirect:/");
+
+		return mv;
 	}
-	
+
+	/***************************CALL ************************************/
+
 	@RequestMapping("/allSelectOwnerRequest")
 	@ResponseBody
 	public List<OwnerRequestDTO> allSelectOwnerRequest(String role, String userId) {
-		return ownerService.allSelectOwnerRequest(role,userId);
+		return ownerService.allSelectOwnerRequest(role, userId);
 	}
-	
+
 	@RequestMapping("/allSelectOwnerRequestApproval")
 	@ResponseBody
 	public List<OwnerRequestDTO> allSelectOwnerRequestApproval(String role, String userId) {
-		System.out.println("approle="+role);
+		System.out.println("approle=" + role);
 		return ownerService.allSelectOwnerRequestApproval(role, userId);
 	}
-	
+
 	@RequestMapping("/allSelectCall")
 	@ResponseBody
-	public List<CallDTO> allSelectCall(String role, String userId){
-		return ownerService.allSelectCall(role,userId);
+	public List<CallDTO> allSelectCall(String role, String userId) {
+		return ownerService.allSelectCall(role, userId);
 	}
-	
+
 	@RequestMapping("/allSelectCallApproval")
 	@ResponseBody
-	public List<CallDTO> allSelectCallApproval(String role,String userId){
-		System.out.println("approvalrole="+role);
+	public List<CallDTO> allSelectCallApproval(String role, String userId) {
+		System.out.println("approvalrole=" + role);
 		return ownerService.allSelectCallApproval(role, userId);
 	}
-	
+
 	@RequestMapping("/updateOwnerApproval")
 	@ResponseBody
 	public int updateOwnerApproval(String callId, String state) {
-		return ownerService.updateOwnerApproval(callId,state);
+		return ownerService.updateOwnerApproval(callId, state);
 	}
-	
+
 	@RequestMapping("/updateSitterApproval")
 	@ResponseBody
-	public int updateSitterApproval(String callId,String state) {
-		return ownerService.updateSitterApproval(callId,state);
+	public int updateSitterApproval(String callId, String state) {
+		return ownerService.updateSitterApproval(callId, state);
 	}
-	
+
 	@RequestMapping("/selectPetInfo")
 	@ResponseBody
 	public PetDTO selectPetInfo(String ownerId) {
 		return ownerService.selectPetInfo(ownerId);
-		
+
 	}
-	
+
 	@RequestMapping("/request/sitterList")
-	public ModelAndView requestSitterList(String[] optionSelect,String gradeSelect,String pageNum) {
+	public ModelAndView requestSitterList(String[] optionSelect, String gradeSelect, String pageNum) {
 		List<OptionsDTO> optionList = requestService.selectAllOption();
-		List<OptionsDTO> optionSelectList=null;
+		List<OptionsDTO> optionSelectList = null;
 		List<SitterDTO> sitterList;
-		if(gradeSelect == null && optionSelect == null) {
+		if (gradeSelect == null && optionSelect == null) {
 			sitterList = sitterService.selectAllPermittedSitter();
-		}else {
-			if(optionSelect != null) {
+		} else {
+			if (optionSelect != null) {
 				optionSelectList = optionService.selectOptionsByOptionIds(optionSelect);
 			}
-			if(gradeSelect == "" || gradeSelect == null) {
+			if (gradeSelect == "" || gradeSelect == null) {
 				gradeSelect = "0";
 			}
 			sitterList = sitterService.selectSittersByOpGrade(optionSelect, Integer.parseInt(gradeSelect));
 		}
 
-		/**************paging 贸府 ******************/
+		/************** paging 贸府 ******************/
 		PagingUtil pagingUtil;
-		if(pageNum == null || Integer.parseInt(pageNum) <0) {
+		if (pageNum == null || Integer.parseInt(pageNum) < 0) {
 			pagingUtil = new PagingUtil(sitterList, 0);
 			sitterList = pagingUtil.getCurList(0);
-		}else {
+		} else {
 			pagingUtil = new PagingUtil(sitterList, Integer.parseInt(pageNum));
 			pageNum = Integer.toString(pagingUtil.getCurPage());
 			sitterList = pagingUtil.getCurList(Integer.parseInt(pageNum));
 		}
-		
+
 		/******************************************/
-		
+
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("optionList",optionList);
+		mv.addObject("optionList", optionList);
 		mv.addObject("sitterList", sitterList);
 		mv.addObject("gradeSelect", gradeSelect);
 		mv.addObject("optionSelectList", optionSelectList);
 		mv.addObject("pagingUtil", pagingUtil);
-	
+
 		mv.setViewName("owner/sitterList");
 		return mv;
 	}
-	
-	
+
 	@RequestMapping("/request/sitterDetailRead")
 	public ModelAndView requestSitterDetailRead(String sitterId) {
 		ModelAndView mv = new ModelAndView();
-		List<String> list= new ArrayList<>();
-		
+		List<String> list = new ArrayList<>();
+
 		SitterDTO sitterDTO = sitterService.selectSitterById(sitterId);
 		List<SitterOptionDTO> sitterOptionList = sitterService.selectSitterOption(sitterId);
 		List<SitterReviewDTO> sitterReviewList = sitterService.selectSitterReviewById(sitterId);
 		List<SitterImgDTO> sitterImgList = sitterService.selectSitterImg(sitterId);
-		
-		for(SitterOptionDTO dto :sitterOptionList) {
+
+		for (SitterOptionDTO dto : sitterOptionList) {
 			list.add(dto.getOptionsDTO().getOptionName());
 		}
-		
+
+		/*for(int i=0; i<sitterImgList.size(); i++) {
+			System.out.println(sitterImgList);
+		}*/
+
 		mv.addObject("sitterDTO", sitterDTO);
 		mv.addObject("sitterOption", list);
 		mv.addObject("sitterReviewList", sitterReviewList);
 		mv.addObject("sitterImgList", sitterImgList);
-		
+
 		mv.setViewName("owner/sitterListRead");
-		
+
 		return mv;
 	}
-	
+
 	@RequestMapping("/request/insertOwnerRequest")
-	public String insertOwnerRequest(OwnerRequestDTO ownerRequestDTO, String [] checkArr) {
+	public String insertOwnerRequest(OwnerRequestDTO ownerRequestDTO, String[] checkArr) {
 		sitterService.insertOwnerRequest(ownerRequestDTO);
 		String ownerRequestId = sitterService.selectOwnerRequestId(ownerRequestDTO);
 		List<String> optionIdList = new ArrayList<>();
 		List<OptionsDTO> optionList = sitterService.selectOpIdByCheckOption(checkArr);
-		for(OptionsDTO dto : optionList) {
+		for (OptionsDTO dto : optionList) {
 			optionIdList.add(dto.getOptionId());
 		}
 		sitterService.insertSittingOpByCheckOp(optionIdList, ownerRequestId);
-		
+
 		return "redirect:/owner/request/sitterList";
 	}
-	
+
 	//////////////////////////////老瘤 焊扁 ////////////////////////////
 	@RequestMapping("/callDiaryList")
 	public ModelAndView diaryListByCall(CallDTO callDTO) {
@@ -270,4 +306,69 @@ public class OwnerController {
 		mv.setViewName("diary/diaryList");
 		return mv;
 	}
+	
+	@RequestMapping("/allSelectSitterRequest")
+	@ResponseBody
+	public List<CallDTO> allSelectSitterRequest(String userId) {
+		return sitterService.allSelectSitterRequest(userId);
+	}
+	
+	@RequestMapping("/allSelectSitterRequestApproval")
+	@ResponseBody
+	public List<CallDTO> allSelectSitterRequestApproval(String userId) {
+		return sitterService.allSelectSitterRequestApproval(userId);
+	}
+	
+	@RequestMapping("/updatePetInfoForm")
+	public String updatePetInfoForm(Model model,String userId) {
+		model.addAttribute("petDTO", ownerService.selectPetInfo(userId));
+		return "myPage/updatePetInfoForm";
+	}
+	
+	@RequestMapping("/updatePetInfo")
+	public String updatePetInfo(PetDTO petDTO) {
+		ownerService.updatePetInfo(petDTO);
+		return "redirect: /owner/myPage";
+	}
+	
+	
+	/*********************Notification************************/
+	@RequestMapping("/notify")
+	@ResponseBody
+	public String selectSitterRequestCountByUserId(String userId) {
+		String count = "";
+		count = requestService.selectSitterRequestCountByUserId(userId);
+		return count;
+	}
+	
+	/*********************Notification************************/
+	
+	@RequestMapping("/petInsertForm")
+	public String petInsert() {
+		return "pet/petInsert";
+	}
+	
+	
+	@RequestMapping("/petInsert")
+	public String petInsert(PetDTO petDTO, MultipartFile file, HttpServletRequest request,String ownerId) throws IllegalStateException, IOException {
+		
+		String rootPath = request.getSession().getServletContext().getRealPath("/");
+		String attachPath = "resources/lib/pet/";
+		System.out.println("petepte="+petDTO.getOwnerId());
+		System.out.println("ownerID="+ownerId);
+		System.out.println("file"+petDTO.getPetFname());
+		file = petDTO.getFile();
+		
+		if(file.getSize()>0) {
+			String fileName=  file.getOriginalFilename();
+			petDTO.setPetFname(fileName);
+			System.out.println(fileName);
+			file.transferTo(new File(rootPath+attachPath+file.getOriginalFilename()));
+		}
+		
+		ownerService.petInsert(petDTO);
+		
+		return "/";
+	}
+	
 }	

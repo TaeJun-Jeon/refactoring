@@ -56,6 +56,24 @@ update owner_request set sitter_approval = '${state}' where owner_request_id= '$
 select * from owner where owner_id=${_parameter}
 </select>
 
+<!-- ********************sitter Request*************************** -->
+<insert id="insertSitterRequest">
+	insert into sitter_request values('OWNER_REQUEST_id-'||sequence_SITTER_REQUEST.NEXTVAL,#{callId},#{ownerId},#{sitterId},null)
+</insert>
+
+
+<!-- ********************sitter Request 끝*************************** -->
+
+<!-- ********************Notification 사용 매퍼 시작*************************** -->
+<select id="selectSitterRequestCountByUserId" parameterType="String" resultType="String">
+	select count(*) from sitter_request where owner_id=#{_parameter} and owner_approval is null
+</select>
+<select id="selectOwnerRequestCountByUserId" parameterType="String" resultType="String">
+	select count(*) from owner_request where sitter_id=#{_parameter} and sitter_approval is null
+</select>
+<!-- ********************Notification 사용 매퍼 끝*************************** -->
+
+
 <select id="selectPetInfo" parameterType="string" resultType="petDTO">
 select * from pet where owner_id = #{ownerId}
 </select>

@@ -1,34 +1,28 @@
 package com.dolba.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PetDTO {
-	
 	private String petId;
 	private String ownerId;
 	private String petName;
 	private String petSpecies;
 	private String petSize;
-	private String petLiness;
+	private String petIllness;
 	private String petWeight;
 	private String petGender;
 	private String petAge;
-	private String petfName;
-	private String petfSize;
+	private String petFname;
+	private String petFsize;
 	
-	public PetDTO() {}
-	public PetDTO(String petId, String ownerId, String petName, String petSpecies, String petSize, String petLiness, String petWeight,
-			String petGender, String petAge, String petfName, String petfSize) {
-		super();
-		this.petId = petId;
-		this.ownerId = ownerId;
+	private MultipartFile file;
+
+	
+	public String getPetName() {
+		return petName;
+	}
+	public void setPetName(String petName) {
 		this.petName = petName;
-		this.petSpecies = petSpecies;
-		this.petSize = petSize;
-		this.petLiness = petLiness;
-		this.petWeight = petWeight;
-		this.petGender = petGender;
-		this.petAge = petAge;
-		this.petfName = petfName;
-		this.petfSize = petfSize;
 	}
 	public String getPetId() {
 		return petId;
@@ -42,12 +36,6 @@ public class PetDTO {
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
 	}
-	public String getPetName() {
-		return petName;
-	}
-	public void setPetName(String petName) {
-		this.petName = petName;
-	}
 	public String getPetSpecies() {
 		return petSpecies;
 	}
@@ -60,11 +48,11 @@ public class PetDTO {
 	public void setPetSize(String petSize) {
 		this.petSize = petSize;
 	}
-	public String getPetLiness() {
-		return petLiness;
+	public String getPetIllness() {
+		return petIllness;
 	}
-	public void setPetLiness(String petLiness) {
-		this.petLiness = petLiness;
+	public void setPetIllness(String petIllness) {
+		this.petIllness = petIllness;
 	}
 	public String getPetWeight() {
 		return petWeight;
@@ -84,21 +72,24 @@ public class PetDTO {
 	public void setPetAge(String petAge) {
 		this.petAge = petAge;
 	}
-	public String getPetfName() {
-		return petfName;
+	public String getPetFname() {
+		return petFname;
 	}
-	public void setPetfName(String petfName) {
-		this.petfName = petfName;
+	public void setPetFname(String petFname) {
+		this.petFname = petFname;
 	}
-	public String getPetfSize() {
-		return petfSize;
+	public String getPetFsize() {
+		return petFsize;
 	}
-	public void setPetfSize(String petfSize) {
-		this.petfSize = petfSize;
+	public void setPetFsize(String petFsize) {
+		this.petFsize = petFsize;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	
 	
-	
-	
-
 }

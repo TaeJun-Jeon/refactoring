@@ -1,5 +1,6 @@
 package com.dolba.call.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +40,32 @@ public class CallDAOImpl implements CallDAO {
 		map.put("price",price);
 		return session.selectList("callMapper.selectCallByOption", map);
 	}
-	
-	
-	
-	
+
+	@Override
+	public void insertCall(CallDTO callDTO) {
+		session.insert("callMapper.insertCall",callDTO);
+	}
+
+	@Override
+	public void insertSittingOption(String[] optionSelect,String callId) {
+		Map<String, Object> map = new HashMap<>();
+		if(optionSelect.length != 0) {
+			for(String op : optionSelect) {
+				map.put("option",op);
+				map.put("callId",callId);
+				session.insert("callMapper.insertCallOption",map);
+			}
+		}
+	}
+
+	@Override
+	public String selectLastCallId(String ownerId) {
+		return session.selectOne("callMapper.selectLastCallId",ownerId);
+	}
+
+	@Override
+	public CallDTO selectCallByCallId(String callId) {
+		return session.selectOne("callMapper.selectCallByCallId",callId);
+	}
+
 }

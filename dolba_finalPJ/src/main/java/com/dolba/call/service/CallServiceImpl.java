@@ -1,10 +1,13 @@
 package com.dolba.call.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dolba.call.dao.CallDAO;
 import com.dolba.dto.CallDTO;
@@ -70,4 +73,29 @@ public class CallServiceImpl implements CallsService {
 		return list;
 	}
 
+	@Override
+	@Transactional
+	public void insertCall(CallDTO callDTO, String[] optionSelect) {
+		callDAO.insertCall(callDTO);
+		String callId = callDAO.selectLastCallId(callDTO.getOwnerDTO().getOwnerId());
+		callDAO.insertSittingOption(optionSelect,callId);
+	}
+
+	@Override
+	public CallDTO selectCallByCallId(String callId) {
+		CallDTO dto = callDAO.selectCallByCallId(callId);
+		List<SittingOptionDTO> opList = callDAO.selectSittingOptions(callId);
+		dto.setSittingOptionList(opList);
+		return dto;
+	}
+
+	@Override
+	public void insertSitterRequest(String callId, String sitterId,String ownerId) {
+		Map<String, String> map = new HashMap<>();
+		map.put("callId",callId);
+		map.put("sitterId",sitterId);
+		map.put("ownerId",ownerId);
+		
+		requestDAO.insertSitterRequest(map);
+	}
 }

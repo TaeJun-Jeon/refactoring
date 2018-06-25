@@ -56,15 +56,13 @@ public class OwnerDAOImpl implements OwnerDAO {
 
 	@Override
 	public PetDTO selectPetInfo(String ownerId) {
-		return session.selectOne("requestMapper.selectPetInfo", ownerId);
+		return session.selectOne("ownerMapper.selectPetInfo", ownerId);
 	}
 
 	@Override
 	public OwnerDTO selectUserById(String userId) {
 		return session.selectOne("requestMapper.selectUserById");
 	}
-
-
 
 	@Override
 	public List<CallDTO> allSelectCallOwner(String role, String userId) {
@@ -119,6 +117,20 @@ public class OwnerDAOImpl implements OwnerDAO {
 	@Override
 	public List<CallDTO> selectOwnerCall(String userId) {
 		return session.selectList("ownerMapper.selectOwnerCall", userId);
+	}
+
+
+
+	@Override
+	public int updatePetInfo(PetDTO petDTO) {
+		return session.update("petMapper.updatePetInfo", petDTO);
+	}
+
+
+
+	@Override
+	public int petInsert(PetDTO petDTO) {
+		return session.insert("petMapper.insertPet", petDTO);
 	}
 
 

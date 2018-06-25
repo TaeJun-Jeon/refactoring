@@ -784,9 +784,11 @@ padding: 2em 4em 1em;
 							전문가들 입니다. 또한 지역사회와도 깊은 유대관계를 맺고 있는 분들입니다. 당신의 반려견을 저희에게 맡겨주세요.
 							누구보다 안전하고 세심하게 돌봐드립니다.</p>
 					</div><br><br>
+					
+					<sec:authentication var="user" property="principal"/>
 
 					<div class="col-xs-6">
-						<a href="${pageContext.request.contextPath}/owner/call/callForm"><input type="button" class="btn btn-primary btn-radius-1" value="부르기"></a>
+						<a href="${pageContext.request.contextPath}/owner/call/callForm?ownerId=${user.userId}"><input type="button" class="btn btn-primary btn-radius-1" value="부르기"></a>
 					</div>
 					<div class="col-xs-6">
 						<a href="${pageContext.request.contextPath}/owner/request/sitterList"><input type="button" class="btn btn-primary btn-radius-1" value="맡기기"></a>
@@ -815,9 +817,9 @@ padding: 2em 4em 1em;
 						<p>저희 펫데이트는 현재 서울, 경기, 인천 지역에서 펫시팅 서비스를 제공하고 있습니다. 당신의 도움이 필요한
 							애완동물을 찾으시고, 펫시팅 신청을 해주세요.</p>
 					</div><br><br>
-
+					<sec:authentication var="user" property="principal"/>
 					<div id="col-xs-2 col-xs-offset-4">
-						<input type="button" class="btn btn-warning btn-radius-1" value="돌보기 신청">
+						<a href="${pageContext.request.contextPath}/sitter/call/callList?sitterId=${user.userId}"><input type="button" class="btn btn-warning btn-radius-1" value="돌보기 신청"></a>
 					</div>
 
 				</div>
@@ -1203,8 +1205,6 @@ padding: 2em 4em 1em;
 
 	</div>
 
-
-
 	<footer>
 		<p>&copy; 2018 Lovely-Pets. All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank"> W3layouts </a></p>
 		<p>Developed By : Group Dolba, <span style="color:red; font-weight:bold;"> CEO : </span> Hee-jung, Jang </p>
@@ -1325,8 +1325,74 @@ padding: 2em 4em 1em;
 	</script>
 	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 	<!-- //for-bottom-to-top smooth scrolling -->
-
-
+	
+	<script type="text/javascript">
+    window.onload = function(){
+        if(window.Notification){
+           Notification.requestPermission();
+        }
+     }
+     
+     function calculate(msg){
+        setTimeout(function(){
+           notify(msg);
+        }, 500);
+     }
+     
+     function notify(msg){
+		var url = "${pageContext.request.contextPath}/owner/myPage?userId=${user.userId}&role=${user.role}";    	 
+        if(Notification.permission !== 'granted'){
+           alert('notification is disabled');
+        }else{
+           var notification = new Notification("요청 처리 알림", {
+              icon : 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+              body : msg,
+           });
+           
+           notification.onclick = function(){
+              window.open(url);
+           };
+        }
+     }
+     
+     $(function(){
+		if("${user.userId}" != ""){
+			if("${user.role}" == "OWNER"){
+				$.ajax({
+					type:"post",
+					url:"${pageContext.request.contextPath}/owner/notify",
+					data:"${_csrf.parameterName}=${_csrf.token}&userId=${user.userId}",
+					dataType:"text",
+					success:function(result){
+						if(result > 0){
+							msg = "처리되지 않은 "+result+"건의 요청이 있습니다.";
+							notify(msg);
+						}
+					},
+					error:function(err){
+						console.log(err);
+					}
+				})
+			}
+			if("${user.role}" == "SITTER"){
+				$.ajax({
+					type:"post",
+					url:"${pageContext.request.contextPath}/sitter/notify",
+					data:"${_csrf.parameterName}=${_csrf.token}&userId=${user.userId}",
+					dataType:"text",
+					success:function(result){
+						if(result > 0){
+							msg = "처리되지 않은 "+result+"건의 요청이 있습니다.";
+							notify(msg);
+						}
+					},
+					error:function(err){
+						console.log(err);
+					}
+				})
+			}
+		}
+     })
+	</script>
 </body>
-
 </html>

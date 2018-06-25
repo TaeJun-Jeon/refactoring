@@ -156,7 +156,7 @@ $(document).ready(function() {
 		sitterRequestTab.onclick = function() {
 			$.ajax({
 						type : "post",//전송방식
-						url : "${pageContext.request.contextPath}/owner/allSelectCall", //서버요청주소
+						url : "${pageContext.request.contextPath}/owner/allSelectSitterRequest", //서버요청주소
 						data: "${_csrf.parameterName}=${_csrf.token}&role="+role+"&userId="+userId,
 						dataType : "json", //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
 						success : function(result) {//개수|단어,단어,단어,...
@@ -168,10 +168,9 @@ $(document).ready(function() {
 								str += "<tr>";
 								str += "<td><input type='checkbox' class='checkthis'/></td>";
 								str += "<td><a href='#'>"+ set+++ "</a></td>";
-								str += "<td>"+ item.callReservateStart+ "</td>";
+								str += "<td>"+item.callReservateStart+ "</td>";
 								str += "<td>"+ item.callReservateEnd+ "</td>";
 								str += "<td>"+ item.ownerId+ "</td>";
-								str += "<td>"+ item.ownerApproval+ "</td>";
 								str += "</tr>";
 								str += "</tbody>";
 							})
@@ -190,7 +189,7 @@ $(document).ready(function() {
 		sitterRequestTabAfter.onclick =function(){
 			$.ajax({
 				type : "post",//전송방식
-				url : "${pageContext.request.contextPath}/owner/allSelectCallApproval", //서버요청주소
+				url : "${pageContext.request.contextPath}/owner/allSelectSitterRequestApproval", //서버요청주소
 				data : "${_csrf.parameterName}=${_csrf.token}&role="+role+"&userId="+userId,
 				dataType : "json", //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
 				success : function(result) {//개수|단어,단어,단어,...
@@ -202,12 +201,12 @@ $(document).ready(function() {
 						str += "<tr>";
 						str += "<td><input type='checkbox' class='checkthis'/></td>";
 						str += "<td><a href='#'>"+ set+++ "</a></td>";
-						str += "<td>"+ item.callReservateStart+ "</td>";
+						str += "<td>"+item.callReservateStart+ "</td>";
 						str += "<td>"+ item.callReservateEnd+ "</td>";
 						str += "<td>"+ item.ownerId+ "</td>";
 						str += "</tr>";
 						str += "</tbody>";
-								
+														
 						 $('#sitterRequestCalendar').fullCalendar({
 						    	defaultDate : new Date(),
 						    	editable : false,
@@ -219,8 +218,8 @@ $(document).ready(function() {
 							              
 							              $.each(result, function(index,item) {
 							               
-							               var startTime = item.callReservateStart.split(" ");
-							               var endTime = item.callReservateEnd.split(" ");
+							               var startTime = (item.callReservateStart).split(" ");
+							               var endTime = (item.callReservateEnd).split(" ");
 							               console.log(startTime);
 							               events.push({title: item.ownerId, start: startTime[0], end: endTime[0]});
 							           });
@@ -410,15 +409,6 @@ $(document).ready(function() {
 													</thead>
 												</table>
 												<div class="clearfix"></div>
-												<ul class="pagination pull-right" id="page">
-												 	<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-													<li class="active"><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#">5</a></li>
-													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li> 
-												</ul>
 											</div>
 										</div>
 									</div>
@@ -439,15 +429,6 @@ $(document).ready(function() {
 													</thead>
 												</table>
 												<div class="clearfix"></div>
-												<ul class="pagination pull-right">
-													<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-													<li class="active"><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#">5</a></li>
-													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-												</ul>
 											</div>
 											<div id='sitterCallCalendar' class="calendar1" style="width: 70%;"></div>
 										</div>
@@ -474,20 +455,10 @@ $(document).ready(function() {
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>
-														<th>펫시터</th>
-														<th>처리상태</th>
+														<th>보호자</th>
 													</thead>
 												</table>
 												<div class="clearfix"></div>
-												<ul class="pagination pull-right">
-													<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-													<li class="active"><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#">5</a></li>
-													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-												</ul>
 											</div>
 										</div>
 									</div>
@@ -504,19 +475,10 @@ $(document).ready(function() {
 														<th>No</th>
 														<th>시작날짜</th>
 														<th>종료날짜</th>
-														<th>펫시터</th>
+														<th>보호자</th>
 													</thead>
 												</table>
 												<div class="clearfix"></div>
-												<ul class="pagination pull-right">
-													<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-													<li class="active"><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#">5</a></li>
-													<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-												</ul>
 											</div>
 											<div id='sitterRequestCalendar' class="calendar1" style="width: 70%;"></div>
 										</div>

@@ -67,5 +67,15 @@ public class OwnerServiceImpl implements OwnerService {
 		return ownerDAO.selectOwnerCall(userId);
 	}
 
+	@Override
+	public int updatePetInfo(PetDTO petDTO) {
+		return ownerDAO.updatePetInfo(petDTO);
+	}
+
+	@Override
+	public int petInsert(PetDTO petDTO) {
+		return ownerDAO.petInsert(petDTO);
+	}
+
 
 }

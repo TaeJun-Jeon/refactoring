@@ -72,7 +72,7 @@
 								<div class="row" style="margin-top: 25px">
 									<div class="col-xs-12">
 										<h5>
-											<b><a href="${pageContext.request.contextPath}/owner/request/sitterDetailRead?sitterId=${sitterInfo.sitterId}" class="sitter-desc">${callInfo.ownerDTO.ownerName }</a></b>
+											<b><a href="${pageContext.request.contextPath}/sitter/call/callRead?callId=${callInfo.callId}" class="sitter-desc">${callInfo.ownerDTO.ownerName }</a></b>
 										</h5>
 										<span class=""></span>
 									</div>

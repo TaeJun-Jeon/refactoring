@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -15,7 +16,10 @@ import com.dolba.diary.service.DiaryService;
 import com.dolba.dto.DiaryDTO;
 import com.dolba.dto.CallDTO;
 import com.dolba.dto.OptionsDTO;
+import com.dolba.dto.PetDTO;
+import com.dolba.dto.SittingOptionDTO;
 import com.dolba.option.service.OptionService;
+import com.dolba.owner.service.OwnerService;
 import com.dolba.request.service.RequestService;
 import com.dolba.sitter.service.SitterService;
 import com.dolba.util.PagingUtil;
@@ -39,6 +43,10 @@ public class SitterController {
 	@Autowired
 	private CallsService callService;
 	
+	@Autowired
+	private OwnerService ownerService;
+	
+	/**************************CALL******************************/
 	@RequestMapping("/call/callList")
 	public ModelAndView ownerRequestlist(String[] optionSelect,String priceSelect,String pageNum) {
 		List<OptionsDTO> optionList = requestService.selectAllOption();
@@ -78,6 +86,31 @@ public class SitterController {
 		return mv;
 	}
 	
+	@RequestMapping("/call/callRead")
+	public ModelAndView callRead(String callId,String sitterId) {
+		CallDTO callDTO = callService.selectCallByCallId(callId);
+		String[] opIds = new String[callDTO.getSittingOptionList().size()];
+		PetDTO petDTO = ownerService.selectPetInfo(callDTO.getOwnerDTO().getOwnerId());
+		int size = 0;
+		for(SittingOptionDTO option : callDTO.getSittingOptionList()) {
+			opIds[size++] = option.getOptionsDTO().getOptionId();
+		}
+		List<OptionsDTO> opList = optionService.selectOptionsByOptionIds(opIds);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("petDTO", petDTO);
+		mv.addObject("callDTO", callDTO);
+		mv.addObject("opList", opList);
+		mv.setViewName("sitter/callRead");
+		return mv;
+	}
+	
+	@RequestMapping("/call/sitterRequest")
+	public String sitterRequest(String callId,String sitterId,String ownerId) {
+		callService.insertSitterRequest(callId,sitterId,ownerId);
+		return "redirect:/sitter/call/callList";
+	}
+	
+	/**************************CALL ³¡******************************/
 	@RequestMapping("/diaryForm")
 	public String diaryList() {
 		return "diary/diaryWrite";
@@ -120,4 +153,13 @@ public class SitterController {
 		return null;
 	}
 	
+	/*********************Notification************************/
+	@RequestMapping("/notify")
+	@ResponseBody
+	public String selectOwnerRequestCountByUserId(String userId) {
+		String count = "";
+		count = requestService.selectOwnerRequestCountByUserId(userId);
+		return count;
+	}
+	/*********************Notification************************/
 }

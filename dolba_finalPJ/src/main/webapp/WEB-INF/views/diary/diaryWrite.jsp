@@ -48,8 +48,8 @@ $(document).ready(function (){
                         <div class="tab-pane active" id="userForm">
                         	<form name="writeForm" method="post" action="${pageContext.request.contextPath}/sitter/insertDiary?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" onSubmit='return checkValid()'>
                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                               <%-- <sec:authentication var="user" property="principal"/>
-                               <input type="hidden" name="sitterId" value="${user.userId}"> --%>
+                               <sec:authentication var="user" property="principal"/>
+                               <input type="hidden" name="sitterId" value="${user.userId}">
                                
                                <h4>Diary Form</h4>
                                <hr>
