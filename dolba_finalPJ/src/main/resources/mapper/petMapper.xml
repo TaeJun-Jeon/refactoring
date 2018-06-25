@@ -5,7 +5,7 @@
  
 <mapper namespace="petMapper">
 <update id="updatePetInfo" parameterType="petDTO">
-update pet set pet_name=#{petName}, pet_species= #{petSpecies}, pet_illness =#{petIllness}, pet_weight=#{petWeight},pet_gender=#{petGender} where pet_id=#{petId}
+update pet set pet_name=#{petName}, pet_species= #{petSpecies}, pet_illness =#{petIllness}, pet_weight=#{petWeight},pet_gender=#{petGender}, pet_fname=#{petFname} where pet_id=#{petId}
 </update> 
 
 <insert id="insertPet" parameterType="petDTO">

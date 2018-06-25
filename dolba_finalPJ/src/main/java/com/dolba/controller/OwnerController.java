@@ -324,12 +324,7 @@ public class OwnerController {
 		model.addAttribute("petDTO", ownerService.selectPetInfo(userId));
 		return "myPage/updatePetInfoForm";
 	}
-	
-	@RequestMapping("/updatePetInfo")
-	public String updatePetInfo(PetDTO petDTO) {
-		ownerService.updatePetInfo(petDTO);
-		return "redirect: /owner/myPage";
-	}
+
 	
 	
 	/*********************Notification************************/
@@ -346,6 +341,23 @@ public class OwnerController {
 	@RequestMapping("/petInsertForm")
 	public String petInsert() {
 		return "pet/petInsert";
+	}
+	
+	@RequestMapping("/updatePetInfo")
+	public String updatePetInfo(PetDTO petDTO ,MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
+		String rootPath = request.getSession().getServletContext().getRealPath("/");
+		String attachPath = "resources/lib/pet/";
+		file = petDTO.getFile();
+		
+		if(file.getSize()>0) {
+			String fileName=  file.getOriginalFilename();
+			petDTO.setPetFname(fileName);
+			System.out.println(fileName);
+			file.transferTo(new File(rootPath+attachPath+file.getOriginalFilename()));
+		}
+		
+		ownerService.updatePetInfo(petDTO);
+		return "redirect: /owner/myPage";
 	}
 	
 	
