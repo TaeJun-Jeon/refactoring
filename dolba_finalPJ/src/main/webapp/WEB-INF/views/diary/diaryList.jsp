@@ -27,7 +27,7 @@
 				<div class="col-md-2 col-md-push-1">
 					<h3 class="text-center" style="margin-top: 100px">${diaryDto.diaryWriteDay}</h3>
 					<div class="text-center">
-						<img alt="Bootstrap Image Preview" src="${pageContext.request.contextPath}/resources/lib/save/${sitterFname}" class="img-circle"
+						<img alt="Bootstrap Image Preview" src="${pageContext.request.contextPath}/resources/lib/save/sitter/${sitterFname}" class="img-circle"
 							style="width: 150px; height: 150px"
 						/>
 					</div>
@@ -38,8 +38,8 @@
 					<div>
 						<c:forEach items="${diaryDto.imgNameList}" var="fileName">
 							<div style="display: inline; width: 270px; float: left; margin-top: 30px">
-								<a href="${pageContext.request.contextPath}/resources/lib/save/${fileName}" target="_blank"> <img class="img-responsive"
-									src="${pageContext.request.contextPath}/resources/lib/save/${fileName}" style="width: 250px; height: 200px;"
+								<a href="${pageContext.request.contextPath}/resources/lib/save/diary/${fileName}" target="_blank"> <img class="img-responsive"
+									src="${pageContext.request.contextPath}/resources/lib/save/diary/${fileName}" style="width: 250px; height: 200px;"
 								/> <span class="overlay" style="margin-left: 0px;">+</span>
 								</a>
 							</div>
