@@ -379,7 +379,7 @@ $(function(){
 						<div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
 						
 						<div class="col-xs-12 col-sm-8" style="margin-top:100px">
-						<div style="margin-bottom:20px">등록된 펫시터가 없습니다</div>
+						<div style="margin-bottom:20px">등록된 펫 정보가 없습니다</div>
 						<button type="button" class="btn btn-info btn-sm" id="updatePet" onclick="location.href='${pageContext.request.contextPath}/owner/petInsertForm?userId=${user.userId}'" style="margin-top:80px">펫 등록</button>
 						</div>
 						
