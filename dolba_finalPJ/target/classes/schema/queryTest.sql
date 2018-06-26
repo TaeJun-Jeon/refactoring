@@ -1,3 +1,4 @@
+select * from CALL;
 select * from sitter;
 select * from owner;
 select * from authorities;
